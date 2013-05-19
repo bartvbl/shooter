@@ -44,26 +44,16 @@ public class MapBuilder {
 				int chunkHeight = Math.min(mapHeight - j*CHUNK_HEIGHT, CHUNK_HEIGHT);
 				Rectangle chunkDimension = new Rectangle(i*CHUNK_WIDTH, j*CHUNK_HEIGHT, chunkWidth, chunkHeight);
 				chunkMap[i][j] = buildChunk(tileMap, chunkDimension);
+				mapNode.addChild(chunkMap[i][j]);
 			}
 		}
-		
-		
-//		
-//		GeometryBuffer floorBuffer = buildFloorBuffer(tileMap, tileCounts.get(TileType.GROUND) + tileCounts.get(TileType.DOOR));
-//		Texture groundTexture = TextureLoader.loadTextureFromFile("res/textures/ground.png");
-//		Material groundMaterial = new Material("mapMaterial");
-//		groundMaterial.addChild(floorBuffer);
-//		groundMaterial.setDiffuseTexture(groundTexture);
-//		mapNode.addChild(groundMaterial);
-//		
-//		mapNode.addChild(material);
 	}
 
 	private static SceneNode buildChunk(TileType[][] tileMap, Rectangle chunkDimension) {
 		double chunkRadius = Math.sqrt(CHUNK_WIDTH*CHUNK_WIDTH + CHUNK_HEIGHT*CHUNK_HEIGHT);
 		double chunkCenterX = chunkDimension.getX() + ((double) CHUNK_WIDTH / 2d);
 		double chunkCenterY = chunkDimension.getY() + ((double) CHUNK_HEIGHT / 2d);
-		FrustrumCullingNode chunkRootNode = new FrustrumCullingNode(chunkRadius, chunkCenterX, chunkCenterY, 0);
+		MapFrustrumCullingNode chunkRootNode = new MapFrustrumCullingNode(chunkRadius, chunkCenterX, chunkCenterY, 0);
 		
 		DisplayListNode chunkContentsNode = new DisplayListNode();
 		chunkRootNode.addChild(chunkContentsNode);
@@ -89,15 +79,36 @@ public class MapBuilder {
 		IntBuffer wallIndexBuffer = BufferUtils.createIntBuffer(polyCount * trianglesPerPolygon * verticesPerTriangle);
 		IntBuffer groundIndexBuffer = BufferUtils.createIntBuffer(polyCount * trianglesPerPolygon * verticesPerTriangle);
 		DoubleBuffer geometryDataBuffer = BufferUtils.createDoubleBuffer(polyCount * trianglesPerPolygon * verticesPerTriangle * coordinatesPerVertex);
-		
+		System.out.println("("+dimension.chunkLeft+", " + dimension.chunkRight + "), ("+dimension.chunkBottom+", "+dimension.chunkTop+")");
 		for(int i = dimension.chunkLeft; i < dimension.chunkRight; i++) {
 			for(int j = dimension.chunkBottom; j < dimension.chunkTop; j++) {
 				if(isWallAt(tileMap, i, j)) {
+					wallIndexBuffer.put(AxisAlignedUnitPlane.generateIndices(geometryDataBuffer.position()));
+					geometryDataBuffer.put(AxisAlignedUnitPlane.createTopPlane(i, j, 1));
+					
+					if(!isWallAt(tileMap, i - 1, j)) {
+						wallIndexBuffer.put(AxisAlignedUnitPlane.generateIndices(geometryDataBuffer.position()));
+						geometryDataBuffer.put(AxisAlignedUnitPlane.createLeftPlane(i, j, 0));
+					}
+					if(!isWallAt(tileMap, i + 1, j)) {
+						wallIndexBuffer.put(AxisAlignedUnitPlane.generateIndices(geometryDataBuffer.position()));
+						geometryDataBuffer.put(AxisAlignedUnitPlane.createRightPlane(i, j, 0));
+					}
+					if(!isWallAt(tileMap, i, j - 1)) {
+						wallIndexBuffer.put(AxisAlignedUnitPlane.generateIndices(geometryDataBuffer.position()));
+						geometryDataBuffer.put(AxisAlignedUnitPlane.createFrontPlane(i, j, 0));
+					}
+					if(!isWallAt(tileMap, i, j + 1)) {
+						wallIndexBuffer.put(AxisAlignedUnitPlane.generateIndices(geometryDataBuffer.position()));
+						geometryDataBuffer.put(AxisAlignedUnitPlane.createBackPlane(i, j, 0));
+					}
+					
 					
 				} else {
+					groundIndexBuffer.put(AxisAlignedUnitPlane.generateIndices(geometryDataBuffer.position()));
 					geometryDataBuffer.put(AxisAlignedUnitPlane.createTopPlane(i, j, 0));
-					
 				}
+				System.out.println(i +", " + j + " " + geometryDataBuffer.position() + " out of " + (polyCount * trianglesPerPolygon * verticesPerTriangle * coordinatesPerVertex) + " (reamining: " + geometryDataBuffer.remaining() + ")");
 			}
 		}
 		

@@ -9,7 +9,7 @@ public class InputHandler {
 	private final GameWorld world;
 	private double mapRotation = 0;
 	
-	private static final float MOVE_SPEED = 0.4f;
+	private static final float MOVE_SPEED = 0.03f;
 	private static final int LEFT_MOUSE_BUTTON = 0;
 	private static final boolean MOUSE_BUTTON_UP = false;
 
@@ -49,13 +49,13 @@ public class InputHandler {
 		double stepsDY = 0;
 		
 		if(Keyboard.isKeyDown(Keyboard.KEY_W)) {
-			stepsDY--;
+			stepsDY++;
 		}
 		if(Keyboard.isKeyDown(Keyboard.KEY_A)) {
 			stepsDX++;
 		}
 		if(Keyboard.isKeyDown(Keyboard.KEY_S)) {
-			stepsDY++;
+			stepsDY--;
 		}
 		if(Keyboard.isKeyDown(Keyboard.KEY_D)) {
 			stepsDX--;

@@ -41,8 +41,7 @@ public class GameMain {
 			glLight(GL_LIGHT0, GL_SPOT_CUTOFF, (FloatBuffer)buffer.put(new float[]{30}).rewind());
 			glLight(GL_LIGHT0, GL_SPOT_DIRECTION, (FloatBuffer)buffer.put(new float[]{1, 0, 0}).rewind());
 
-			glRotated(180, 1, 0, 0);
-			glTranslated(0, 0, 10);
+			glTranslated(0, 0, -10);
 			inputHandler.handleInput();
 			gameWorld.update();
 			scene.render();
