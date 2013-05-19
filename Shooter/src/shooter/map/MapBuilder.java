@@ -19,6 +19,7 @@ import org.lwjgl.util.Rectangle;
 import scene.sceneGraph.SceneNode;
 import scene.sceneGraph.sceneNodes.DisplayListNode;
 import scene.sceneGraph.sceneNodes.MapSceneNode;
+import shooter.GameWorld;
 
 public class MapBuilder {
 	
@@ -28,7 +29,7 @@ public class MapBuilder {
 	private static final int CHUNK_WIDTH = 25;
 	private static final int CHUNK_HEIGHT = 25;
 
-	public static void buildMap(MapSceneNode mapNode, TileType[][] tileMap) {
+	public static void buildMap(MapSceneNode mapNode, TileType[][] tileMap, GameWorld world) {
 		mapNode.clear();
 		
 		int mapWidth = tileMap.length;
@@ -44,17 +45,17 @@ public class MapBuilder {
 				int chunkWidth = Math.min(mapWidth - i*CHUNK_WIDTH, CHUNK_WIDTH);
 				int chunkHeight = Math.min(mapHeight - j*CHUNK_HEIGHT, CHUNK_HEIGHT);
 				Rectangle chunkDimension = new Rectangle(i*CHUNK_WIDTH, j*CHUNK_HEIGHT, chunkWidth, chunkHeight);
-				chunkMap[i][j] = buildChunk(tileMap, chunkDimension);
+				chunkMap[i][j] = buildChunk(tileMap, chunkDimension, world);
 				mapNode.addChild(chunkMap[i][j]);
 			}
 		}
 	}
 
-	private static SceneNode buildChunk(TileType[][] tileMap, Rectangle chunkDimension) {
+	private static SceneNode buildChunk(TileType[][] tileMap, Rectangle chunkDimension, GameWorld world) {
 		double chunkRadius = Math.sqrt(CHUNK_WIDTH*CHUNK_WIDTH + CHUNK_HEIGHT*CHUNK_HEIGHT);
 		double chunkCenterX = chunkDimension.getX() + ((double) CHUNK_WIDTH / 2d);
 		double chunkCenterY = chunkDimension.getY() + ((double) CHUNK_HEIGHT / 2d);
-		MapFrustrumCullingNode chunkRootNode = new MapFrustrumCullingNode(chunkRadius, chunkCenterX, chunkCenterY, 0);
+		MapFrustrumCullingNode chunkRootNode = new MapFrustrumCullingNode(world, chunkRadius, chunkCenterX, chunkCenterY);
 		
 		buildTerrain(chunkRootNode, tileMap, chunkDimension);
 		
@@ -103,7 +104,6 @@ public class MapBuilder {
 					groundIndexBuffer.put(AxisAlignedUnitPlane.generateIndices(geometryDataBuffer.position() / coordinatesPerVertex));
 					geometryDataBuffer.put(AxisAlignedUnitPlane.createTopPlane(i, j, 0));
 				}
-				//System.out.println(i +", " + j + " " + geometryDataBuffer.position() + " out of " + (polyCount.wallPolygons * trianglesPerPolygon * verticesPerTriangle * coordinatesPerVertex) + " (reamining: " + geometryDataBuffer.remaining() + ")");
 			}
 		}
 		
@@ -120,8 +120,6 @@ public class MapBuilder {
 		Texture groundTexture = TextureLoader.loadTextureFromFile("res/textures/ground.png");
 		groundMaterial.setDiffuseTexture(groundTexture);
 		chunkRootNode.addChild(groundMaterial);
-		
-		System.out.println("loading complete!");
 	}
 
 	private static CountedPolygons calculatePolycount(TileType[][] tileMap, ChunkDimension dimension) {

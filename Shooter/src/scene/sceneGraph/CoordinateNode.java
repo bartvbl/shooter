@@ -1,6 +1,7 @@
 package scene.sceneGraph;
 
 import static org.lwjgl.opengl.GL11.*;
+import geom.Point;
 
 public abstract class CoordinateNode extends ContainerNode {
 	protected double rotation;
@@ -38,4 +39,7 @@ public abstract class CoordinateNode extends ContainerNode {
 	public abstract void render();
 	public abstract void destroy();
 
+	public Point getLocation() {
+		return new Point(x, y);
+	}
 }

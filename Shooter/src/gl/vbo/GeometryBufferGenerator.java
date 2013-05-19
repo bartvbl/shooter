@@ -31,8 +31,6 @@ public class GeometryBufferGenerator {
 
 	private static GeometryBuffer storeBuffersInVRAM(DoubleBuffer geometryData, IntBuffer indexes, BufferDataFormatType dataFormat, int vertexCount)
 	{
-		System.out.println(geometryData);
-		System.out.println(indexes);
 		geometryData.rewind();
 		indexes.rewind();
 		

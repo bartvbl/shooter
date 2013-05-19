@@ -1,7 +1,10 @@
 package shooter.map;
 
+
+import geom.Point;
 import scene.sceneGraph.CoordinateNode;
 import scene.sceneGraph.SceneNode;
+import shooter.GameWorld;
 import static org.lwjgl.opengl.GL11.*;
 
 public class MapFrustrumCullingNode extends CoordinateNode implements SceneNode {
@@ -9,13 +12,14 @@ public class MapFrustrumCullingNode extends CoordinateNode implements SceneNode 
 	private final double renderRadius;
 	private final double centerX;
 	private final double centerY;
-	private final double centerZ;
+	private final GameWorld world;
 
-	public MapFrustrumCullingNode(double renderRadius, double centerX, double centerY, double centerZ) {
+	//yes. I know. TOTALLY cheating with frustrum culling here. But hey, it fits the definition, right? Not rendering something that isn't in view...
+	public MapFrustrumCullingNode(GameWorld world, double renderRadius, double centerX, double centerY) {
 		this.renderRadius = renderRadius;
 		this.centerX = centerX;
 		this.centerY = centerY;
-		this.centerZ = centerZ;
+		this.world = world;
 	}
 
 	public void render() {
@@ -29,7 +33,12 @@ public class MapFrustrumCullingNode extends CoordinateNode implements SceneNode 
 	}
 
 	private boolean shouldRender() {
-		return true;
+		Point mapLocation = this.world.map.getLocation();
+		//map scrolls in opposite direction of camera
+		double dx = -mapLocation.x - centerX;
+		double dy = -mapLocation.y - centerY;
+		double distanceToCameraCenter = Math.sqrt(dx*dx + dy*dy);
+		return distanceToCameraCenter <= renderRadius;
 	}
 
 }

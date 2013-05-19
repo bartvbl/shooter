@@ -1,5 +1,7 @@
 package shooter.map;
 
+
+import geom.Point;
 import scene.sceneGraph.SceneNode;
 import scene.sceneGraph.sceneNodes.EmptyContainerNode;
 import scene.sceneGraph.sceneNodes.MapSceneNode;
@@ -14,7 +16,7 @@ public class Map extends GameObject {
 	private final EmptyContainerNode contentRootNode;
 
 	public static Map createInstance(GameWorld gameWorld) {
-		TileType[][] tileMap = MapGenerator.generateMap(50, 50, System.currentTimeMillis());
+		TileType[][] tileMap = MapGenerator.generateMap(900, 900, System.currentTimeMillis());
 		return new Map(gameWorld, new MapSceneNode(), tileMap);
 	}
 
@@ -24,7 +26,7 @@ public class Map extends GameObject {
 		this.tileMap = tileMap;
 		this.contentRootNode = new EmptyContainerNode();
 		mapNode.addChild(contentRootNode);
-		MapBuilder.buildMap(mapNode, tileMap);
+		MapBuilder.buildMap(mapNode, tileMap, world);
 	}
 
 	public void update() {
@@ -41,5 +43,9 @@ public class Map extends GameObject {
 
 	public SceneNode getMapContentRootNode() {
 		return contentRootNode;
+	}
+
+	public Point getLocation() {
+		return this.mapNode.getLocation();
 	}
 }

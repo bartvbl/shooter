@@ -3,6 +3,7 @@ package scene.sceneGraph.sceneNodes;
 import java.nio.FloatBuffer;
 
 import org.lwjgl.BufferUtils;
+import org.lwjgl.util.Point;
 
 import scene.sceneGraph.CoordinateNode;
 import scene.sceneGraph.SceneNode;
@@ -18,6 +19,8 @@ public class MapSceneNode extends CoordinateNode implements SceneNode {
 	public void destroy() {
 		
 	}
+
+	
 
 
 }
