@@ -32,20 +32,21 @@ public class GeometryBuffer extends EmptyCoordinateNode implements SceneNode {
 	
 	private void drawBufferCombo(int indexBufferID, int vertexBufferID)
 	{
-		System.out.println("rendering buffer combo");
 		glBindBufferARB(GL_ARRAY_BUFFER_ARB, vertexBufferID);
 		glBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, indexBufferID);
 		this.setDataPointers();
+		
+		System.out.println("going to draw " + this.numberOfVertices + " elements.");
 		glDrawElements(GL_TRIANGLES, this.numberOfVertices, GL_UNSIGNED_INT, 0);
-		System.out.println("error: " + glGetError());
 		//glDrawRangeElements(GL_TRIANGLES, 0, this.numberOfVertices - 1, this.numberOfVertices - 1, GL_UNSIGNED_INT, 0);
+		glDisableClientState(GL_VERTEX_ARRAY);
+		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+		glDisableClientState(GL_NORMAL_ARRAY);
 	}
 
 	private void setDataPointers() {
 		//format: 0    1    2    3   4   5    6    7
 		//format: vert vert vert tex tex norm norm norm	
-		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-		glDisableClientState(GL_NORMAL_ARRAY);
 		int bytesPerDouble = 8;
 		int stride = this.dataFormat.elementsPerVertex * bytesPerDouble;
 		glEnableClientState(GL_VERTEX_ARRAY);

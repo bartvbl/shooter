@@ -7,8 +7,10 @@ import org.lwjgl.BufferUtils;
 public class GeometryBufferGenerator {
 	
 	public static GeometryBuffer generateGeometryBuffer(BufferDataFormatType dataFormat, DoubleBuffer vertexBuffer, IntBuffer indexBuffer) {
-		int vertexCount = vertexBuffer.position() / dataFormat.elementsPerVertex;
-		GeometryBuffer geometryBuffer = storeBuffersInVRAM(vertexBuffer, indexBuffer, dataFormat, vertexCount);
+		assert(vertexBuffer.remaining() == 0);
+		assert(indexBuffer.remaining() == 0);
+		
+		GeometryBuffer geometryBuffer = storeBuffersInVRAM(vertexBuffer, indexBuffer, dataFormat, indexBuffer.capacity());
 		return geometryBuffer;
 	}
 	
@@ -29,6 +31,8 @@ public class GeometryBufferGenerator {
 
 	private static GeometryBuffer storeBuffersInVRAM(DoubleBuffer geometryData, IntBuffer indexes, BufferDataFormatType dataFormat, int vertexCount)
 	{
+		System.out.println(geometryData);
+		System.out.println(indexes);
 		geometryData.rewind();
 		indexes.rewind();
 		

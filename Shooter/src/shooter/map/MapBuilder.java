@@ -10,6 +10,7 @@ import gl.vbo.GeometryBufferGenerator;
 
 import java.nio.DoubleBuffer;
 import java.nio.IntBuffer;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import org.lwjgl.BufferUtils;
@@ -24,8 +25,8 @@ public class MapBuilder {
 	private static final int trianglesPerPolygon = 2;
 	private static final int verticesPerTriangle = 3;
 	private static final int coordinatesPerVertex = 3 + 3 + 2;//3 coordinates, 3 normal, 2 texture
-	private static final int CHUNK_WIDTH = 100;
-	private static final int CHUNK_HEIGHT = 100;
+	private static final int CHUNK_WIDTH = 25;
+	private static final int CHUNK_HEIGHT = 25;
 
 	public static void buildMap(MapSceneNode mapNode, TileType[][] tileMap) {
 		mapNode.clear();
@@ -67,46 +68,47 @@ public class MapBuilder {
 		int chunkTop = chunkBottom + chunkDimension.getHeight();
 		ChunkDimension dimension = new ChunkDimension(chunkLeft, chunkRight, chunkBottom, chunkTop);
 		
-		int polyCount = calculatePolycount(tileMap, dimension);
+		CountedPolygons polyCount = calculatePolycount(tileMap, dimension);
 		
 		buildChunkGeometry(chunkRootNode, tileMap, polyCount, dimension);
 	}
 
-	private static void buildChunkGeometry(SceneNode chunkRootNode, TileType[][] tileMap, int polyCount, ChunkDimension dimension) {
-		IntBuffer wallIndexBuffer = BufferUtils.createIntBuffer(polyCount * trianglesPerPolygon * verticesPerTriangle);
-		IntBuffer groundIndexBuffer = BufferUtils.createIntBuffer(polyCount * trianglesPerPolygon * verticesPerTriangle);
-		DoubleBuffer geometryDataBuffer = BufferUtils.createDoubleBuffer(polyCount * trianglesPerPolygon * verticesPerTriangle * coordinatesPerVertex);
-		System.out.println("("+dimension.chunkLeft+", " + dimension.chunkRight + "), ("+dimension.chunkBottom+", "+dimension.chunkTop+")");
+	private static void buildChunkGeometry(SceneNode chunkRootNode, TileType[][] tileMap, CountedPolygons polyCount, ChunkDimension dimension) {
+		IntBuffer wallIndexBuffer = BufferUtils.createIntBuffer(polyCount.wallPolygons * trianglesPerPolygon * verticesPerTriangle);
+		IntBuffer groundIndexBuffer = BufferUtils.createIntBuffer(polyCount.groundPolygons * trianglesPerPolygon * verticesPerTriangle);
+		DoubleBuffer geometryDataBuffer = BufferUtils.createDoubleBuffer((polyCount.wallPolygons + polyCount.groundPolygons) * trianglesPerPolygon * verticesPerTriangle * coordinatesPerVertex);
 		for(int i = dimension.chunkLeft; i < dimension.chunkRight; i++) {
 			for(int j = dimension.chunkBottom; j < dimension.chunkTop; j++) {
 				if(isWallAt(tileMap, i, j)) {
-					wallIndexBuffer.put(AxisAlignedUnitPlane.generateIndices(geometryDataBuffer.position()));
+					wallIndexBuffer.put(AxisAlignedUnitPlane.generateIndices(wallIndexBuffer.position()));
 					geometryDataBuffer.put(AxisAlignedUnitPlane.createTopPlane(i, j, 1));
 					
 					if(!isWallAt(tileMap, i - 1, j)) {
-						wallIndexBuffer.put(AxisAlignedUnitPlane.generateIndices(geometryDataBuffer.position()));
+						wallIndexBuffer.put(AxisAlignedUnitPlane.generateIndices(wallIndexBuffer.position()));
 						geometryDataBuffer.put(AxisAlignedUnitPlane.createLeftPlane(i, j, 0));
 					}
 					if(!isWallAt(tileMap, i + 1, j)) {
-						wallIndexBuffer.put(AxisAlignedUnitPlane.generateIndices(geometryDataBuffer.position()));
+						wallIndexBuffer.put(AxisAlignedUnitPlane.generateIndices(wallIndexBuffer.position()));
 						geometryDataBuffer.put(AxisAlignedUnitPlane.createRightPlane(i, j, 0));
 					}
 					if(!isWallAt(tileMap, i, j - 1)) {
-						wallIndexBuffer.put(AxisAlignedUnitPlane.generateIndices(geometryDataBuffer.position()));
+						wallIndexBuffer.put(AxisAlignedUnitPlane.generateIndices(wallIndexBuffer.position()));
 						geometryDataBuffer.put(AxisAlignedUnitPlane.createFrontPlane(i, j, 0));
 					}
 					if(!isWallAt(tileMap, i, j + 1)) {
-						wallIndexBuffer.put(AxisAlignedUnitPlane.generateIndices(geometryDataBuffer.position()));
+						wallIndexBuffer.put(AxisAlignedUnitPlane.generateIndices(wallIndexBuffer.position()));
 						geometryDataBuffer.put(AxisAlignedUnitPlane.createBackPlane(i, j, 0));
 					}
-					
-					
 				} else {
-					groundIndexBuffer.put(AxisAlignedUnitPlane.generateIndices(geometryDataBuffer.position()));
+					groundIndexBuffer.put(AxisAlignedUnitPlane.generateIndices(groundIndexBuffer.position()));
 					geometryDataBuffer.put(AxisAlignedUnitPlane.createTopPlane(i, j, 0));
 				}
-				System.out.println(i +", " + j + " " + geometryDataBuffer.position() + " out of " + (polyCount * trianglesPerPolygon * verticesPerTriangle * coordinatesPerVertex) + " (reamining: " + geometryDataBuffer.remaining() + ")");
+				//System.out.println(i +", " + j + " " + geometryDataBuffer.position() + " out of " + (polyCount.wallPolygons * trianglesPerPolygon * verticesPerTriangle * coordinatesPerVertex) + " (reamining: " + geometryDataBuffer.remaining() + ")");
 			}
+		}
+		
+		for(int i = 0; i < wallIndexBuffer.capacity(); i++) {
+			System.out.println(wallIndexBuffer.get(i));
 		}
 		
 		GeometryBuffer wallBuffer = GeometryBufferGenerator.generateGeometryBuffer(BufferDataFormatType.VERTICES_TEXTURES_NORMALS, geometryDataBuffer, wallIndexBuffer);
@@ -122,34 +124,39 @@ public class MapBuilder {
 		Texture groundTexture = TextureLoader.loadTextureFromFile("res/textures/ground.png");
 		groundMaterial.setDiffuseTexture(groundTexture);
 		chunkRootNode.addChild(groundMaterial);
+		
+		System.out.println("loading complete!");
 	}
 
-	private static int calculatePolycount(TileType[][] tileMap, ChunkDimension dimension) {
-		int polycount = 0;
+	private static CountedPolygons calculatePolycount(TileType[][] tileMap, ChunkDimension dimension) {
+		int wallPolycount = 0;
+		int groundPolycount = 0;
 		
 		for(int i = dimension.chunkLeft; i < dimension.chunkRight; i++) {
 			for(int j = dimension.chunkBottom; j < dimension.chunkTop; j++) {
 				boolean centerIsWall = isWallAt(tileMap, i, j);
-				polycount++; //the square itself is a polygon
 				
 				if(centerIsWall) { 
+					wallPolycount++;
 					//to ensure each polygon being counted once, we only count "downhill" polygons.
 					if(!isWallAt(tileMap, i - 1, j)) {
-						polycount++;
+						wallPolycount++;
 					}
 					if(!isWallAt(tileMap, i + 1, j)) {
-						polycount++;
+						wallPolycount++;
 					}
 					if(!isWallAt(tileMap, i, j - 1)) {
-						polycount++;
+						wallPolycount++;
 					}
 					if(!isWallAt(tileMap, i, j + 1)) {
-						polycount++;
+						wallPolycount++;
 					}
+				} else {
+					groundPolycount++;
 				}
 			}
 		}
-		return polycount;
+		return new MapBuilder.CountedPolygons(groundPolycount, wallPolycount);
 	}
 	
 	private static boolean isWallAt(TileType[][] tileMap, int x, int y) {
@@ -161,5 +168,15 @@ public class MapBuilder {
 		}
 		
 		return tileMap[x][y] == TileType.WALL;
+	}
+	
+	private static class CountedPolygons {
+		public final int wallPolygons;
+		public final int groundPolygons;
+
+		public CountedPolygons(int groundPolygons, int wallPolygons) {
+			this.wallPolygons = wallPolygons;
+			this.groundPolygons = groundPolygons;
+		}
 	}
 }
