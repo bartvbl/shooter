@@ -57,5 +57,9 @@ public abstract class ContainerNode implements SceneNode {
 
 	public abstract void render();
 	public abstract void destroy();
+	
+	public boolean isVisible() {
+		return true;
+	}
 }
 
