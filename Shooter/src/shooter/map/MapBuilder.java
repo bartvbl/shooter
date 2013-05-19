@@ -80,35 +80,31 @@ public class MapBuilder {
 		for(int i = dimension.chunkLeft; i < dimension.chunkRight; i++) {
 			for(int j = dimension.chunkBottom; j < dimension.chunkTop; j++) {
 				if(isWallAt(tileMap, i, j)) {
-					wallIndexBuffer.put(AxisAlignedUnitPlane.generateIndices(wallIndexBuffer.position()));
+					wallIndexBuffer.put(AxisAlignedUnitPlane.generateIndices(geometryDataBuffer.position() / coordinatesPerVertex));
 					geometryDataBuffer.put(AxisAlignedUnitPlane.createTopPlane(i, j, 1));
 					
 					if(!isWallAt(tileMap, i - 1, j)) {
-						wallIndexBuffer.put(AxisAlignedUnitPlane.generateIndices(wallIndexBuffer.position()));
+						wallIndexBuffer.put(AxisAlignedUnitPlane.generateIndices(geometryDataBuffer.position() / coordinatesPerVertex));
 						geometryDataBuffer.put(AxisAlignedUnitPlane.createLeftPlane(i, j, 0));
 					}
 					if(!isWallAt(tileMap, i + 1, j)) {
-						wallIndexBuffer.put(AxisAlignedUnitPlane.generateIndices(wallIndexBuffer.position()));
+						wallIndexBuffer.put(AxisAlignedUnitPlane.generateIndices(geometryDataBuffer.position() / coordinatesPerVertex));
 						geometryDataBuffer.put(AxisAlignedUnitPlane.createRightPlane(i, j, 0));
 					}
 					if(!isWallAt(tileMap, i, j - 1)) {
-						wallIndexBuffer.put(AxisAlignedUnitPlane.generateIndices(wallIndexBuffer.position()));
+						wallIndexBuffer.put(AxisAlignedUnitPlane.generateIndices(geometryDataBuffer.position() / coordinatesPerVertex));
 						geometryDataBuffer.put(AxisAlignedUnitPlane.createFrontPlane(i, j, 0));
 					}
 					if(!isWallAt(tileMap, i, j + 1)) {
-						wallIndexBuffer.put(AxisAlignedUnitPlane.generateIndices(wallIndexBuffer.position()));
+						wallIndexBuffer.put(AxisAlignedUnitPlane.generateIndices(geometryDataBuffer.position() / coordinatesPerVertex));
 						geometryDataBuffer.put(AxisAlignedUnitPlane.createBackPlane(i, j, 0));
 					}
 				} else {
-					groundIndexBuffer.put(AxisAlignedUnitPlane.generateIndices(groundIndexBuffer.position()));
+					groundIndexBuffer.put(AxisAlignedUnitPlane.generateIndices(geometryDataBuffer.position() / coordinatesPerVertex));
 					geometryDataBuffer.put(AxisAlignedUnitPlane.createTopPlane(i, j, 0));
 				}
 				//System.out.println(i +", " + j + " " + geometryDataBuffer.position() + " out of " + (polyCount.wallPolygons * trianglesPerPolygon * verticesPerTriangle * coordinatesPerVertex) + " (reamining: " + geometryDataBuffer.remaining() + ")");
 			}
-		}
-		
-		for(int i = 0; i < wallIndexBuffer.capacity(); i++) {
-			System.out.println(wallIndexBuffer.get(i));
 		}
 		
 		GeometryBuffer wallBuffer = GeometryBufferGenerator.generateGeometryBuffer(BufferDataFormatType.VERTICES_TEXTURES_NORMALS, geometryDataBuffer, wallIndexBuffer);

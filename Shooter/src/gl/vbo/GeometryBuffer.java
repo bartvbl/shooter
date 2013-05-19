@@ -36,7 +36,6 @@ public class GeometryBuffer extends EmptyCoordinateNode implements SceneNode {
 		glBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, indexBufferID);
 		this.setDataPointers();
 		
-		System.out.println("going to draw " + this.numberOfVertices + " elements.");
 		glDrawElements(GL_TRIANGLES, this.numberOfVertices, GL_UNSIGNED_INT, 0);
 		//glDrawRangeElements(GL_TRIANGLES, 0, this.numberOfVertices - 1, this.numberOfVertices - 1, GL_UNSIGNED_INT, 0);
 		glDisableClientState(GL_VERTEX_ARRAY);
