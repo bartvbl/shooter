@@ -17,7 +17,7 @@ public class DisplayListNode extends ContainerNode implements SceneNode {
 		if(!isBuilt) {
 			buildDisplayList();
 		}
-//		glCallList(listID);
+		glCallList(listID);
 	}
 	
 	public void rebuild() {
@@ -40,8 +40,8 @@ public class DisplayListNode extends ContainerNode implements SceneNode {
 		glDeleteLists(listID, 1);
 	}
 	
-//	public ArrayList<SceneNode> getChildren() {
-//		return emptyChildList;
-//	}
+	public ArrayList<SceneNode> getChildren() {
+		return emptyChildList;
+	}
 
 }

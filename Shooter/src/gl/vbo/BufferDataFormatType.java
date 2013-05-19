@@ -1,4 +1,4 @@
-package gl;
+package gl.vbo;
 
 public enum BufferDataFormatType {
 	VERTICES (3),

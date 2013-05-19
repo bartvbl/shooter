@@ -1,4 +1,4 @@
-package gl;
+package gl.vbo;
 
 import java.nio.DoubleBuffer;
 import java.nio.IntBuffer;

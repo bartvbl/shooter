@@ -1,12 +1,12 @@
 package shooter.map;
 
 import geom.AxisAlignedUnitPlane;
-import gl.BufferDataFormatType;
-import gl.GeometryBuffer;
-import gl.GeometryBufferGenerator;
 import gl.material.Material;
 import gl.texture.Texture;
 import gl.texture.TextureLoader;
+import gl.vbo.BufferDataFormatType;
+import gl.vbo.GeometryBuffer;
+import gl.vbo.GeometryBufferGenerator;
 
 import java.nio.DoubleBuffer;
 import java.nio.IntBuffer;
@@ -55,15 +55,12 @@ public class MapBuilder {
 		double chunkCenterY = chunkDimension.getY() + ((double) CHUNK_HEIGHT / 2d);
 		MapFrustrumCullingNode chunkRootNode = new MapFrustrumCullingNode(chunkRadius, chunkCenterX, chunkCenterY, 0);
 		
-		DisplayListNode chunkContentsNode = new DisplayListNode();
-		chunkRootNode.addChild(chunkContentsNode);
-		
-		buildTerrain(chunkContentsNode, tileMap, chunkDimension);
+		buildTerrain(chunkRootNode, tileMap, chunkDimension);
 		
 		return chunkRootNode;
 	}
 
-	private static void buildTerrain(DisplayListNode chunkContentsNode, TileType[][] tileMap, Rectangle chunkDimension) {
+	private static void buildTerrain(SceneNode chunkRootNode, TileType[][] tileMap, Rectangle chunkDimension) {
 		int chunkLeft = chunkDimension.getX();
 		int chunkBottom = chunkDimension.getY();
 		int chunkRight = chunkLeft + chunkDimension.getWidth();
@@ -72,10 +69,10 @@ public class MapBuilder {
 		
 		int polyCount = calculatePolycount(tileMap, dimension);
 		
-		buildChunkGeometry(chunkContentsNode, tileMap, polyCount, dimension);
+		buildChunkGeometry(chunkRootNode, tileMap, polyCount, dimension);
 	}
 
-	private static void buildChunkGeometry(DisplayListNode chunkContentsNode, TileType[][] tileMap, int polyCount, ChunkDimension dimension) {
+	private static void buildChunkGeometry(SceneNode chunkRootNode, TileType[][] tileMap, int polyCount, ChunkDimension dimension) {
 		IntBuffer wallIndexBuffer = BufferUtils.createIntBuffer(polyCount * trianglesPerPolygon * verticesPerTriangle);
 		IntBuffer groundIndexBuffer = BufferUtils.createIntBuffer(polyCount * trianglesPerPolygon * verticesPerTriangle);
 		DoubleBuffer geometryDataBuffer = BufferUtils.createDoubleBuffer(polyCount * trianglesPerPolygon * verticesPerTriangle * coordinatesPerVertex);
@@ -117,14 +114,14 @@ public class MapBuilder {
 		wallMaterial.addChild(wallBuffer);
 		Texture texture = TextureLoader.loadTextureFromFile("res/textures/wall.png");
 		wallMaterial.setDiffuseTexture(texture);
-		chunkContentsNode.addChild(wallMaterial);
+		chunkRootNode.addChild(wallMaterial);
 		
 		GeometryBuffer groundBuffer = GeometryBufferGenerator.generateGeometryBuffer(BufferDataFormatType.VERTICES_TEXTURES_NORMALS, geometryDataBuffer, groundIndexBuffer);
 		Material groundMaterial = new Material("groundMaterial");
 		groundMaterial.addChild(groundBuffer);
 		Texture groundTexture = TextureLoader.loadTextureFromFile("res/textures/ground.png");
 		groundMaterial.setDiffuseTexture(groundTexture);
-		chunkContentsNode.addChild(groundMaterial);
+		chunkRootNode.addChild(groundMaterial);
 	}
 
 	private static int calculatePolycount(TileType[][] tileMap, ChunkDimension dimension) {

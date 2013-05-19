@@ -1,4 +1,4 @@
-package gl;
+package gl.vbo;
 
 import static org.lwjgl.opengl.ARBBufferObject.glBindBufferARB;
 import static org.lwjgl.opengl.ARBVertexBufferObject.GL_ARRAY_BUFFER_ARB;
@@ -32,11 +32,13 @@ public class GeometryBuffer extends EmptyCoordinateNode implements SceneNode {
 	
 	private void drawBufferCombo(int indexBufferID, int vertexBufferID)
 	{
+		System.out.println("rendering buffer combo");
 		glBindBufferARB(GL_ARRAY_BUFFER_ARB, vertexBufferID);
-		this.setDataPointers();
 		glBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, indexBufferID);
+		this.setDataPointers();
 		glDrawElements(GL_TRIANGLES, this.numberOfVertices, GL_UNSIGNED_INT, 0);
-		//glDrawRangeElements(GL_QUADS, 0, 24, 4, GL_UNSIGNED_INT, 0);
+		System.out.println("error: " + glGetError());
+		//glDrawRangeElements(GL_TRIANGLES, 0, this.numberOfVertices - 1, this.numberOfVertices - 1, GL_UNSIGNED_INT, 0);
 	}
 
 	private void setDataPointers() {
