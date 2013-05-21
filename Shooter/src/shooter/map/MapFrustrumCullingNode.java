@@ -41,4 +41,10 @@ public class MapFrustrumCullingNode extends CoordinateNode implements SceneNode 
 		return distanceToCameraCenter <= renderRadius;
 	}
 
+	public void postRender() {
+		glPopMatrix();
+	}
+	
+	
+
 }

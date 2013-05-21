@@ -35,7 +35,7 @@ public class FrameUtils {
 	
 	public static void newFrame() {
 		gluPerspective(45.0f, ((float)Display.getWidth()/(float)Display.getHeight()), NEAR_POINT, FAR_POINT);
-		glViewport(0, 0, Display.getWidth(), Display.getHeight()); 
+		setViewport();
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
@@ -76,5 +76,9 @@ public class FrameUtils {
 		glLoadIdentity();
 		glEnable(GL_TEXTURE_2D);
 		glDisable(GL_LIGHTING);
+	}
+
+	public static void setViewport() {
+		glViewport(0, 0, Display.getWidth(), Display.getHeight()); 
 	}
 }

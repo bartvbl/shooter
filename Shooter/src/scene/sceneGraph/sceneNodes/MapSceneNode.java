@@ -20,6 +20,10 @@ public class MapSceneNode extends CoordinateNode implements SceneNode {
 		
 	}
 
+	public void postRender() {
+		glPopMatrix();
+	}
+
 	
 
 

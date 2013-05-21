@@ -5,7 +5,7 @@ import scene.sceneGraph.SceneNode;
 
 import static org.lwjgl.opengl.GL11.*;
 
-public class PlayerSceneNode extends CoordinateNode implements SceneNode {
+public class PlayerSceneNode extends StackingContainerNode implements SceneNode {
 
 	public void render() {
 		glColor4d(1, 1, 0, 1);

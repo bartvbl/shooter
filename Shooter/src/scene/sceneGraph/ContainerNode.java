@@ -45,15 +45,6 @@ public abstract class ContainerNode implements SceneNode {
 		}
 		children.clear();
 	}
-	
-	
-	public void preRender() {
-		glPushMatrix();
-	}
-	
-	public void postRender() {
-		glPopMatrix();
-	}
 
 	public abstract void render();
 	public abstract void destroy();

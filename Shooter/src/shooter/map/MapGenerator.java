@@ -43,15 +43,9 @@ public class MapGenerator {
 	}
 
 	private static void visitPoint(TileType[][] tiles, ArrayList<Point> sortedNoisePoints, Random random) {
-		double stepSize = sortedNoisePoints.size();
-		
-		while(stepSize > 1) {
-			stepSize /= 2;
-			stepSize = Math.max(stepSize, 1); //ensuring that all points are considered at least once.
-			for(int i = 0; i < sortedNoisePoints.size(); i += stepSize) {
-				Point point = sortedNoisePoints.get(i);
-				fillFromTile(tiles, random, (int)point.x, (int)point.y);
-			}
+		for(int i = 0; i < sortedNoisePoints.size(); i++) {
+			Point point = sortedNoisePoints.get(i);
+			fillFromTile(tiles, random, (int)point.x, (int)point.y);
 		}
 	}
 	
@@ -59,18 +53,15 @@ public class MapGenerator {
 		if(!neighbourhoodEmpty(tiles, x, y)) {
 			return;
 		}
-		boolean isVerticalDirection = random.nextBoolean();
-		if(isVerticalDirection) {
-			fillVertical(tiles, random, x, y);
-		} else {
-			fillHorizontal(tiles, random, x, y);
-		}
+		tiles[x][y] = TileType.WALL;
+		fillVertical(tiles, random, x, y);
+		fillHorizontal(tiles, random, x, y);
 	}
 
 	private static boolean neighbourhoodEmpty(TileType[][] tiles, int x, int y) {
 		boolean isNotWall = true;
-		for(int i = -1; i <= 1; i++) {
-			for(int j = -1; j <= 1; j++) {
+		for(int i = -2; i <= 2; i++) {
+			for(int j = -2; j <= 2; j++) {
 				isNotWall = isNotWall && isNotWall(tiles, x + i, y + j);
 			}
 		}
@@ -85,7 +76,7 @@ public class MapGenerator {
 	}
 
 	private static void fillVertical(TileType[][] tiles, Random random, int x, int y) {
-		int currentY = y;
+		int currentY = y + 1;
 		while(tiles[x][currentY] != TileType.WALL) {
 			tiles[x][currentY] = TileType.WALL;
 			currentY++;
@@ -98,7 +89,7 @@ public class MapGenerator {
 	}
 
 	private static void fillHorizontal(TileType[][] tiles, Random random, int x, int y) {
-		int currentX = x;
+		int currentX = x + 1;
 		while(tiles[currentX][y] != TileType.WALL) {
 			tiles[currentX][y] = TileType.WALL;
 			currentX++;

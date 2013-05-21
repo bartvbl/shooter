@@ -7,7 +7,7 @@ import scene.sceneGraph.ContainerNode;
 import scene.sceneGraph.SceneNode;
 import static org.lwjgl.opengl.GL11.*;
 
-public class DisplayListNode extends ContainerNode implements SceneNode {
+public class DisplayListNode extends StackingContainerNode implements SceneNode {
 
 	private final ArrayList<SceneNode> emptyChildList = new ArrayList<SceneNode>();
 	private boolean isBuilt = false;

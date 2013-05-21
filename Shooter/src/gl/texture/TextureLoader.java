@@ -16,6 +16,8 @@ import java.nio.IntBuffer;
 
 import javax.imageio.ImageIO;
 
+import org.lwjgl.BufferUtils;
+
 public class TextureLoader {
 	
 	public static Texture createTextureFromImage(BufferedImage image)
@@ -75,7 +77,7 @@ public class TextureLoader {
 	
 	public static Texture createTexture(byte[] imageData, int width, int height)
 	{
-		IntBuffer textureHandle = ByteBuffer.allocateDirect(4).order(ByteOrder.nativeOrder()).asIntBuffer();
+		IntBuffer textureHandle = BufferUtils.createIntBuffer(1);
 		ByteBuffer bb = ByteBuffer.allocateDirect(imageData.length).order(ByteOrder.nativeOrder());
 		bb.put(imageData).flip();
 		glGenTextures(textureHandle);
