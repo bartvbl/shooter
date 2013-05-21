@@ -8,7 +8,6 @@ import util.Stack;
 public class RenderPass {
 	public static void render(SceneNode node, RenderContext context) {
 		ArrayList<SceneNode> children = node.getChildren();
-		
 		if(node.isVisible()) {			
 			node.preRender(context);
 			node.render(context);

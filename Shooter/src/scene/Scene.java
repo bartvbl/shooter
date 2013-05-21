@@ -1,5 +1,10 @@
 package scene;
 
+import static org.lwjgl.opengl.GL11.glRotated;
+
+import org.lwjgl.input.Mouse;
+import org.lwjgl.opengl.Display;
+
 import render.RenderContext;
 import render.RenderPass;
 import scene.sceneGraph.SceneNode;
@@ -10,13 +15,11 @@ import scene.sceneGraph.sceneNodes.ShadowMappedLightNode;
 public class Scene {
 	private final EmptyCoordinateNode rootNode;
 	private final RenderContext renderContext = new RenderContext();
-	private final ShadowMappedLightNode contentRootNode;
 	
 	public Scene() {
-		this.contentRootNode = new ShadowMappedLightNode();
 		this.rootNode = new EmptyCoordinateNode();
-		this.rootNode.addChild(contentRootNode);
 		rootNode.translate(0, 0, -10);
+		
 	}
 
 	public void render() {
@@ -25,21 +28,15 @@ public class Scene {
 	}
 
 	public void addSceneNode(SceneNode sceneNode) {
-		this.contentRootNode.addChild(sceneNode);
+		this.rootNode.addChild(sceneNode);
 	}
 
-	public void buildScene(SceneNode playerNode, SceneNode mapNode, SceneNode hudNode) {
-		contentRootNode.addChild(hudNode);
-		contentRootNode.addChild(playerNode);
-		contentRootNode.addChild(mapNode);
-	}
-
-	public void translate(double dx, double dy) {
-		this.rootNode.translate(dx, dy, 0);
-	}
-
-	public void setRotation(double rotation) {
-		this.rootNode.setRotation(rotation);
+	public void buildScene(SceneNode playerNode, SceneNode mapNode, SceneNode controlledNode) {
+		rootNode.addChild(controlledNode);
+		rootNode.addChild(playerNode);
+		ShadowMappedLightNode shadowNode = new ShadowMappedLightNode();
+		controlledNode.addChild(shadowNode);
+		shadowNode.addChild(mapNode);
 	}
 
 }

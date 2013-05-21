@@ -22,4 +22,8 @@ public class Stack<DataType> {
 		if(isEmpty()) return null;
 		return this.stack.get(this.stack.size() - 1);
 	}
+
+	public int size() {
+		return this.stack.size();
+	}
 }

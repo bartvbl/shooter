@@ -34,9 +34,9 @@ public abstract class CoordinateNode extends ContainerNode {
 	}
 
 	public void preRender(RenderContext context) {
+		context.pushMatrix();
 		context.rotate(rotation, 0, 0, 1);
 		context.translate(x, y, 0);
-		context.pushMatrix();
 	}
 	
 	public void postRender(RenderContext context) {

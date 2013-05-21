@@ -5,6 +5,7 @@ import gui.HUD;
 import java.util.ArrayList;
 
 import scene.Scene;
+import scene.sceneGraph.sceneNodes.EmptyCoordinateNode;
 import shooter.map.Map;
 
 public class GameWorld {
@@ -12,7 +13,7 @@ public class GameWorld {
 	public final Map map;
 	public final Player player;
 	public final EffectsTracker effects;
-	public final HUD hud;
+	public final EmptyCoordinateNode controlledNode;
 	public final Scene scene;
 	
 	private final ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
@@ -21,15 +22,14 @@ public class GameWorld {
 		this.player = Player.createInstance(this);
 		this.map = Map.createInstance(this);
 		this.effects = EffectsTracker.createInstance(this);
-		this.hud = HUD.createInstance(this);
+		this.controlledNode = new EmptyCoordinateNode();
 		
-		this.gameObjects.add(hud);
 		this.gameObjects.add(player);
 		this.gameObjects.add(map);
 		this.gameObjects.add(effects);
 
 		this.scene = scene;
-		scene.buildScene(player.sceneNode, map.sceneNode, hud.sceneNode);
+		scene.buildScene(player.sceneNode, map.sceneNode, controlledNode);
 	}
 	
 	public void addGameObject(GameObject object) {
