@@ -71,11 +71,11 @@ public class ShadowMappedLightNode extends ContainerNode implements SceneNode {
 	}
 
 	public void render(RenderContext context) {
-		shader.enable(modelViewMatrix, lightModelViewMatrix);
+		//shader.enable(modelViewMatrix, lightModelViewMatrix);
 	}
 
 	public void postRender(RenderContext context) {
-		shader.disable();
+		//shader.disable();
 	}
 
 	public void destroy() {

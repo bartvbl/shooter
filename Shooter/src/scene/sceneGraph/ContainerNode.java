@@ -1,10 +1,5 @@
 package scene.sceneGraph;
 
-import static org.lwjgl.opengl.GL11.glPopMatrix;
-import static org.lwjgl.opengl.GL11.glPushMatrix;
-import static org.lwjgl.opengl.GL11.glRotated;
-import static org.lwjgl.opengl.GL11.glTranslated;
-
 import java.util.ArrayList;
 
 import render.RenderContext;
