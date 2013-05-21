@@ -13,9 +13,9 @@ public class GameWorld {
 	public final Player player;
 	public final EffectsTracker effects;
 	public final HUD hud;
+	public final Scene scene;
 	
 	private final ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
-	private final Scene scene;
 
 	public GameWorld(Scene scene) {
 		this.player = Player.createInstance(this);

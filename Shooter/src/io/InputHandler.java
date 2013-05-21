@@ -33,7 +33,7 @@ public class InputHandler {
 		int dx = Mouse.getEventDX();
 		double deltaRotation = (double) dx / -5d;
 		this.mapRotation  += deltaRotation;
-		world.map.setRotation(mapRotation);
+		world.scene.setRotation(mapRotation);
 	}
 	
 	private void handlePlayerShoot() {
@@ -82,6 +82,6 @@ public class InputHandler {
 	private void moveMapInDirection(double angle) {
 		double dx = Math.sin(Math.toRadians(mapRotation + angle)) * MOVE_SPEED;
 		double dy = Math.cos(Math.toRadians(mapRotation + angle)) * MOVE_SPEED;
-		this.world.map.translate(dx, dy);
+		this.world.scene.translate(dx, dy);
 	}
 }

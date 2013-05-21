@@ -8,15 +8,15 @@ import scene.sceneGraph.sceneNodes.ShadowMappedLightNode;
 
 
 public class Scene {
-	private final ShadowMappedLightNode rootNode;
+	private final EmptyCoordinateNode rootNode;
 	private final RenderContext renderContext = new RenderContext();
-	private final EmptyCoordinateNode contentRootNode;
+	private final ShadowMappedLightNode contentRootNode;
 	
 	public Scene() {
-		this.rootNode = new ShadowMappedLightNode();
-		this.contentRootNode = new EmptyCoordinateNode();
+		this.contentRootNode = new ShadowMappedLightNode();
+		this.rootNode = new EmptyCoordinateNode();
 		this.rootNode.addChild(contentRootNode);
-		contentRootNode.translate(0, 0, 10);
+		rootNode.translate(0, 0, -10);
 	}
 
 	public void render() {
@@ -32,6 +32,14 @@ public class Scene {
 		contentRootNode.addChild(hudNode);
 		contentRootNode.addChild(playerNode);
 		contentRootNode.addChild(mapNode);
+	}
+
+	public void translate(double dx, double dy) {
+		this.rootNode.translate(dx, dy, 0);
+	}
+
+	public void setRotation(double rotation) {
+		this.rootNode.setRotation(rotation);
 	}
 
 }
