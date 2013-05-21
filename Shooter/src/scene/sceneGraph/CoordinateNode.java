@@ -1,6 +1,7 @@
 package scene.sceneGraph;
 
 import static org.lwjgl.opengl.GL11.*;
+import render.RenderContext;
 import geom.Point;
 
 public abstract class CoordinateNode extends ContainerNode {
@@ -30,13 +31,13 @@ public abstract class CoordinateNode extends ContainerNode {
 		this.rotation = rotation;
 	}
 
-	public void preRender() {
+	public void preRender(RenderContext context) {
 		glRotated(rotation, 0, 0, 1);
 		glTranslated(x, y, 0);
 		glPushMatrix();
 	}
 
-	public abstract void render();
+	public abstract void render(RenderContext context);
 	public abstract void destroy();
 
 	public Point getLocation() {

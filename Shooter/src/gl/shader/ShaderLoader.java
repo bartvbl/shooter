@@ -52,14 +52,16 @@ public class ShaderLoader {
 		return shaderProgramID;
 	}
 	
-	private static int createShader(String filename, int shaderType) throws Exception {
+	private static int createShader(String fileName, int shaderType) throws Exception {
+		System.out.println("Loading ARB shader object: " + fileName);
+		
 		int shader = 0;
 		shader = ARBShaderObjects.glCreateShaderObjectARB(shaderType);
 
 		if(shader == 0)
 			return 0;
 
-		ARBShaderObjects.glShaderSourceARB(shader, readFileAsString(filename));
+		ARBShaderObjects.glShaderSourceARB(shader, readFileAsString(fileName));
 		ARBShaderObjects.glCompileShaderARB(shader);
 
 		if (ARBShaderObjects.glGetObjectParameteriARB(shader, ARBShaderObjects.GL_OBJECT_COMPILE_STATUS_ARB) == GL_FALSE) {

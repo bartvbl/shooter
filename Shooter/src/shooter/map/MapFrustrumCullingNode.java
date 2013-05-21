@@ -2,6 +2,7 @@ package shooter.map;
 
 
 import geom.Point;
+import render.RenderContext;
 import scene.sceneGraph.CoordinateNode;
 import scene.sceneGraph.SceneNode;
 import shooter.GameWorld;
@@ -22,7 +23,7 @@ public class MapFrustrumCullingNode extends CoordinateNode implements SceneNode 
 		this.world = world;
 	}
 
-	public void render() {
+	public void render(RenderContext context) {
 		
 		
 	}
@@ -41,8 +42,8 @@ public class MapFrustrumCullingNode extends CoordinateNode implements SceneNode 
 		return distanceToCameraCenter <= renderRadius;
 	}
 
-	public void postRender() {
-		glPopMatrix();
+	public void postRender(RenderContext context) {
+		context.popMatrix();
 	}
 	
 	

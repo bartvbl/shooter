@@ -54,7 +54,6 @@ public class FrameUtils {
 		glEnable(GL_CULL_FACE);
 		glDisable(GL_TEXTURE_2D);
 		glDisable(GL_LIGHTING);
-		//glEnable(GL_LIGHT0);
 	}
 
 	public static void set2DMode() {

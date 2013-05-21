@@ -2,10 +2,12 @@ package scene.sceneGraph;
 
 import java.util.ArrayList;
 
+import render.RenderContext;
+
 public interface SceneNode {
-	public void preRender();
-	public void render();
-	public void postRender();
+	public void preRender(RenderContext context);
+	public void render(RenderContext context);
+	public void postRender(RenderContext context);
 	
 	public void addChild(SceneNode node);
 	public void removeChild(SceneNode node);

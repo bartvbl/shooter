@@ -7,6 +7,8 @@ import static org.lwjgl.opengl.GL11.glTranslated;
 
 import java.util.ArrayList;
 
+import render.RenderContext;
+
 public abstract class ContainerNode implements SceneNode {
 	protected boolean visible = true;
 	protected ArrayList<SceneNode> children = new ArrayList<SceneNode>();
@@ -26,14 +28,6 @@ public abstract class ContainerNode implements SceneNode {
 		this.visible = isVisible;
 	}
 	
-	protected void renderChildren()
-	{
-		for(SceneNode child : this.children)
-		{
-			child.render();
-		}
-	}
-
 	public ArrayList<SceneNode> getChildren() {
 		return this.children;
 	}
@@ -46,7 +40,7 @@ public abstract class ContainerNode implements SceneNode {
 		children.clear();
 	}
 
-	public abstract void render();
+	public abstract void render(RenderContext context);
 	public abstract void destroy();
 	
 	public boolean isVisible() {

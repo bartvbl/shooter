@@ -51,11 +51,9 @@ public class MapGenerator {
 	
 	private static void fillFromTile(TileType[][] tiles, Random random, int x, int y) {
 		if(horizontalNeighbourhoodEmpty(tiles, x, y)) {
-			tiles[x][y] = TileType.WALL;
 			fillVertical(tiles, random, x, y);
 		}
 		if(verticalNeighbourhoodEmpty(tiles, x, y)) {
-			tiles[x][y] = TileType.WALL;			
 			fillHorizontal(tiles, random, x, y);
 		}
 	}
@@ -64,19 +62,15 @@ public class MapGenerator {
 	private static boolean horizontalNeighbourhoodEmpty(TileType[][] tiles, int x, int y) {
 		boolean isNotWall = true;
 		for(int i = -2; i <= 2; i++) {
-			for(int j = -1; j <= 1; j++) {
-				isNotWall = isNotWall && isNotWall(tiles, x + i, y + j);
-			}
+			isNotWall = isNotWall && isNotWall(tiles, x + i, y);
 		}
 		return isNotWall;
 	}
 
 	private static boolean verticalNeighbourhoodEmpty(TileType[][] tiles, int x, int y) {
 		boolean isNotWall = true;
-		for(int i = -1; i <= 1; i++) {
-			for(int j = -2; j <= 2; j++) {
-				isNotWall = isNotWall && isNotWall(tiles, x + i, y + j);
-			}
+		for(int i = -2; i <= 2; i++) {
+			isNotWall = isNotWall && isNotWall(tiles, x, y + i);
 		}
 		return isNotWall;
 	}
@@ -91,12 +85,14 @@ public class MapGenerator {
 	private static void fillVertical(TileType[][] tiles, Random random, int x, int y) {
 		int currentY = y + 1;
 		if(random.nextBoolean()) {
+			tiles[x][y] = TileType.WALL;
 			while(tiles[x][currentY] != TileType.WALL) {
 				tiles[x][currentY] = TileType.WALL;
 				currentY++;
 			}	
 		}
-		if(random.nextBoolean()) {			
+		if(random.nextBoolean()) {	
+			tiles[x][y] = TileType.WALL;
 			currentY = y - 1;
 			while(tiles[x][currentY] != TileType.WALL) {
 				tiles[x][currentY] = TileType.WALL;
@@ -107,13 +103,15 @@ public class MapGenerator {
 
 	private static void fillHorizontal(TileType[][] tiles, Random random, int x, int y) {
 		int currentX = x + 1;
-		if(random.nextBoolean()) {			
+		if(random.nextBoolean()) {	
+			tiles[x][y] = TileType.WALL;
 			while(tiles[currentX][y] != TileType.WALL) {
 				tiles[currentX][y] = TileType.WALL;
 				currentX++;
 			}
 		}
-		if(random.nextBoolean()) {			
+		if(random.nextBoolean()) {	
+			tiles[x][y] = TileType.WALL;
 			currentX = x - 1;
 			while(tiles[currentX][y] != TileType.WALL) {
 				tiles[currentX][y] = TileType.WALL;

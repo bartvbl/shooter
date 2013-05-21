@@ -1,23 +1,22 @@
 package scene;
 
+import render.RenderContext;
 import render.RenderPass;
 import scene.sceneGraph.SceneNode;
-import scene.sceneGraph.sceneNodes.EffectsSceneNode;
-import scene.sceneGraph.sceneNodes.EmptyContainerNode;
-import scene.sceneGraph.sceneNodes.MapSceneNode;
-import scene.sceneGraph.sceneNodes.PlayerSceneNode;
 import scene.sceneGraph.sceneNodes.ShadowMappedLightNode;
 
-public class Scene {
-	
-	private final SceneNode rootNode;
 
+public class Scene {
+	private final ShadowMappedLightNode rootNode;
+	private final RenderContext renderContext = new RenderContext();
+	
 	public Scene() {
 		this.rootNode = new ShadowMappedLightNode();
 	}
 
 	public void render() {
-		RenderPass.render(rootNode);
+		renderContext.setIdentity();
+		RenderPass.render(rootNode, renderContext);
 	}
 
 	public void addSceneNode(SceneNode sceneNode) {

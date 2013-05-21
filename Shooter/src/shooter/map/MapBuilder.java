@@ -10,14 +10,11 @@ import gl.vbo.GeometryBufferGenerator;
 
 import java.nio.DoubleBuffer;
 import java.nio.IntBuffer;
-import java.util.Arrays;
-import java.util.HashMap;
 
 import org.lwjgl.BufferUtils;
 import org.lwjgl.util.Rectangle;
 
 import scene.sceneGraph.SceneNode;
-import scene.sceneGraph.sceneNodes.DisplayListNode;
 import scene.sceneGraph.sceneNodes.MapSceneNode;
 import shooter.GameWorld;
 
