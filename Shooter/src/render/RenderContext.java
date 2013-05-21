@@ -20,7 +20,6 @@ public class RenderContext {
 	}
 
 	public void setIdentity() {
-		glLoadIdentity();
 		this.modelViewMatrix.setIdentity();
 	}
 	

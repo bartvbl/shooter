@@ -11,10 +11,11 @@ public class RenderPass {
 		if(node.isVisible()) {			
 			node.preRender(context);
 			node.render(context);
-			
+			System.out.println("<node> " + node);
 			for(SceneNode child : children) {
 				RenderPass.render(child, context);
 			}
+			System.out.println("</node> " + node);
 			node.postRender(context);
 		}
 	}

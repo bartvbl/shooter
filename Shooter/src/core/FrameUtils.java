@@ -34,6 +34,7 @@ public class FrameUtils {
 	}
 	
 	public static void newFrame() {
+		System.out.println("NEW FRAME STARTS HERE!");
 		gluPerspective(45.0f, ((float)Display.getWidth()/(float)Display.getHeight()), NEAR_POINT, FAR_POINT);
 		setViewport();
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
@@ -51,9 +52,9 @@ public class FrameUtils {
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
 		gluPerspective(45.0f, ((float)Display.getWidth()/(float)Display.getHeight()), NEAR_POINT, FAR_POINT);
-		glEnable(GL_CULL_FACE);
-		glDisable(GL_TEXTURE_2D);
-		glDisable(GL_LIGHTING);
+		//glEnable(GL_CULL_FACE);
+		glEnable(GL_TEXTURE_2D);
+		glEnable(GL_LIGHTING);
 	}
 
 	public static void set2DMode() {

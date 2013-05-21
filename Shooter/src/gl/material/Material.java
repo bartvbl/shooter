@@ -6,6 +6,7 @@ import java.nio.FloatBuffer;
 
 import org.lwjgl.BufferUtils;
 
+import render.RenderContext;
 import scene.sceneGraph.SceneNode;
 import scene.sceneGraph.sceneNodes.EmptyContainerNode;
 
@@ -88,7 +89,7 @@ public class Material extends EmptyContainerNode implements SceneNode, AbstractM
 		this.alpha = alpha;
 	}
 	
-	public void render() 
+	public void render(RenderContext context) 
 	{
 		this.bindTexture();
 		glMaterialf(GL_FRONT, GL_SHININESS, shininess);

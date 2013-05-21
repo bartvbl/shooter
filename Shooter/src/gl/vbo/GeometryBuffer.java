@@ -8,6 +8,7 @@ import static org.lwjgl.opengl.GL12.*;
 
 import java.util.ArrayList;
 
+import render.RenderContext;
 import scene.sceneGraph.SceneNode;
 import scene.sceneGraph.sceneNodes.EmptyCoordinateNode;
 
@@ -25,7 +26,7 @@ public class GeometryBuffer extends EmptyCoordinateNode implements SceneNode {
 		this.numberOfVertices = numVertices;
 	}
 	
-	public void render()
+	public void render(RenderContext context)
 	{
 		this.drawBufferCombo(this.indexBuffer, this.vertexBuffer);
 	}
