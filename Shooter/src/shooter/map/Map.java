@@ -38,7 +38,7 @@ public class Map extends GameObject {
 	}
 
 	public void translate(double x, double y) {
-		this.mapNode.translate(x, y);
+		this.mapNode.translate(x, y, 0);
 	}
 
 	public SceneNode getMapContentRootNode() {
