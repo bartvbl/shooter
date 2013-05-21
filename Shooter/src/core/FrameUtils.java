@@ -30,7 +30,7 @@ public class FrameUtils {
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glEnable(GL_LIGHTING);
 		glEnable(GL_LIGHT0);
-		//glShadeModel(GL_FLAT);
+		glShadeModel(GL_SMOOTH);
 	}
 	
 	public static void newFrame() {

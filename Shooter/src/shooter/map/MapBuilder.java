@@ -107,12 +107,14 @@ public class MapBuilder {
 			}
 		}
 		
-		GeometryBuffer wallBuffer = GeometryBufferGenerator.generateGeometryBuffer(BufferDataFormatType.VERTICES_TEXTURES_NORMALS, geometryDataBuffer, wallIndexBuffer);
-		Material wallMaterial = new Material("wallMaterial");
-		wallMaterial.addChild(wallBuffer);
-		Texture texture = TextureLoader.loadTextureFromFile("res/textures/wall.png");
-		wallMaterial.setDiffuseTexture(texture);
-		chunkRootNode.addChild(wallMaterial);
+		if(wallIndexBuffer.capacity() != 0) { //check if buffer has contents			
+			GeometryBuffer wallBuffer = GeometryBufferGenerator.generateGeometryBuffer(BufferDataFormatType.VERTICES_TEXTURES_NORMALS, geometryDataBuffer, wallIndexBuffer);
+			Material wallMaterial = new Material("wallMaterial");
+			wallMaterial.addChild(wallBuffer);
+			Texture texture = TextureLoader.loadTextureFromFile("res/textures/wall.png");
+			wallMaterial.setDiffuseTexture(texture);
+			chunkRootNode.addChild(wallMaterial);
+		}
 		
 		GeometryBuffer groundBuffer = GeometryBufferGenerator.generateGeometryBuffer(BufferDataFormatType.VERTICES_TEXTURES_NORMALS, geometryDataBuffer, groundIndexBuffer);
 		Material groundMaterial = new Material("groundMaterial");
