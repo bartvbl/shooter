@@ -113,12 +113,14 @@ public class MapBuilder {
 			chunkRootNode.addChild(wallMaterial);
 		}
 		
-		GeometryBuffer groundBuffer = GeometryBufferGenerator.generateGeometryBuffer(BufferDataFormatType.VERTICES_TEXTURES_NORMALS, geometryDataBuffer, groundIndexBuffer);
-		Material groundMaterial = new Material("groundMaterial");
-		groundMaterial.addChild(groundBuffer);
-		Texture groundTexture = TextureLoader.loadTextureFromFile("res/textures/ground.png");
-		groundMaterial.setDiffuseTexture(groundTexture);
-		chunkRootNode.addChild(groundMaterial);
+		if(groundIndexBuffer.capacity() != 0) { //check if buffer has contents
+			GeometryBuffer groundBuffer = GeometryBufferGenerator.generateGeometryBuffer(BufferDataFormatType.VERTICES_TEXTURES_NORMALS, geometryDataBuffer, groundIndexBuffer);
+			Material groundMaterial = new Material("groundMaterial");
+			groundMaterial.addChild(groundBuffer);
+			Texture groundTexture = TextureLoader.loadTextureFromFile("res/textures/ground.png");
+			groundMaterial.setDiffuseTexture(groundTexture);
+			chunkRootNode.addChild(groundMaterial);
+		}
 	}
 
 	private static CountedPolygons calculatePolycount(TileType[][] tileMap, ChunkDimension dimension) {

@@ -16,7 +16,8 @@ public class Map extends GameObject {
 	private final EmptyContainerNode contentRootNode;
 
 	public static Map createInstance(GameWorld gameWorld) {
-		TileType[][] tileMap = MapGenerator.generateMap(100, 100, System.currentTimeMillis());
+		MapGenerator generator = new MapGenerator();
+		TileType[][] tileMap = generator.generateMap(100, 100, System.currentTimeMillis());
 		return new Map(gameWorld, new MapSceneNode(), tileMap);
 	}
 
