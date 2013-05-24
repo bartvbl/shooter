@@ -2,6 +2,7 @@ package shooter.map;
 
 import geom.Point;
 
+import java.awt.geom.CubicCurve2D;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
@@ -70,12 +71,28 @@ public class MapGenerator {
 	}
 
 	private void fillInDirection(int x, int y, Direction direction) {
+		boolean previousWasFree = false;
+		boolean currentIsFree = false;
+		boolean nextIsFree = false;
+		ArrayList<Point> possibleDoorLocations = new ArrayList<Point>();
 		do {
-			if(TileNeighbourhood.isSideFree(tiles, x, y, direction))
-			tiles[x][y] = TileType.WALL;
+			currentIsFree = TileNeighbourhood.isSideFree(tiles, x, y, direction);
+			nextIsFree = TileNeighbourhood.isSideFree(tiles, x + direction.dx, y + direction.dy, direction);
+			if(currentIsFree) {
+				tiles[x][y] = TileType.WALL;
+			}
+			if(previousWasFree && currentIsFree && nextIsFree) {
+				possibleDoorLocations.add(new Point(x, y));
+			}
+			previousWasFree = currentIsFree;
 			x += direction.dx;
 			y += direction.dy;
 		} while(tiles[x][y] != TileType.WALL);
+		if(!possibleDoorLocations.isEmpty() && (possibleDoorLocations.size() > 1)) {
+			int chosenIndex = random.nextInt(possibleDoorLocations.size() - 1);
+			Point doorLocation = possibleDoorLocations.get(chosenIndex);
+			tiles[(int) doorLocation.x][(int) doorLocation.y] = TileType.DOOR;
+		}
 	}
 
 	private boolean shouldPlaceWall() {
