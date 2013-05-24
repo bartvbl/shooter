@@ -25,14 +25,6 @@ public class ShadowMapShader {
 	}
 
 	public void enable(FloatBuffer modelViewMatrix, FloatBuffer lightModelViewMatrix) {
-		for(int i = 0; i < 4; i++) {
-			for(int j = 0; j < 4; j++){
-				System.out.print(modelViewMatrix.get() + " ");
-			}
-			System.out.print('\n');
-		}
-		System.out.print('\n');
-
 		modelViewMatrix.rewind();
 		lightModelViewMatrix.rewind();
 		lightPositionBuffer.put(lightPosition).rewind();

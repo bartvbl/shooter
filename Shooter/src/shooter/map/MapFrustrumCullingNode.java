@@ -34,7 +34,7 @@ public class MapFrustrumCullingNode extends CoordinateNode implements SceneNode 
 	}
 
 	private boolean shouldRender() {
-		Point mapLocation = this.world.map.getLocation();
+		Point mapLocation = this.world.controlledNode.getLocation();
 		//map scrolls in opposite direction of camera
 		double dx = -mapLocation.x - centerX;
 		double dy = -mapLocation.y - centerY;

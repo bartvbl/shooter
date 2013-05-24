@@ -42,26 +42,26 @@ public class ShadowMappedLightNode extends ContainerNode implements SceneNode {
 		modelViewMatrix.clear();
 		lightModelViewMatrix.clear();
 		
-//		context.pushMatrix();
-//		context.storeModelViewMatrix(modelViewMatrix);
+		context.pushMatrix();
+		context.storeModelViewMatrix(modelViewMatrix);
 		//inverse transformation getting down to "eye level" to the player model
-//		context.translate(0, 0, 10);
-//		context.rotate(-90, 1, 0, 0);
-//		context.translate(0, 0, -0.5f);
-//		context.storeModelViewMatrix(lightModelViewMatrix);
-//		renderDepthTexture(context);
-//		context.popMatrix();
+		context.translate(0, 0, 10);
+		context.rotate(-90, 1, 0, 0);
+		context.translate(0, 0, -0.5f);
+		context.storeModelViewMatrix(lightModelViewMatrix);
+		renderDepthTexture(context);
+		context.popMatrix();
 	}
 
 	private void renderDepthTexture(RenderContext context) {
-//		glBindFramebuffer(GL_FRAMEBUFFER, frameBufferID);
-//		glViewport(0, 0, SHADOW_MAP_WIDTH, SHADOW_MAP_HEIGHT);
-//		glClear(GL_DEPTH_BUFFER_BIT);
-//		glColorMask(false, false, false, false); //disable color rendering
-//		renderAllChildNodes(context);
-//		glBindFramebuffer(GL_FRAMEBUFFER, 0); //reset the frame buffer
-//		FrameUtils.setViewport();
-//		glColorMask(true, true, true, true); //re-enable color rendering
+		glBindFramebuffer(GL_FRAMEBUFFER, frameBufferID);
+		glViewport(0, 0, SHADOW_MAP_WIDTH, SHADOW_MAP_HEIGHT);
+		glClear(GL_DEPTH_BUFFER_BIT);
+		glColorMask(false, false, false, false); //disable color rendering
+		renderAllChildNodes(context);
+		glBindFramebuffer(GL_FRAMEBUFFER, 0); //reset the frame buffer
+		FrameUtils.setViewport();
+		glColorMask(true, true, true, true); //re-enable color rendering
 	}
 
 	private void renderAllChildNodes(RenderContext context) {
