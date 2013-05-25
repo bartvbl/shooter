@@ -5,7 +5,7 @@ public class TileNeighbourhood {
 		boolean[][] neighbourhood3x3 = new boolean[3][3];
 		for(int i = -1; i <= 1; i++) {
 			for(int j = -1; j <= 1; j++) {
-				neighbourhood3x3[i + 1][j + 1] = isWall(tiles, x, y);
+				neighbourhood3x3[i + 1][j + 1] = isWall(tiles, x + i, y + j);
 			}
 		}
 		return neighbourhood3x3;
@@ -36,16 +36,16 @@ public class TileNeighbourhood {
 
 	public static boolean isSideFree(TileType[][] tiles, int x, int y, Direction direction) {
 		switch(direction) {
-		case EAST:
-			return isHorizontalFree(tiles, x, y);
-		case NORTH:
-			return isVerticalFree(tiles, x, y);
-		case SOUTH:
-			return isVerticalFree(tiles, x, y);
-		case WEST:
-			return isHorizontalFree(tiles, x, y);
-		default:
-			return false;
+			case EAST:
+				return isHorizontalFree(tiles, x, y);
+			case NORTH:
+				return isVerticalFree(tiles, x, y);
+			case SOUTH:
+				return isVerticalFree(tiles, x, y);
+			case WEST:
+				return isHorizontalFree(tiles, x, y);
+			default:
+				return false;
 		}
 	}
 
@@ -55,5 +55,15 @@ public class TileNeighbourhood {
 	
 	private static boolean isVerticalFree(TileType[][] tiles, int x, int y) {
 		return !isWall(tiles, x - 1, y) && !isWall(tiles, x + 1, y);
+	}
+
+	public static boolean isNeighbourhoodFree(boolean[][] neighbourhood3x3) {
+		boolean isFree = true;
+		for(int i = 0; i <= 2; i++) {
+			for(int j = 0; j <= 2; j++) {
+				isFree = isFree && !neighbourhood3x3[i][j];
+			}
+		}
+		return isFree;
 	}
 }

@@ -46,6 +46,7 @@ public class MapBuilder {
 				mapNode.addChild(chunkMap[i][j]);
 			}
 		}
+		
 	}
 
 	private static SceneNode buildChunk(TileType[][] tileMap, Rectangle chunkDimension, GameWorld world) {
@@ -54,20 +55,15 @@ public class MapBuilder {
 		double chunkCenterY = chunkDimension.getY() + ((double) CHUNK_HEIGHT / 2d);
 		MapFrustrumCullingNode chunkRootNode = new MapFrustrumCullingNode(world, chunkRadius, chunkCenterX, chunkCenterY);
 		
-		buildTerrain(chunkRootNode, tileMap, chunkDimension);
+		ChunkDimension dimension = new ChunkDimension(chunkDimension);
 		
+		buildTerrain(chunkRootNode, tileMap, dimension);
+		DoorSpawner.spawnDoors(chunkRootNode, dimension, tileMap, world);
 		return chunkRootNode;
 	}
 
-	private static void buildTerrain(SceneNode chunkRootNode, TileType[][] tileMap, Rectangle chunkDimension) {
-		int chunkLeft = chunkDimension.getX();
-		int chunkBottom = chunkDimension.getY();
-		int chunkRight = chunkLeft + chunkDimension.getWidth();
-		int chunkTop = chunkBottom + chunkDimension.getHeight();
-		ChunkDimension dimension = new ChunkDimension(chunkLeft, chunkRight, chunkBottom, chunkTop);
-		
+	private static void buildTerrain(SceneNode chunkRootNode, TileType[][] tileMap, ChunkDimension dimension) {
 		CountedPolygons polyCount = calculatePolycount(tileMap, dimension);
-		
 		buildChunkGeometry(chunkRootNode, tileMap, polyCount, dimension);
 	}
 

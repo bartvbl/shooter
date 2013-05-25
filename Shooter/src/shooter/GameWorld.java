@@ -19,6 +19,7 @@ public class GameWorld {
 	private final ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
 
 	public GameWorld(Scene scene) {
+		this.scene = scene;
 		this.player = Player.createInstance(this);
 		this.map = Map.createInstance(this);
 		this.effects = EffectsTracker.createInstance(this);
@@ -28,7 +29,6 @@ public class GameWorld {
 		this.gameObjects.add(map);
 		this.gameObjects.add(effects);
 
-		this.scene = scene;
 		scene.buildScene(player.sceneNode, map.sceneNode, controlledNode);
 	}
 	
