@@ -45,9 +45,9 @@ public class ShadowMappedLightNode extends ContainerNode implements SceneNode {
 		context.pushMatrix();
 		context.storeModelViewMatrix(modelViewMatrix);
 		//inverse transformation getting down to "eye level" to the player model
-		context.translate(0, 0, 10);
-		context.rotate(-90, 1, 0, 0);
-		context.translate(0, 0, -0.5f);
+//		context.translate(0, 0, 10);
+//		context.rotate(-90, 1, 0, 0);
+//		context.translate(0, 0, -0.5f);
 		context.storeModelViewMatrix(lightModelViewMatrix);
 		renderDepthTexture(context.copyOf());
 		context.popMatrix();

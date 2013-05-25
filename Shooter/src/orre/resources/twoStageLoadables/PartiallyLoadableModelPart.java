@@ -42,5 +42,9 @@ public class PartiallyLoadableModelPart extends Finalizable {
 	public void setDestinationPart(StoredModelPart part) {
 		this.destinationPart = part;
 	}
+	
+	public String toString() {
+		return "PartiallyLoadableModelPart@" + name;
+	}
 
 }

@@ -2,7 +2,6 @@ package orre.resources.loaders.obj;
 
 import java.util.List;
 
-import orre.resources.FileToLoad;
 import orre.resources.twoStageLoadables.BlueprintModel;
 import orre.resources.twoStageLoadables.PartiallyLoadableModelPart;
 import util.XMLLoader;
@@ -11,15 +10,15 @@ import nu.xom.Document;
 import nu.xom.Element;
 
 public class ModelLoader {
-	public static BlueprintModel loadModel(FileToLoad file)
+	public static BlueprintModel loadModel(String src, String name)
 	{
-		Document modelXMLDocument = XMLLoader.readXML(file.getPath());
+		Document modelXMLDocument = XMLLoader.readXML(src);
 		Element rootElement = modelXMLDocument.getRootElement();
-		BlueprintModel model = new BlueprintModel(file.name);
+		BlueprintModel model = new BlueprintModel(name);
 		ModelPartTreeBuilder.generatePartTree(model, rootElement);
 		List<PartiallyLoadableModelPart> parts = loadOBJFile(model, rootElement);
 		linkPartsToPartTree(model, parts);
-		finalizeParts(parts);
+		addPartsToFinalizationQueue(parts);
 		return model;
 	}
 	
@@ -36,7 +35,7 @@ public class ModelLoader {
 		}
 	}
 	
-	private static void finalizeParts(List<PartiallyLoadableModelPart> parts) {
+	private static void addPartsToFinalizationQueue(List<PartiallyLoadableModelPart> parts) {
 		for(PartiallyLoadableModelPart part : parts) {
 			part.finalizeResource();
 		}

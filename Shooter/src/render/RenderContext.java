@@ -32,6 +32,11 @@ public class RenderContext {
 		glTranslated(x, y, z);
 		this.modelViewMatrix.translate(new Vector3f(x, y, z));
 	}
+
+	public void scale(float x, float y, float z) {
+		glScaled(x, y, z);
+		this.modelViewMatrix.scale(new Vector3f(x, y, z));
+	}
 		
 	public void pushMatrix() {
 		glPushMatrix();
@@ -61,4 +66,5 @@ public class RenderContext {
 	public int stackLevel() {
 		return modelViewMatrixStack.size();
 	}
+
 }

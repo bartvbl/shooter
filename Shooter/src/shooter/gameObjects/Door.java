@@ -40,8 +40,8 @@ public class Door extends GameObject {
 	private boolean isCloseToDoor() {
 		Point mapLocation = this.world.controlledNode.getLocation();
 		//map scrolls in opposite direction of camera
-		double dx = -mapLocation.x - x;
-		double dy = -mapLocation.y - y;
+		double dx = -mapLocation.x - (double) x - 0.5d;
+		double dy = -mapLocation.y - (double) y - 0.5d;
 		double distanceToCameraCenter = Math.sqrt(dx*dx + dy*dy);
 		return distanceToCameraCenter <= activationRadius;
 	}
