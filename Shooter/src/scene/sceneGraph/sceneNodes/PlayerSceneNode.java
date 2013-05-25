@@ -14,10 +14,10 @@ public class PlayerSceneNode extends StackingContainerNode implements SceneNode 
 	public void render(RenderContext context) {
 		glColor4d(1, 1, 0, 1);
 		glBegin(GL_QUADS);
-		glVertex2d(-0.03, -0.03);
-		glVertex2d(0.03, -0.03);
-		glVertex2d(0.03, 0.03);
-		glVertex2d(-0.03, 0.03);
+		glVertex3d(-0.03, -0.03, 0.01);
+		glVertex3d(0.03, -0.03, 0.01);
+		glVertex3d(0.03, 0.03, 0.01);
+		glVertex3d(-0.03, 0.03, 0.01);
 		glEnd();
 	}
 

@@ -14,7 +14,7 @@ public class Door extends GameObject {
 	private Orientation orientation;
 	private final DoorSceneNode doorNode;
 	private final double activationRadius = 2;
-	private final double moveSpeed = 0.01;
+	private final double moveSpeed = 0.025;
 	private double height = 0;
 
 	private Door(DoorSceneNode sceneNode, GameWorld world) {

@@ -49,4 +49,8 @@ public class Map extends GameObject {
 	public Point getLocation() {
 		return this.mapNode.getLocation();
 	}
+
+	public TileType getTileAt(int x, int y) {
+		return tileMap[x][y];
+	}
 }

@@ -16,9 +16,15 @@ import java.nio.IntBuffer;
 
 import javax.imageio.ImageIO;
 
-import org.lwjgl.BufferUtils;
+import orre.resources.FileToLoad;
+import orre.resources.twoStageLoadables.PartiallyLoadableTexture;
 
 public class TextureLoader {
+	public static PartiallyLoadableTexture partiallyLoadTextureFromFile(String src) {
+		BufferedImage image = loadImageFromFile(src);
+		byte[] imageData = TexturePixelConverter.getImageDataBytes(image);
+		return new PartiallyLoadableTexture(src, imageData, image.getWidth(), image.getHeight());
+	}
 	
 	public static Texture createTextureFromImage(BufferedImage image)
 	{
@@ -66,6 +72,7 @@ public class TextureLoader {
     		return null;
     	}
 		catch (Exception e) {
+			e.printStackTrace();
 			return null;
 		}
 		AffineTransform tx = AffineTransform.getScaleInstance(1, -1);
@@ -77,7 +84,7 @@ public class TextureLoader {
 	
 	public static Texture createTexture(byte[] imageData, int width, int height)
 	{
-		IntBuffer textureHandle = BufferUtils.createIntBuffer(1);
+		IntBuffer textureHandle = ByteBuffer.allocateDirect(4).order(ByteOrder.nativeOrder()).asIntBuffer();
 		ByteBuffer bb = ByteBuffer.allocateDirect(imageData.length).order(ByteOrder.nativeOrder());
 		bb.put(imageData).flip();
 		glGenTextures(textureHandle);

@@ -32,11 +32,9 @@ public class Scene {
 	private final RenderContext renderContext = new RenderContext();
 	private double variable = 0;
 	private FloatBuffer buffer;
-	private double numRenders = 0;
 	
 	public Scene() {
 		this.rootNode = new EmptyCoordinateNode();
-		//rootNode.translate(0, 0, -10);
 		this.buffer = BufferUtils.createFloatBuffer(4);
 	}
 
@@ -61,8 +59,8 @@ public class Scene {
 //			Display.destroy();
 //			System.exit(0);
 //		}
-		
 		renderContext.translate(0, 0, -10);
+		
 		RenderPass.render(rootNode, renderContext);
 	}
 

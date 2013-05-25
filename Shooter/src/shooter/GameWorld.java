@@ -1,7 +1,5 @@
 package shooter;
 
-import gui.HUD;
-
 import java.util.ArrayList;
 
 import scene.Scene;
@@ -24,6 +22,7 @@ public class GameWorld {
 		this.map = Map.createInstance(this);
 		this.effects = EffectsTracker.createInstance(this);
 		this.controlledNode = new EmptyCoordinateNode();
+		this.controlledNode.setLocation(-1.5f, -1.5f, 0);
 		
 		this.gameObjects.add(player);
 		this.gameObjects.add(map);

@@ -1,15 +1,18 @@
 package io;
 
+import geom.Point;
+
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
 import shooter.GameWorld;
+import shooter.map.TileType;
 
 public class InputHandler {
 	private final GameWorld world;
 	private double mapRotation = 0;
 	
-	private static final float MOVE_SPEED = 0.03f;
+	private static final float MOVE_SPEED = 0.06f;
 	private static final int LEFT_MOUSE_BUTTON = 0;
 	private static final boolean MOUSE_BUTTON_UP = false;
 
@@ -82,6 +85,19 @@ public class InputHandler {
 	private void moveMapInDirection(double angle) {
 		double dx = Math.sin(Math.toRadians(mapRotation + angle)) * MOVE_SPEED;
 		double dy = Math.cos(Math.toRadians(mapRotation + angle)) * MOVE_SPEED;
-		this.world.controlledNode.translate(dx, dy, 0);
+		
+		Point location = this.world.controlledNode.getLocation();
+		int currentX = (int) Math.floor(-location.x);
+		int currentY = (int) Math.floor(-location.y);
+		int newX = (int) Math.floor(-location.x - dx);
+		int newY = (int) Math.floor(-location.y - dy);
+		
+		if(this.world.map.getTileAt(newX, currentY) != TileType.WALL) {			
+			this.world.controlledNode.translate(dx, 0, 0);
+		}
+		if(this.world.map.getTileAt(currentX, newY) != TileType.WALL) {			
+			this.world.controlledNode.translate(0, dy, 0);
+		}
+		
 	}
 }
