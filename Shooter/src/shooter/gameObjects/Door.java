@@ -13,7 +13,7 @@ public class Door extends GameObject {
 	private int y;
 	private Orientation orientation;
 	private final DoorSceneNode doorNode;
-	private final double activationRadius = 5;
+	private final double activationRadius = 2;
 	private final double moveSpeed = 0.01;
 	private double height = 0;
 
@@ -25,16 +25,16 @@ public class Door extends GameObject {
 	public void update() {
 		if(isCloseToDoor()) {
 			height -= moveSpeed;
-			if(height <= -1.01) {
-				height = -1.01;//.01 to avoid z fighting
+			if(height <= -0.99) {
+				height = -0.99;//.01 to avoid z fighting
 			}
 		} else {
 			height += moveSpeed;
-			if(height >= 1d) {
-				height = 1.0;
+			if(height >= 0d) {
+				height = 0.0;
 			}
 		}
-		doorNode.setHeight(height);
+		this.doorNode.setLocation(x, y, (float) height);
 	}
 	
 	private boolean isCloseToDoor() {
@@ -56,11 +56,6 @@ public class Door extends GameObject {
 		this.doorNode.setLocation(x, y, 0);
 		
 		this.orientation = orientation;
-		if(orientation == Orientation.VERTICAL) {
-			this.doorNode.setRotation(90);
-		} else {
-			this.doorNode.setRotation(0);
-		}
 		
 	}
 

@@ -10,7 +10,7 @@ import org.lwjgl.opengl.DisplayMode;
 
 public class FrameUtils {
 	public static final int DEFAULT_WINDOW_WIDTH = 1024;
-	public static final int DEFAULT_WINDOW_HEIGHT = 768;
+	public static final int DEFAULT_WINDOW_HEIGHT = 600;
 	public static final float NEAR_POINT = 0.1f;
 	public static final float FAR_POINT = 250f;
 	

@@ -47,4 +47,18 @@ public class RenderContext {
 		modelViewMatrix.store(buffer);
 		buffer.rewind();
 	}
+
+	public void loadMatrix(Matrix4f modelViewMatrix) {
+		this.modelViewMatrix.load(modelViewMatrix);
+	}
+
+	public RenderContext copyOf() {
+		RenderContext context = new RenderContext();
+		context.loadMatrix(modelViewMatrix);
+		return context;
+	}
+
+	public int stackLevel() {
+		return modelViewMatrixStack.size();
+	}
 }

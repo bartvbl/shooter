@@ -1,14 +1,9 @@
 package core;
 
-import java.nio.FloatBuffer;
-
 import io.InputHandler;
 
-import org.lwjgl.BufferUtils;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
-import static org.lwjgl.opengl.GL11.*;
-
 import scene.Scene;
 import shooter.GameWorld;
 

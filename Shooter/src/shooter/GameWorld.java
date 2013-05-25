@@ -34,7 +34,6 @@ public class GameWorld {
 	
 	public void addGameObject(GameObject object) {
 		gameObjects.add(object);
-		scene.addSceneNode(object.sceneNode);
 	}
 	
 	public void removeGameObject(GameObject object) {

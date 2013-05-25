@@ -28,11 +28,6 @@ public class DoorSceneNode extends EmptyCoordinateNode implements SceneNode {
 	}
 
 
-	public void setHeight(double height) {
-		door.setLocation(0, 0, (float) height);
-	}
-
-
 	private static SceneNode createDoorNode() {
 		final int numFaces = 5;
 		final int numVertices = 2*3;

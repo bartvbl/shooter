@@ -49,7 +49,7 @@ public class ShadowMappedLightNode extends ContainerNode implements SceneNode {
 		context.rotate(-90, 1, 0, 0);
 		context.translate(0, 0, -0.5f);
 		context.storeModelViewMatrix(lightModelViewMatrix);
-		renderDepthTexture(context);
+		renderDepthTexture(context.copyOf());
 		context.popMatrix();
 	}
 
@@ -60,7 +60,7 @@ public class ShadowMappedLightNode extends ContainerNode implements SceneNode {
 		glColorMask(false, false, false, false); //disable color rendering
 		renderAllChildNodes(context);
 		glBindFramebuffer(GL_FRAMEBUFFER, 0); //reset the frame buffer
-		FrameUtils.setViewport();
+		FrameUtils.setViewport();//reset the viewport
 		glColorMask(true, true, true, true); //re-enable color rendering
 	}
 
