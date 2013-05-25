@@ -36,7 +36,7 @@ public class InputHandler {
 		int dx = Mouse.getEventDX();
 		double deltaRotation = (double) dx / 5d;
 		this.mapRotation  += deltaRotation;
-		world.controlledNode.setRotation(mapRotation);
+		world.controlledNode.setRotationZ(mapRotation);
 	}
 	
 	private void handlePlayerShoot() {
@@ -66,6 +66,7 @@ public class InputHandler {
 		
 		if((stepsDX != 0) || (stepsDY != 0)) {
 			double angleRadians = calculateDirectionAngleRadians(stepsDX, stepsDY);
+			world.player.updateLegRotation(Math.toDegrees(angleRadians) + 180);
 			moveMapInDirection(Math.toDegrees(angleRadians));
 		}
 		

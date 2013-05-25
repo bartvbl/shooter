@@ -1,12 +1,14 @@
 package orre.resources.twoStageLoadables;
 
 import geom.mesh.Mesh3D;
+import geom.mesh.ModelPart;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import orre.resources.Finalizable;
 import orre.resources.loaders.obj.StoredModelPart;
+import scene.sceneGraph.SceneNode;
 
 public class BlueprintModel extends Finalizable {
 	private ArrayList<StoredModelPart> topLevelNodeList = new ArrayList<StoredModelPart>();
@@ -36,9 +38,20 @@ public class BlueprintModel extends Finalizable {
 	public Mesh3D createSceneNode() {
 		Mesh3D mesh = new Mesh3D();
 		for(StoredModelPart part : this.topLevelNodeList) {
-			mesh.addChild(part.createSceneNode());
+			ModelPart partNode = part.createSceneNode();
+			mesh.addChild(partNode);
+			parseNodeChildren(part, partNode, mesh);
 		}
 		return mesh;
+	}
+
+	private void parseNodeChildren(StoredModelPart part, ModelPart partNode, Mesh3D mesh) {
+		for(StoredModelPart child : part.getChildren()) {
+			ModelPart childPart = child.createSceneNode();
+			partNode.addChild(childPart);
+			mesh.registerPart(child.name, childPart);
+			parseNodeChildren(child, childPart, mesh);
+		}
 	}
 
 }

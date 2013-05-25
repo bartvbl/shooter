@@ -1,0 +1,9 @@
+<ORRModel>
+	<modelFile src="res/mesh/ak.obj"/>
+	<partStructure>
+		<part name="body" nameInModelFile="body">
+			<part name="leftLeg" nameInModelFile="leftLeg" xOffset="0" yOffset="10" zOffset ="0" />
+			<part name="rightLeg" nameInModelFile="rightLeg" xOffset="0" yOffset="10" zOffset ="0" />
+		</part>
+	</partStructure>
+</ORRModel>

@@ -5,7 +5,9 @@ import render.RenderContext;
 import geom.Point;
 
 public abstract class CoordinateNode extends ContainerNode {
-	protected float rotation;
+	protected float rotationX;
+	protected float rotationY;
+	protected float rotationZ;
 	protected float x, y, z;
 	protected boolean visible = true;
 	
@@ -25,17 +27,27 @@ public abstract class CoordinateNode extends ContainerNode {
 
 	public void rotate(double angle) 
 	{
-		this.rotation += angle;
+		this.rotationZ += angle;
 	}
-
-	public void setRotation(double rotation) 
+	
+	public void setRotationX(double rotation) {
+		this.rotationX = (float) rotation;
+	}
+	
+	public void setRotationY(double rotation) {
+		this.rotationY = (float) rotation;
+	}
+	
+	public void setRotationZ(double rotation) 
 	{
-		this.rotation = (float) rotation;
+		this.rotationZ = (float) rotation;
 	}
 
 	public void preRender(RenderContext context) {
 		context.pushMatrix();
-		context.rotate(rotation, 0, 0, 1);
+		context.rotate(rotationX, 1, 0, 0);
+		context.rotate(rotationY, 0, 1, 0);
+		context.rotate(rotationZ, 0, 0, 1);
 		context.translate(x, y, z);
 	}
 	

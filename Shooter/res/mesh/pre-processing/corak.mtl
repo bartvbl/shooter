@@ -1,0 +1,8 @@
+
+newmtl skin
+Ka 1 1 1
+Kd 1 1 1
+Ks 0.5 0.5 0.5
+d 1
+Ns 12
+map_Kd corak_tex.bmp

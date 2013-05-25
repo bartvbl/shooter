@@ -35,7 +35,7 @@ public class Map extends GameObject {
 	}
 
 	public void setRotation(double rotation) {
-		this.mapNode.setRotation(rotation);
+		this.mapNode.setRotationZ(rotation);
 	}
 
 	public void translate(double x, double y) {

@@ -40,16 +40,14 @@ public class StoredModelPart {
 		this.geometryBuffers.add(geometryBuffer);
 	}
 
-	public SceneNode createSceneNode() {
+	public ModelPart createSceneNode() {
 		ModelPart part = new ModelPart();
 		for(int i = 0; i < this.materials.size(); i++) {
 			Material material = this.materials.get(i).convertToMaterial();
 			material.addChild(this.geometryBuffers.get(i));
 			part.addMaterialAndGeometryBufferCombo(material, this.name);
 		}
-		for(StoredModelPart child : this.childList) {
-			part.addChild(child.createSceneNode());
-		}
+		
 		return part;
 	}
 }
