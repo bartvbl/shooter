@@ -59,6 +59,7 @@ public class Scene {
 //			Display.destroy();
 //			System.exit(0);
 //		}
+//		renderContext.rotate((float) variable, 1, 0, 0);
 		renderContext.translate(0, 0, -10);
 		
 		RenderPass.render(rootNode, renderContext);
@@ -68,10 +69,10 @@ public class Scene {
 		this.rootNode.addChild(sceneNode);
 	}
 
-	public void buildScene(SceneNode playerNode, SceneNode mapNode, SceneNode controlledNode) {
+	public void buildScene(SceneNode playerNode, SceneNode mapNode, EmptyCoordinateNode controlledNode) {
 		rootNode.addChild(controlledNode);
 		rootNode.addChild(playerNode);
-		ShadowMappedLightNode shadowNode = new ShadowMappedLightNode();
+		ShadowMappedLightNode shadowNode = new ShadowMappedLightNode(controlledNode);
 		controlledNode.addChild(shadowNode);
 		shadowNode.addChild(mapNode);
 	}

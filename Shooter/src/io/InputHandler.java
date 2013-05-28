@@ -88,17 +88,32 @@ public class InputHandler {
 		double dy = Math.cos(Math.toRadians(mapRotation + angle)) * MOVE_SPEED;
 		
 		Point location = this.world.controlledNode.getLocation();
-		int currentX = (int) Math.floor(-location.x);
-		int currentY = (int) Math.floor(-location.y);
-		int newX = (int) Math.floor(-location.x - dx);
-		int newY = (int) Math.floor(-location.y - dy);
+		double currentX = -location.x;
+		double currentY = -location.y;
 		
-		if(this.world.map.getTileAt(newX, currentY) != TileType.WALL) {			
+		double newX = -location.x - dx;
+		double newY = -location.y - dy;
+		
+//		//no collission with wall on x a
+//		if(!isWallAt(newX - 0.1, newY - 0.1) && !isWallAt(newX + 0.1, newY + 0.1)){
+//			
+//		}
+//		if(isWallAt(newX + 0.1, newY - 0.1)) return;
+//		if return;
+//		if(isWallAt(newX - 0.1, newY + 0.1)) return;
+//		
+		if(!isWallAt(newX, currentY)) {			
 			this.world.controlledNode.translate(dx, 0, 0);
 		}
-		if(this.world.map.getTileAt(currentX, newY) != TileType.WALL) {			
+		if(!isWallAt(currentX, newY)) {			
 			this.world.controlledNode.translate(0, dy, 0);
 		}
 		
+	}
+
+	private boolean isWallAt(double x, double y) {
+		int xCoord = (int) Math.floor(x);
+		int yCoord = (int) Math.floor(y);
+		return this.world.map.getTileAt(xCoord, yCoord) == TileType.WALL;
 	}
 }

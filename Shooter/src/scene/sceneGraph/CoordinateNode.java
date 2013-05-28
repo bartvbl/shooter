@@ -42,6 +42,10 @@ public abstract class CoordinateNode extends ContainerNode {
 	{
 		this.rotationZ = (float) rotation;
 	}
+	
+	public double getRotationZ() {
+		return rotationZ;
+	}
 
 	public void preRender(RenderContext context) {
 		context.pushMatrix();

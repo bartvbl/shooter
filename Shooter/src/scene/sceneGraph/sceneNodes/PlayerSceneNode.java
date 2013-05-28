@@ -49,7 +49,8 @@ public class PlayerSceneNode extends StackingContainerNode implements SceneNode 
 		rightLeg.setRotationY(-degrees);
 	}
 
-	//simulating animation here.
+	//simulating animation here. It's good you can barely see the legs, since if you'd look closely the "pivot" is around the feet, not where the 
+	//legs are connected to the body. 
 	public void updateAnimation() {
 		if(isAnimationPlaying) {
 			if(isReversed) {

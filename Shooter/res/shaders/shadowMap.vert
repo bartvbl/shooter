@@ -21,7 +21,7 @@ void main(void)
 
 	normal = gl_Normal;
 	color=gl_Color;
-	
+	gl_TexCoord[0] = gl_MultiTexCoord0;
 	//and we get the xy position. This allows the lookup in the local case
 	//neat trick to get the -1, 1 range into 0,1 as is needed for the lookup in the texture
 	smPos01 = 0.5 * (lightPos.xyzw +lightPos.wwww);

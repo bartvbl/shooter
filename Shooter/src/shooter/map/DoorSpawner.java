@@ -17,10 +17,9 @@ public class DoorSpawner {
 		for(int i = dimension.chunkLeft; i < dimension.chunkRight; i++) {
 			for(int j = dimension.chunkBottom; j < dimension.chunkTop; j++) {
 				if(tileMap[i][j] == TileType.DOOR) {
-					Door door = Door.createInstance(world);
-					chunkRootNode.addChild(door.sceneNode);
 					Orientation orientation = parseOrientation(tileMap, i, j);
-					door.setLocation(i, j, orientation);
+					Door door = Door.createInstance(world, i, j, orientation);
+					chunkRootNode.addChild(door.sceneNode);
 					world.addGameObject(door);
 				}
 			}

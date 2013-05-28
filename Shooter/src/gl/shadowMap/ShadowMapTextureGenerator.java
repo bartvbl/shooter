@@ -18,6 +18,9 @@ public class ShadowMapTextureGenerator {
 		//binding the texture for configuration
 		glBindTexture(GL_TEXTURE_2D, textureID);
 		
+		//the texture will be filled when rendering the scene. This just creates an empty one.
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, width, height, 0, GL_DEPTH_COMPONENT, GL_FLOAT, (ByteBuffer)null);
+		
 		//texture settings
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
@@ -26,9 +29,6 @@ public class ShadowMapTextureGenerator {
 		
 		glTexParameteri(GL_TEXTURE_2D, GL_DEPTH_TEXTURE_MODE, GL_INTENSITY);
 		
-		
-		//the texture will be filled when rendering the scene. This just creates an empty one.
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, width, height, 0, GL_DEPTH_COMPONENT, GL_FLOAT, (ByteBuffer)null);
 		
 		return textureID;
 	}

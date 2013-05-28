@@ -17,9 +17,11 @@ public class Door extends GameObject {
 	private final double moveSpeed = 0.025;
 	private double height = 0;
 
-	private Door(DoorSceneNode sceneNode, GameWorld world) {
+	private Door(DoorSceneNode sceneNode, int x, int y, GameWorld world) {
 		super(GameObjectType.DOOR, sceneNode, world);
 		this.doorNode = sceneNode;
+		this.x = x;
+		this.y = y;
 	}
 
 	public void update() {
@@ -34,7 +36,7 @@ public class Door extends GameObject {
 				height = 0.0;
 			}
 		}
-		this.doorNode.setLocation(x, y, (float) height);
+		this.doorNode.setLocation(0, 0, (float) height);
 	}
 	
 	private boolean isCloseToDoor() {
@@ -46,17 +48,8 @@ public class Door extends GameObject {
 		return distanceToCameraCenter <= activationRadius;
 	}
 
-	public static Door createInstance(GameWorld world) {
-		return new Door(new DoorSceneNode(), world);
-	}
-
-	public void setLocation(int x, int y, Orientation orientation) {
-		this.x = x;
-		this.y = y;
-		this.doorNode.setLocation(x, y, 0);
-		
-		this.orientation = orientation;
-		
+	public static Door createInstance(GameWorld world, int x, int y, Orientation orientation) {
+		return new Door(new DoorSceneNode(x, y), x, y, world);
 	}
 
 }

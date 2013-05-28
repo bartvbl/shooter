@@ -30,7 +30,7 @@ public class GameMain {
 			scene.render();
 			
 			Display.update();
-			Display.sync(60);
+			Display.sync(100);
 		}
 	}
 }

@@ -14,4 +14,8 @@ public class Point {
 		double dy = point.y - y;
 		return Math.sqrt(dx*dx + dy*dy);
 	}
+	
+	public String toString() {
+		return "("+x+", "+y+")";
+	}
 }
