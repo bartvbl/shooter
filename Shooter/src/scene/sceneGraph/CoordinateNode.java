@@ -8,6 +8,9 @@ public abstract class CoordinateNode extends ContainerNode {
 	protected float rotationX;
 	protected float rotationY;
 	protected float rotationZ;
+	private float pivotX = 0;
+	private float pivotY = 0;
+	private float pivotZ = 0;
 	protected float x, y, z;
 	protected boolean visible = true;
 	
@@ -23,6 +26,12 @@ public abstract class CoordinateNode extends ContainerNode {
 		this.x = x;
 		this.y = y;
 		this.z = z;
+	}
+	
+	public void setPivot(float x, float y, float z) {
+		this.pivotX = x;
+		this.pivotY = y;
+		this.pivotZ = z;
 	}
 
 	public void rotate(double angle) 
@@ -49,10 +58,11 @@ public abstract class CoordinateNode extends ContainerNode {
 
 	public void preRender(RenderContext context) {
 		context.pushMatrix();
-		context.rotate(rotationX, 1, 0, 0);
-		context.rotate(rotationY, 0, 1, 0);
+		context.translate(pivotX, pivotY, pivotZ);
 		context.rotate(rotationZ, 0, 0, 1);
-		context.translate(x, y, z);
+		context.rotate(rotationY, 0, 1, 0);
+		context.rotate(rotationX, 1, 0, 0);
+		context.translate(x - pivotX, y - pivotY, z - pivotZ);
 	}
 	
 	public void postRender(RenderContext context) {

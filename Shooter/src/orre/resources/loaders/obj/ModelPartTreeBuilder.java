@@ -30,8 +30,23 @@ public class ModelPartTreeBuilder {
 		String partName = nodeElement.getAttributeValue("nameInModelFile");
 		StoredModelPart newPart = new StoredModelPart(partType, partName);
 		model.registerPart(newPart);
+		if(partType == ModelPartType.PHYSICAL) {			
+			parsePivotLocation(newPart, nodeElement);
+		}
 		parseChildNodes(newPart, nodeElement, model);
 		return newPart;
+	}
+
+	private static void parsePivotLocation(StoredModelPart newPart, Element nodeElement) {
+		String pivotXAttribute = nodeElement.getAttributeValue("pivotX");
+		String pivotYAttribute = nodeElement.getAttributeValue("pivotY");
+		String pivotZAttribute = nodeElement.getAttributeValue("pivotZ");
+		
+		double pivotX = Double.parseDouble(pivotXAttribute);
+		double pivotY = Double.parseDouble(pivotYAttribute);
+		double pivotZ = Double.parseDouble(pivotZAttribute);
+		
+		newPart.setPivotLocation((float) pivotX, (float) pivotY, (float) pivotZ);
 	}
 
 	private static ModelPartType getPartType(Element modelNode) {

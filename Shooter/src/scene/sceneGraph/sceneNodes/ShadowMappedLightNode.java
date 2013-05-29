@@ -45,9 +45,9 @@ public class ShadowMappedLightNode extends ContainerNode implements SceneNode {
 	public void preRender(RenderContext context) {
 		modelViewMatrix.clear();
 		lightModelViewMatrix.clear();
+		context.storeModelViewMatrix(modelViewMatrix);
 		
 		context.pushMatrix();
-		context.storeModelViewMatrix(modelViewMatrix);
 		//inverse transformation getting down to "eye level"/first person to the player model
 		Point mapLocation = controlledNode.getLocation();
 		context.translate((float) -mapLocation.x, (float) -mapLocation.y, 0);
@@ -55,7 +55,7 @@ public class ShadowMappedLightNode extends ContainerNode implements SceneNode {
 		context.translate(0, 0, 10);
 		context.rotate(-90, 1, 0, 0);
 		context.rotate((float) controlledNode.getRotationZ(), 0, 0, 1);
-		context.translate((float) mapLocation.x, (float) mapLocation.y, -0.1f);
+		context.translate((float) mapLocation.x, (float) mapLocation.y, -0.5f);
 		context.storeModelViewMatrix(lightModelViewMatrix);
 		renderDepthTexture(context.copyOf());
 		context.popMatrix();

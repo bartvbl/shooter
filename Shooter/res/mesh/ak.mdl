@@ -1,9 +1,9 @@
 <ORRModel>
 	<modelFile src="res/mesh/ak.obj"/>
 	<partStructure>
-		<part name="body" nameInModelFile="body">
-			<part name="leftLeg" nameInModelFile="leftLeg" xOffset="0" yOffset="10" zOffset ="0" />
-			<part name="rightLeg" nameInModelFile="rightLeg" xOffset="0" yOffset="10" zOffset ="0" />
+		<part name="body" nameInModelFile="body" pivotX="0" pivotY="10" pivotZ="0">
+			<part name="leftLeg" nameInModelFile="leftLeg" pivotX="0" pivotY="10" pivotZ="3" />
+			<part name="rightLeg" nameInModelFile="rightLeg" pivotX="0" pivotY="10" pivotZ="3" />
 		</part>
 	</partStructure>
 </ORRModel>

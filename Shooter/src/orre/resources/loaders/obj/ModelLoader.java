@@ -23,7 +23,6 @@ public class ModelLoader {
 	}
 	
 	private static List<PartiallyLoadableModelPart> loadOBJFile(BlueprintModel model, Element rootElement) {
-		
 		Element modelFileElement = rootElement.getFirstChildElement("modelFile");
 		List<PartiallyLoadableModelPart> parts = OBJLoader.load(modelFileElement.getAttributeValue("src"));
 		return parts;

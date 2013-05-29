@@ -24,12 +24,13 @@ void main(void)
 	//this is the actual shadow mapping (including the magic bias)!
 	vec3 realSmPos=smPos01.xyz/smPos01.w;	
 	float depthSm = texture2D(DepthMap, realSmPos.xy).r;
-	if (depthSm < realSmPos.z-0.001)
+	if (depthSm < realSmPos.z-0.01)
 	{		
 		//light=0;
 	}
 	textureColour[0] *= light;
 	textureColour[1] *= light;
 	textureColour[2] *= light;
+	
 	gl_FragColor= textureColour;
 }

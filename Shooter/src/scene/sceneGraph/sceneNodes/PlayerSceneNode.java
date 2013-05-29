@@ -20,6 +20,7 @@ public class PlayerSceneNode extends StackingContainerNode implements SceneNode 
 	private final ModelPart rightLeg;
 	private double playHead = 0;
 	private boolean isReversed = false;
+	private double currentLegRotation;
 	
 	private static final double UPPER_BOUND = 45;
 	private static final double LOWER_BOUND = -45;
@@ -47,6 +48,7 @@ public class PlayerSceneNode extends StackingContainerNode implements SceneNode 
 		isAnimationPlaying = true;
 		leftLeg.setRotationY(-degrees);
 		rightLeg.setRotationY(-degrees);
+		this.currentLegRotation = degrees;
 	}
 
 	//simulating animation here. It's good you can barely see the legs, since if you'd look closely the "pivot" is around the feet, not where the 
@@ -69,8 +71,8 @@ public class PlayerSceneNode extends StackingContainerNode implements SceneNode 
 		} else {
 			playHead = 0;
 			isReversed = false;
-			leftLeg.setRotationY(0);
-			rightLeg.setRotationY(0);
+			leftLeg.setRotationX(0);
+			rightLeg.setRotationX(0);
 		}
 		isAnimationPlaying = false;
 	}

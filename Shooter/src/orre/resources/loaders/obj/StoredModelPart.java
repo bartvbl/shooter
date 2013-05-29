@@ -18,6 +18,7 @@ public class StoredModelPart {
 	private ArrayList<GeometryBuffer> geometryBuffers = new ArrayList<GeometryBuffer>();
 	
 	private ArrayList<StoredModelPart> childList = new ArrayList<StoredModelPart>();
+	private float pivotX, pivotY, pivotZ;
 
 	public StoredModelPart(ModelPartType partType, String name)
 	{
@@ -34,6 +35,12 @@ public class StoredModelPart {
 	{
 		return this.childList;
 	}
+	
+	public void setPivotLocation(float x, float y, float z) {
+		this.pivotX = x;
+		this.pivotY = y;
+		this.pivotZ = z;
+	}
 
 	public void addBufferCombo(BlueprintMaterial blueprintMaterial, GeometryBuffer geometryBuffer) {
 		this.materials.add(blueprintMaterial);
@@ -42,6 +49,7 @@ public class StoredModelPart {
 
 	public ModelPart createSceneNode() {
 		ModelPart part = new ModelPart();
+		part.setPivot(pivotX, pivotY, pivotZ);
 		for(int i = 0; i < this.materials.size(); i++) {
 			Material material = this.materials.get(i).convertToMaterial();
 			material.addChild(this.geometryBuffers.get(i));
