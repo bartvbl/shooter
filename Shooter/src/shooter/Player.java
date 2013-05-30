@@ -1,5 +1,8 @@
 package shooter;
 
+import javax.swing.JOptionPane;
+
+import org.lwjgl.opengl.Display;
 import org.lwjgl.util.Color;
 import org.lwjgl.util.ReadableColor;
 
@@ -57,6 +60,11 @@ public class Player extends GameObject {
 	
 	public void addHealth(double amount) {
 		this.health += amount;
+		if(health <= 0) {
+			Display.destroy();
+			JOptionPane.showMessageDialog(null, "You were killed!", "The game has ended", JOptionPane.INFORMATION_MESSAGE);
+			System.exit(0);
+		}
 	}
 
 

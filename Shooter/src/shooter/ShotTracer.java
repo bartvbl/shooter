@@ -10,6 +10,7 @@ public class ShotTracer {
 	private static final double enemyRadius = 0.4;
 
 	public static RayTraceResult rayTraceEnemy(GameWorld world, double rotation, Point location, double maxDistance) {
+		
 		//unit direction vector
 		double dx = Math.sin(Math.toRadians(rotation));
 		double dy = Math.cos(Math.toRadians(rotation));
@@ -19,6 +20,8 @@ public class ShotTracer {
 		
 		double x = location.x;
 		double y = location.y;
+		
+		
 		
 		double distancePerStep = Math.sqrt(dx*dx + dy*dy);
 		
@@ -43,7 +46,7 @@ public class ShotTracer {
 			x += dx;
 			y += dy;
 		}
-		return RayTraceResult.missResult(maxDistance, x, y);
+		return RayTraceResult.outOfRangeResult(maxDistance, x, y);
 	}
 
 	private static Peewee[] getEnemyObjects(GameWorld world) {

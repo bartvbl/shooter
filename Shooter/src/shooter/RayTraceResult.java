@@ -8,20 +8,27 @@ public class RayTraceResult {
 	public final Peewee foundObject;
 	public final double rayEndX;
 	public final double rayEndY;
+	public final boolean isOutOfRange;
 
 	public static RayTraceResult hitResult(Peewee foundObject, double rayEndX, double rayEndY, double distance) {
-		return new RayTraceResult(true, foundObject, rayEndX, rayEndY, distance);
+		return new RayTraceResult(true, false, foundObject, rayEndX, rayEndY, distance);
 	}
 	
 	public static RayTraceResult missResult(double distance, double rayEndX, double rayEndY) {
-		return new RayTraceResult(false, null, rayEndX, rayEndY, distance);
+		return new RayTraceResult(false, false, null, rayEndX, rayEndY, distance);
 	}
 	
-	private RayTraceResult(boolean hasHitEnemy, Peewee foundObject, double rayEndX, double rayEndY, double distance) {
+	public static RayTraceResult outOfRangeResult(double distance, double rayEndX, double rayEndY) {
+		return new RayTraceResult(false, true, null, rayEndX, rayEndY, distance);
+	}
+
+	private RayTraceResult(boolean hasHitEnemy, boolean outOfRange, Peewee foundObject, double rayEndX, double rayEndY, double distance) {
 		this.hasHitEnemy = hasHitEnemy;
 		this.distance = distance;
 		this.foundObject = foundObject;
 		this.rayEndX = rayEndX;
 		this.rayEndY = rayEndY;
+		this.isOutOfRange = outOfRange;
 	}
+
 }

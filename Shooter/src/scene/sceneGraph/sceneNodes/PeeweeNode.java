@@ -41,4 +41,8 @@ public class PeeweeNode extends EmptyCoordinateNode {
 		
 		
 	}
+	
+	public double getBodyRotation() {
+		return body.getRotationZ();
+	}
 }

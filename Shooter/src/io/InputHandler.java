@@ -23,6 +23,7 @@ public class InputHandler {
 		this.world = world;
 		timer = new Timer();
 		timer.resume();
+		world.controlledNode.setRotationZ(0);
 	}
 	
 	public void handleInput() {
