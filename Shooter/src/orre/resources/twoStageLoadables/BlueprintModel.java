@@ -40,6 +40,7 @@ public class BlueprintModel extends Finalizable {
 		for(StoredModelPart part : this.topLevelNodeList) {
 			ModelPart partNode = part.createSceneNode();
 			mesh.addChild(partNode);
+			mesh.registerPart(part.name, partNode);
 			parseNodeChildren(part, partNode, mesh);
 		}
 		return mesh;

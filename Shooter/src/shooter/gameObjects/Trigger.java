@@ -1,10 +1,10 @@
 package shooter.gameObjects;
 
-import geom.Point;
 import scene.sceneGraph.SceneNode;
 import shooter.GameObject;
 import shooter.GameObjectType;
 import shooter.GameWorld;
+import util.PlayerDistance;
 
 public abstract class Trigger extends GameObject {
 	private double triggerX = 0;
@@ -18,12 +18,8 @@ public abstract class Trigger extends GameObject {
 	public abstract void update();
 	
 	protected boolean isTriggered() {
-		Point mapLocation = this.world.controlledNode.getLocation();
-		//map scrolls in opposite direction of camera
-		double dx = -mapLocation.x - (double) triggerX - 0.5d;
-		double dy = -mapLocation.y - (double) triggerY - 0.5d;
-		double distanceToCameraCenter = Math.sqrt(dx*dx + dy*dy);
-		return distanceToCameraCenter <= activationRadius;
+		double distanceToPlayer = PlayerDistance.toPoint(world, triggerX, triggerY);
+		return distanceToPlayer <= activationRadius;
 	}
 
 	public void setActivationRadius(double activationRadius) {

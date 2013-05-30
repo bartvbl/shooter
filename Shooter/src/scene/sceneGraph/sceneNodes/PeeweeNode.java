@@ -1,6 +1,7 @@
 package scene.sceneGraph.sceneNodes;
 
 import geom.mesh.Mesh3D;
+import geom.mesh.ModelPart;
 import orre.resources.loaders.obj.ModelLoader;
 import orre.resources.twoStageLoadables.BlueprintModel;
 import render.RenderContext;
@@ -11,25 +12,33 @@ import static org.lwjgl.opengl.GL11.*;
 public class PeeweeNode extends EmptyCoordinateNode {
 	private static final BlueprintModel peeweeModel = ModelLoader.loadModel("res/mesh/peewee.mdl", "peewee");
 	private Mesh3D peeweeMesh;
-
-	public void preRender(RenderContext context) {
-		super.preRender(context);
-		glEnable(GL_NORMALIZE);
-	}
 	
-	public void render(RenderContext context) {
-		context.rotate(90, 1, 0, 0);
-		context.translate(0, 0, -5);
-		context.scale(0.03f, 0.03f, 0.03f);
-	}
-	
-	public void postRender(RenderContext context) {
-		super.postRender(context);
-		glDisable(GL_NORMALIZE);
-	}
+	private final ModelPart body;
+	private final ModelPart leftLeg;
+	private final ModelPart rightLeg;
 	
 	public PeeweeNode() {
 		this.peeweeMesh = peeweeModel.createSceneNode();
 		this.addChild(peeweeMesh);
+		
+		this.body = peeweeMesh.getModelPartByName("body");
+		this.leftLeg = peeweeMesh.getModelPartByName("leftLeg");
+		this.rightLeg = peeweeMesh.getModelPartByName("rightLeg");
+	}
+	
+	public void pointBodyAt(double x, double y) {
+		double dx = this.x - x;
+		double dy = this.y - y;
+		if(dx != 0) {			
+			double angle = Math.atan(dy/dx);
+			angle = Math.toDegrees(angle);
+			angle -= 90;
+			if(dx > 0) {
+				angle += 180;
+			}
+			this.body.setRotationZ(angle);
+		}
+		
+		
 	}
 }
