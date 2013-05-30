@@ -27,7 +27,6 @@ public class PlayerSceneNode extends StackingContainerNode implements SceneNode 
 	
 	public PlayerSceneNode() {
 		BlueprintModel model = ModelLoader.loadModel("res/mesh/ak.mdl", "AK");
-		model.finalizeResource();
 		this.playerMesh = model.createSceneNode();
 		this.addChild(playerMesh);
 		

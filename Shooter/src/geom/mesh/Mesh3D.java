@@ -13,7 +13,6 @@ public class Mesh3D extends EmptyCoordinateNode implements SceneNode {
 	}
 
 	public void registerPart(String name, ModelPart partNode) {
-		System.out.println("registered part: " + partNode);
 		this.parts.put(name, partNode);
 	}
 

@@ -1,5 +1,5 @@
 package shooter;
 
 public enum GameObjectType {
-	PLAYER, ALIEN, MAP, EFFECT_TRACKER, HUD, DOOR
+	PLAYER, PEEWEE, MAP, EFFECT_TRACKER, HUD, DOOR, ENEMY_SPAWNER
 }

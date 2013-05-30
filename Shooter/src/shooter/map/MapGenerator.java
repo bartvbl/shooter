@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.Random;
 
 public class MapGenerator {
+	private static final double monsterSpawnProbability = 0.05;
 	private TileType[][] tiles;
 	private Random random;
 	private boolean[][] neighbourhood3x3;
@@ -18,6 +19,7 @@ public class MapGenerator {
 		
 		initializeMap();
 		createMapBorders();
+		spawnMonsters();
 		createRooms();
 		
 		return tiles;
@@ -38,6 +40,19 @@ public class MapGenerator {
 		
 		Arrays.fill(tiles[0], TileType.WALL);
 		Arrays.fill(tiles[tiles.length - 1], TileType.WALL);
+	}
+	
+	private void spawnMonsters() {
+		int right = tiles.length - 1;
+		int top = tiles[0].length - 1;
+		
+		for(int x = 1; x < right; x++) {
+			for(int y = 1; y < top; y++) {
+				if(random.nextDouble() <= monsterSpawnProbability) {
+					tiles[x][y] = TileType.MONSTER;
+				}
+			}
+		}
 	}
 	
 	private void createRooms() {

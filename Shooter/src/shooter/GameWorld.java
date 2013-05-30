@@ -14,6 +14,7 @@ public class GameWorld {
 	public final Scene scene;
 	
 	private final ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
+	private final ArrayList<GameObject> gameObjectRemovalQueue = new ArrayList<GameObject>();
 
 	public GameWorld(Scene scene) {
 		this.scene = scene;
@@ -33,14 +34,23 @@ public class GameWorld {
 	}
 	
 	public void removeGameObject(GameObject object) {
-		gameObjects.remove(object);
-		object.sceneNode.destroy();
+		gameObjectRemovalQueue.add(object);
 	}
 
 	public void update() {
 		for(GameObject gameObject : gameObjects) {
 			gameObject.update();
 		}
+		flushRemovalQueue();
+	}
+
+	private void flushRemovalQueue() {
+		//had to queue up destroyed game objects to avoid concurrent modification exceptions.
+		for(GameObject object : gameObjectRemovalQueue) {
+			gameObjects.remove(object);
+			object.sceneNode.destroy();			
+		}
+		gameObjectRemovalQueue.clear();
 	}
 
 

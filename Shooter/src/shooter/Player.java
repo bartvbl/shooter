@@ -5,7 +5,6 @@ import scene.sceneGraph.sceneNodes.PlayerSceneNode;
 public class Player extends GameObject {
 
 	private final PlayerSceneNode playerNode;
-	private boolean isAnimationPlaying = false;
 	private double health = 1;
 	
 	public static Player createInstance(GameWorld gameWorld) {

@@ -30,6 +30,7 @@ import scene.sceneGraph.sceneNodes.ShadowMappedLightNode;
 public class Scene {
 	private final EmptyCoordinateNode rootNode;
 	private final RenderContext renderContext = new RenderContext();
+	private SceneNode mapNode;
 	private double variable = 0;
 	private FloatBuffer buffer;
 	
@@ -68,6 +69,10 @@ public class Scene {
 	public void addSceneNode(SceneNode sceneNode) {
 		this.rootNode.addChild(sceneNode);
 	}
+	
+	public void addSceneNodeToMap(SceneNode sceneNode) {
+		this.mapNode.addChild(sceneNode);
+	}
 
 	public void buildScene(SceneNode playerNode, SceneNode mapNode, EmptyCoordinateNode controlledNode) {
 		rootNode.addChild(controlledNode);
@@ -75,6 +80,7 @@ public class Scene {
 		ShadowMappedLightNode shadowNode = new ShadowMappedLightNode(controlledNode);
 		controlledNode.addChild(shadowNode);
 		shadowNode.addChild(mapNode);
+		this.mapNode = mapNode;
 	}
 
 }

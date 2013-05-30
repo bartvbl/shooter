@@ -19,6 +19,7 @@ public class ModelLoader {
 		List<PartiallyLoadableModelPart> parts = loadOBJFile(model, rootElement);
 		linkPartsToPartTree(model, parts);
 		addPartsToFinalizationQueue(parts);
+		model.finalizeResource();
 		return model;
 	}
 	
