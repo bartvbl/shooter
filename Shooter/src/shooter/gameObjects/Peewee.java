@@ -9,12 +9,13 @@ import util.PlayerDistance;
 
 public class Peewee extends GameObject {
 	private static final double firingRange = 2.5;
+	private double health = 1;
 	
 	public static Peewee spawn(int x, int y, GameWorld world) {
 		Peewee peewee = new Peewee(new PeeweeNode(), world);
 		peewee.setLocation((double) x + 0.5d, (double) y + 0.5d);
 		world.addGameObject(peewee);
-		world.scene.addSceneNodeToMap(peewee.sceneNode);
+		world.scene.addMapSceneNode(peewee.sceneNode);
 		return peewee;
 	}
 
@@ -36,6 +37,22 @@ public class Peewee extends GameObject {
 			Point playerLocation = world.controlledNode.getLocation();
 			this.peeweeNode.pointBodyAt(-playerLocation.x, -playerLocation.y);
 		}
+	}
+
+	public Point getLocation() {
+		return peeweeNode.getLocation();
+	}
+
+	public void damage(double damage) {
+		health -= damage;
+		if(health <= 0) {
+			kill();
+		}
+	}
+
+	private void kill() {
+		this.world.scene.removeMapSceneNode(this.sceneNode);
+		this.world.removeGameObject(this);
 	}
 
 }

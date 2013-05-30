@@ -28,7 +28,6 @@ public class AStar {
 			} else {				
 				this.visitCurrentState(currentState);
 			}
-			System.out.println("("+this.openStates.size()+", "+this.closedStates.size()+") " + currentState.fValue + "\t" + currentState.state.toString());
 		}
 		return generateSearchedFailedPath();
 	}

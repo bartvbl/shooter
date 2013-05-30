@@ -13,6 +13,7 @@ import static org.lwjgl.opengl.GL11.glLight;
 import static org.lwjgl.opengl.GL11.glRotated;
 
 import java.nio.FloatBuffer;
+import java.util.ArrayList;
 
 import org.lwjgl.BufferUtils;
 import org.lwjgl.input.Mouse;
@@ -31,8 +32,9 @@ public class Scene {
 	private final EmptyCoordinateNode rootNode;
 	private final RenderContext renderContext = new RenderContext();
 	private SceneNode mapNode;
-	private double variable = 0;
 	private FloatBuffer buffer;
+	private ArrayList<SceneNode> mapAdditionQueue = new ArrayList<SceneNode>();
+	private ArrayList<SceneNode> mapRemovalQueue = new ArrayList<SceneNode>();
 	
 	public Scene() {
 		this.rootNode = new EmptyCoordinateNode();
@@ -40,9 +42,7 @@ public class Scene {
 	}
 
 	public void render() {
-		variable += (double)Mouse.getDY() / 5d;
 		renderContext.setIdentity();
-		
 		
 		glEnable(GL_LIGHTING);
 		glLight(GL_LIGHT0, GL_AMBIENT, (FloatBuffer)buffer.put(new float[]{0.0f, 0.0f, 0.0f, 1}).rewind());
@@ -53,25 +53,31 @@ public class Scene {
 		glLight(GL_LIGHT0, GL_SPOT_CUTOFF, (FloatBuffer)buffer.put(new float[]{30}).rewind());
 		glLight(GL_LIGHT0, GL_SPOT_DIRECTION, (FloatBuffer)buffer.put(new float[]{0, 1, 0}).rewind());
 		
-//		numRenders++;
-//		System.out.println("NEW FRAME ========================================================================================");
-//		System.out.println("final stack size: " + renderContext.stackLevel());
-//		if(numRenders == 5) {			
-//			Display.destroy();
-//			System.exit(0);
-//		}
-//		renderContext.rotate((float) variable, 1, 0, 0);
 		renderContext.translate(0, 0, -10);
 		
 		RenderPass.render(rootNode, renderContext);
+		
+		flushMapNodeQueues();
 	}
 
-	public void addSceneNode(SceneNode sceneNode) {
-		this.rootNode.addChild(sceneNode);
+	
+	private void flushMapNodeQueues() {
+		for(SceneNode node : mapAdditionQueue) {
+			this.mapNode.addChild(node);
+		}
+		for(SceneNode node : mapRemovalQueue) {
+			this.mapNode.removeChild(node);
+		}
+		mapAdditionQueue.clear();
+		mapRemovalQueue.clear();
+	}
+
+	public void addMapSceneNode(SceneNode sceneNode) {
+		this.mapAdditionQueue.add(sceneNode);
 	}
 	
-	public void addSceneNodeToMap(SceneNode sceneNode) {
-		this.mapNode.addChild(sceneNode);
+	public void removeMapSceneNode(SceneNode sceneNode) {
+		this.mapRemovalQueue.add(sceneNode);
 	}
 
 	public void buildScene(SceneNode playerNode, SceneNode mapNode, EmptyCoordinateNode controlledNode) {

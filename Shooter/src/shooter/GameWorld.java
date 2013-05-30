@@ -37,6 +37,16 @@ public class GameWorld {
 	public void removeGameObject(GameObject object) {
 		gameObjectRemovalQueue.add(object);
 	}
+	
+	public GameObject[] getGameObjectsByType(GameObjectType type) {
+		ArrayList<GameObject> foundGameObjects = new ArrayList<GameObject>();
+		for(GameObject object : gameObjects) {
+			if(object.type == type) {
+				foundGameObjects.add(object);
+			}
+		}
+		return foundGameObjects.toArray(new GameObject[foundGameObjects.size()]);
+	}
 
 	public void update() {
 		for(GameObject gameObject : gameObjects) {

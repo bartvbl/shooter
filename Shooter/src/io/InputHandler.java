@@ -4,6 +4,7 @@ import geom.Point;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
+import org.lwjgl.util.Timer;
 
 import shooter.GameWorld;
 import shooter.map.TileType;
@@ -11,13 +12,17 @@ import shooter.map.TileType;
 public class InputHandler {
 	private final GameWorld world;
 	private double mapRotation = 0;
+	private final Timer timer;
 	
+	private static final float SHOOTING_FREQUENCY = 0.5f;
 	private static final float MOVE_SPEED = 0.06f;
 	private static final int LEFT_MOUSE_BUTTON = 0;
 	private static final boolean MOUSE_BUTTON_UP = false;
 
 	public InputHandler(GameWorld world) {
 		this.world = world;
+		timer = new Timer();
+		timer.resume();
 	}
 	
 	public void handleInput() {
@@ -28,8 +33,8 @@ public class InputHandler {
 	private void handleMouse() {
 		while(Mouse.next()) {
 			handleMapRotationEvent();	
-			handlePlayerShoot();
 		}
+		handlePlayerShoot();
 	}
 
 	private void handleMapRotationEvent() {
@@ -40,8 +45,11 @@ public class InputHandler {
 	}
 	
 	private void handlePlayerShoot() {
-		if(Mouse.getEventButton() == LEFT_MOUSE_BUTTON ) {
-			if(Mouse.getEventButtonState() == MOUSE_BUTTON_UP ) {
+		if(Mouse.isButtonDown(LEFT_MOUSE_BUTTON)) {
+			Timer.tick();
+			if(timer.getTime() >= SHOOTING_FREQUENCY) {
+				timer.reset();
+				timer.resume();
 				world.player.shoot();
 			}
 		}

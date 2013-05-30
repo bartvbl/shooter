@@ -21,6 +21,7 @@ public class PlayerSceneNode extends StackingContainerNode implements SceneNode 
 	private double playHead = 0;
 	private boolean isReversed = false;
 	private double currentLegRotation;
+	private LaserNode laserNode;
 	
 	private static final double UPPER_BOUND = 45;
 	private static final double LOWER_BOUND = -45;
@@ -38,15 +39,12 @@ public class PlayerSceneNode extends StackingContainerNode implements SceneNode 
 		
 	}
 
-	public void render(RenderContext context) {
-		context.rotate(90, 1, 0, 0);
-		context.scale(0.03f, 0.03f, 0.03f);
-	}
+	public void render(RenderContext context) {}
 
 	public void updateLegRotation(double degrees) {
 		isAnimationPlaying = true;
-		leftLeg.setRotationY(-degrees);
-		rightLeg.setRotationY(-degrees);
+		leftLeg.setRotationZ(-degrees);
+		rightLeg.setRotationZ(-degrees);
 		this.currentLegRotation = degrees;
 	}
 
