@@ -7,7 +7,7 @@ import shooter.GameObjectType;
 import shooter.GameWorld;
 import shooter.map.Orientation;
 
-public class Door extends GameObject {
+public class Door extends Trigger {
 
 	private int x;
 	private int y;
@@ -22,10 +22,12 @@ public class Door extends GameObject {
 		this.doorNode = sceneNode;
 		this.x = x;
 		this.y = y;
+		super.setActivationRadius(activationRadius);
+		super.setTriggerLocation(x, y);
 	}
 
 	public void update() {
-		if(isCloseToDoor()) {
+		if(isTriggered()) {
 			height -= moveSpeed;
 			if(height <= -0.99) {
 				height = -0.99;//.01 to avoid z fighting
@@ -39,14 +41,7 @@ public class Door extends GameObject {
 		this.doorNode.setLocation(0, 0, (float) height);
 	}
 	
-	private boolean isCloseToDoor() {
-		Point mapLocation = this.world.controlledNode.getLocation();
-		//map scrolls in opposite direction of camera
-		double dx = -mapLocation.x - (double) x - 0.5d;
-		double dy = -mapLocation.y - (double) y - 0.5d;
-		double distanceToCameraCenter = Math.sqrt(dx*dx + dy*dy);
-		return distanceToCameraCenter <= activationRadius;
-	}
+	
 
 	public static Door createInstance(GameWorld world, int x, int y, Orientation orientation) {
 		return new Door(new DoorSceneNode(x, y), x, y, world);

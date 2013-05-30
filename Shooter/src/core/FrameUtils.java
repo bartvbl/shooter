@@ -72,7 +72,7 @@ public class FrameUtils {
 			windowHeight = Display.getHeight();
 		}
 		float aspectRatio = windowWidth/windowHeight;
-		gluOrtho2D(-1 * aspectRatio, 1*aspectRatio, -1, 1);
+		gluOrtho2D(0, aspectRatio, 0, 1);
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
 		glEnable(GL_TEXTURE_2D);

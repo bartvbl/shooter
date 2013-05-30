@@ -1,25 +1,60 @@
 package gui;
 
-import scene.sceneGraph.sceneNodes.HUDSceneNode;
-import shooter.GameObject;
-import shooter.GameObjectType;
+import core.FrameUtils;
 import shooter.GameWorld;
 
-public class HUD extends GameObject {
+import static org.lwjgl.opengl.GL11.*;
+
+public class HUD {
 	
-	private final HUDSceneNode hudNode;
+	private final GameWorld world;
 
-	public static HUD createInstance(GameWorld gameWorld) {
-		return new HUD(gameWorld, new HUDSceneNode());
+	public HUD(GameWorld world) {
+		this.world = world;
 	}
 
-	public HUD(GameWorld world, HUDSceneNode hudSceneNode) {
-		super(GameObjectType.HUD, hudSceneNode, world);
-		this.hudNode = hudSceneNode;
+	public void render() {
+		FrameUtils.set2DMode();
+		renderHealthBar();
 	}
 
-	public void update() {
+	private void renderHealthBar() {
+		//by far not the best performing way of doing stuff, but it gets the job done.
 		
+		double x = 0.02;
+		double y = 0.02;
+		double width = 0.4 * world.player.getHealth();
+		double maxWidth = 0.4;
+		double height = 0.03;
+		
+		glDisable(GL_TEXTURE_2D);
+		
+		glBegin(GL_QUADS);
+		glColor4d(0.3, 0.3, 0.3, 1);
+		glVertex2d(x, y);
+		glVertex2d(x + maxWidth, y);
+		glVertex2d(x + maxWidth, y + height);
+		glVertex2d(x, y + height);
+		
+		glColor4d(1, 0, 0, 1);
+		glVertex2d(x, y);
+		glVertex2d(x + width, y);
+		glVertex2d(x + width, y + height);
+		glVertex2d(x, y + height);
+		glEnd();
+		
+		glColor4d(0.01, 0.01, 0.01, 1);
+		glLineWidth(3);
+		glBegin(GL_LINES);
+		glVertex2d(x, y);
+		glVertex2d(x + maxWidth, y);
+		glVertex2d(x + maxWidth, y);
+		glVertex2d(x + maxWidth, y + height);
+		glVertex2d(x + maxWidth, y + height);
+		glVertex2d(x, y + height);
+		glVertex2d(x, y + height);
+		glVertex2d(x, y);
+		glEnd();
 	}
 
 }

@@ -10,7 +10,6 @@ public class GameWorld {
 	
 	public final Map map;
 	public final Player player;
-	public final EffectsTracker effects;
 	public final EmptyCoordinateNode controlledNode;
 	public final Scene scene;
 	
@@ -20,13 +19,11 @@ public class GameWorld {
 		this.scene = scene;
 		this.player = Player.createInstance(this);
 		this.map = Map.createInstance(this);
-		this.effects = EffectsTracker.createInstance(this);
 		this.controlledNode = new EmptyCoordinateNode();
 		this.controlledNode.setLocation(-1.5f, -1.5f, 0);
 		
 		this.gameObjects.add(player);
 		this.gameObjects.add(map);
-		this.gameObjects.add(effects);
 
 		scene.buildScene(player.sceneNode, map.sceneNode, controlledNode);
 	}
