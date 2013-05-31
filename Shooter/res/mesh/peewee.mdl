@@ -1,8 +1,8 @@
-<ORRModel>
-	<modelFile src="res/mesh/peewee_2.obj"/>
+<Model>
+	<modelFile src="res/mesh/peewee.obj"/>
 	<partStructure>
 		<part name="body" nameInModelFile="body" pivotX="0" pivotY="0" pivotZ="0" />
 		<part name="leftLeg" nameInModelFile="leftLeg" pivotX="0" pivotY="10" pivotZ="3" />
 		<part name="rightLeg" nameInModelFile="rightLeg" pivotX="0" pivotY="10" pivotZ="3" />
 	</partStructure>
-</ORRModel>
+</Model>

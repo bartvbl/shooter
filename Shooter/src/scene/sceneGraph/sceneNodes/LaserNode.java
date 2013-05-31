@@ -16,32 +16,27 @@ public class LaserNode extends EmptyCoordinateNode {
 	private final Timer timer;
 	private final Scene scene;
 	private final ReadableColor laserColour;
+	private final double distance;
 
-	private double distance = 0;
 
-	public LaserNode(Scene scene, ReadableColor laserColour) {
+	public LaserNode(Scene scene, ReadableColor laserColour, double distance) {
 		this.scene = scene;
 		timer = new Timer();
 		timer.resume();
 		this.laserColour = laserColour;
 		scene.addMapSceneNode(this);
+		this.distance = distance;
 	}
 	
 	public void render(RenderContext context) {
 		Timer.tick();
 		if(timer.getTime() <= laserDisplayTime) {
-			laserTexture.bind();
-			glBegin(GL_QUADS);
-			glTexCoord2d(0, 0);
-			glVertex3d(-0.1, 0, 0);
-			glTexCoord2d(1, 0);
-			glVertex3d(0.1, 0, 0);
-			glTexCoord2d(1, 1);
-			glVertex3d(0.1, distance, 0);
-			glTexCoord2d(0, 1);
-			glVertex3d(-0.1, distance, 0);
+			glColor4d(1, 0, 0, 1);
+			glLineWidth(3);
+			glBegin(GL_LINES);
+			glVertex3d(0, 0, 0.3);
+			glVertex3d(0, distance, 0.3);
 			glEnd();
-			
 		} else {
 			scene.removeMapSceneNode(this);
 		}

@@ -12,13 +12,13 @@ varying vec4 color;
 void main(void)
 {
 	//we recover the position in the slice camera space.
-	vec4 modelPos = gl_ModelViewMatrix * gl_Vertex;
-	modelPos = gl_Vertex;
+	//vec4 modelPos = gl_ModelViewMatrix * gl_Vertex;
+	vec4 modelPos = gl_Vertex;
 	worldPos=modelPos.xyz/modelPos.w;
 
 	vec4 lightPos=LightMatrixValue*modelPos;
 	vec4 viewPos=ViewMatrixValue*modelPos;
-
+	
 	normal = gl_Normal;
 	color = gl_Color;
 	//storing texture coordinates

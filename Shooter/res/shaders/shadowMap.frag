@@ -16,9 +16,6 @@ uniform sampler2D texture0;
 
 void main(void)
 {
-	
-
-
 	float light=max(0.0,dot(normalize(LightPosition.xyz-worldPos),normalize(normal.xyz)));
 	vec4 textureColour = texture2D(texture0, gl_TexCoord[0].st);
 	//this is the actual shadow mapping (including the magic bias)!

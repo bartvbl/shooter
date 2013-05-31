@@ -21,8 +21,6 @@ public class ShotTracer {
 		double x = location.x;
 		double y = location.y;
 		
-		
-		
 		double distancePerStep = Math.sqrt(dx*dx + dy*dy);
 		
 		Peewee[] enemies = getEnemyObjects(world);

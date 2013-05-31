@@ -14,7 +14,7 @@ public class InputHandler {
 	private double mapRotation = 0;
 	private final Timer timer;
 	
-	private static final float SHOOTING_FREQUENCY = 0.5f;
+	private static final float SHOOTING_FREQUENCY = 0.05f;
 	private static final float MOVE_SPEED = 0.06f;
 	private static final int LEFT_MOUSE_BUTTON = 0;
 	private static final boolean MOUSE_BUTTON_UP = false;
@@ -113,9 +113,11 @@ public class InputHandler {
 //		
 		if(!isWallAt(newX, currentY)) {			
 			this.world.controlledNode.translate(dx, 0, 0);
+			this.world.controlledNode.translatePivot(dx, 0, 0);
 		}
 		if(!isWallAt(currentX, newY)) {			
 			this.world.controlledNode.translate(0, dy, 0);
+			this.world.controlledNode.translatePivot(0, dy, 0);
 		}
 		
 	}

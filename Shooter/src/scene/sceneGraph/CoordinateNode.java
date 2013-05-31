@@ -34,6 +34,13 @@ public abstract class CoordinateNode extends ContainerNode {
 		this.pivotZ = z;
 	}
 
+	public void translatePivot(double x, double y, double z) {
+		this.pivotX += x;
+		this.pivotY += y;
+		this.pivotZ += z;
+	}
+
+
 	public void rotate(double angle) 
 	{
 		this.rotationZ += angle;
@@ -58,11 +65,11 @@ public abstract class CoordinateNode extends ContainerNode {
 
 	public void preRender(RenderContext context) {
 		context.pushMatrix();
-		context.translate(pivotX, pivotY, pivotZ);
+		context.translate(x - pivotX, y - pivotY, z - pivotZ);
 		context.rotate(rotationZ, 0, 0, 1);
 		context.rotate(rotationY, 0, 1, 0);
 		context.rotate(rotationX, 1, 0, 0);
-		context.translate(x - pivotX, y - pivotY, z - pivotZ);
+		context.translate(pivotX, pivotY, pivotZ);
 	}
 	
 	public void postRender(RenderContext context) {
