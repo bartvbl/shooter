@@ -24,6 +24,7 @@ public class MTLLibLoader {
 				line = StringUtils.stripString(line);
 				readMaterialLibLine(line, context);
 			}
+			bufferedReader.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

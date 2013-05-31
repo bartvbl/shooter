@@ -21,7 +21,6 @@ public class PlayerSceneNode extends StackingContainerNode implements SceneNode 
 	private double playHead = 0;
 	private boolean isReversed = false;
 	private double currentLegRotation;
-	private LaserNode laserNode;
 	
 	private static final double UPPER_BOUND = 45;
 	private static final double LOWER_BOUND = -45;

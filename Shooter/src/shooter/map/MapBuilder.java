@@ -8,6 +8,7 @@ import gl.vbo.BufferDataFormatType;
 import gl.vbo.GeometryBuffer;
 import gl.vbo.GeometryBufferGenerator;
 
+import java.io.File;
 import java.nio.DoubleBuffer;
 import java.nio.IntBuffer;
 

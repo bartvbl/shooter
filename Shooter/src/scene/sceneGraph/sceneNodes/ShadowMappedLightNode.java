@@ -57,7 +57,9 @@ public class ShadowMappedLightNode extends ContainerNode implements SceneNode {
 		context.rotate((float) controlledNode.getRotationZ(), 0, 0, 1);
 		context.translate((float) mapLocation.x, (float) mapLocation.y, -0.5f);
 		context.storeModelViewMatrix(lightModelViewMatrix);
-		renderDepthTexture(context.copyOf());
+		context.pushMatrix();
+		renderDepthTexture(context);
+		context.popMatrix();
 		context.popMatrix();
 	}
 

@@ -57,12 +57,6 @@ public class RenderContext {
 		this.modelViewMatrix.load(modelViewMatrix);
 	}
 
-	public RenderContext copyOf() {
-		RenderContext context = new RenderContext();
-		context.loadMatrix(modelViewMatrix);
-		return context;
-	}
-
 	public int stackLevel() {
 		return modelViewMatrixStack.size();
 	}
