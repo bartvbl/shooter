@@ -25,7 +25,6 @@ public class MapFrustrumCullingNode extends CoordinateNode implements SceneNode 
 
 	public void render(RenderContext context) {
 		
-		
 	}
 	public void destroy() {}
 
