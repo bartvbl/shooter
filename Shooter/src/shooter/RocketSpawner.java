@@ -1,15 +1,15 @@
 package shooter;
 
-import orre.resources.loaders.obj.ModelLoader;
-import orre.resources.twoStageLoadables.BlueprintModel;
-import shooter.gameObjects.Rocket;
+import shooter.gameObjects.EnemyRocket;
+import shooter.gameObjects.PlayerRocket;
 import geom.Point;
 
 public class RocketSpawner {
-	
-
 	public static void spawnRocket(GameWorld world, Point rocketOrigin, double rocketHeading, double rocketSpeed, double rocketDamage) {
-		Rocket.spawn(world, rocketOrigin, rocketHeading, rocketSpeed, rocketDamage);
+		PlayerRocket.spawn(world, rocketOrigin, rocketHeading, rocketSpeed, rocketDamage);
 	}
 
+	public static void spawnEnemyRocket(GameWorld world, Point rocketOrigin, double rocketHeading, double rocketSpeed, double rocketDamage) {
+		EnemyRocket.spawn(world, rocketOrigin, rocketHeading, rocketSpeed, rocketDamage);
+	}
 }

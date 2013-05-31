@@ -14,6 +14,7 @@ public class Main {
 			Input.init();
 
 			main.init();
+			System.out.println("Game started.");
 			main.mainLoop();
 		} catch (LWJGLException e) {
 			Dialog.showErrorDialog("An exception related to LWJGL occurred. Message:\n" + e.getMessage());

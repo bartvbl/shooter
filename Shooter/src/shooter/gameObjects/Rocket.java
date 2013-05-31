@@ -6,25 +6,25 @@ import shooter.GameObject;
 import shooter.GameObjectType;
 import shooter.GameWorld;
 import shooter.RayTraceResult;
-import shooter.ShotTracer;
 
-public class Rocket extends GameObject {
-
+public abstract class Rocket extends GameObject {
 	private final RocketNode rocketNode;
 	private double dx;
 	private double dy;
-	private double speed;
-	private double heading;
-	private double damage;
+	protected double speed;
+	protected double heading;
+	protected double damage;
 
-	private Rocket(RocketNode sceneNode, GameWorld world) {
-		super(GameObjectType.ROCKET, sceneNode, world);
-		this.rocketNode = sceneNode;
+	protected Rocket(RocketNode rocketNode, GameWorld world) {
+		super(GameObjectType.ROCKET, rocketNode, world);
+		this.rocketNode = rocketNode;
+		world.addGameObject(this);
+		world.scene.addMapSceneNode(rocketNode);
 	}
 
 	public void update() {
 		this.rocketNode.translate(dx * speed, dy * speed, 0);
-		RayTraceResult result = ShotTracer.rayTraceEnemy(world, heading, rocketNode.getLocation(), speed);
+		RayTraceResult result = doObstacleRayTrace();
 		if(result.hasHitEnemy) {
 			result.foundObject.damage(damage);
 			destroy();
@@ -34,39 +34,33 @@ public class Rocket extends GameObject {
 		}
 	}
 
+	protected abstract RayTraceResult doObstacleRayTrace();
+
 	private void destroy() {
 		world.removeGameObject(this);
 		world.scene.removeMapSceneNode(rocketNode);
 	}
 	
-	private void setLocation(Point rocketOrigin) {
+	protected void setLocation(Point rocketOrigin) {
 		rocketNode.setLocation((float) rocketOrigin.x, (float) rocketOrigin.y, 0.3f);
 	}
 	
-	private void setHeading(double rocketHeading) {
+	protected void setHeading(double rocketHeading) {
 		rocketNode.setRotationZ(-rocketHeading + 180);
 		this.dx = Math.sin(Math.toRadians(rocketHeading));
 		this.dy = Math.cos(Math.toRadians(rocketHeading));
 		this.heading = rocketHeading;
 	}
 	
-	private void setSpeed(double rocketSpeed) {
+	protected void setSpeed(double rocketSpeed) {
 		this.speed = rocketSpeed;
 	}
 	
-	private void setDamage(double rocketDamage) {
+	protected void setDamage(double rocketDamage) {
 		this.damage = rocketDamage;
 	}
-
-	public static Rocket spawn(GameWorld world, Point rocketOrigin, double rocketHeading, double rocketSpeed, double rocketDamage) {
-		Rocket rocket = new Rocket(new RocketNode(), world);
-		world.addGameObject(rocket);
-		world.scene.addMapSceneNode(rocket.sceneNode);
-		rocket.setHeading(rocketHeading);
-		rocket.setLocation(rocketOrigin);
-		rocket.setSpeed(rocketSpeed);
-		rocket.setDamage(rocketDamage);
-		return rocket;
+	
+	protected Point getRocketLocation() {
+		return rocketNode.getLocation();
 	}
-
 }

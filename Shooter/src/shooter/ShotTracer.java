@@ -70,4 +70,34 @@ public class ShotTracer {
 		return map.getTileAt(mapX, mapY) == TileType.WALL;
 	}
 
+	public static RayTraceResult rayTracePlayer(GameWorld world, double rotation, Point location, double maxDistance) {
+		//unit direction vector
+		double dx = Math.sin(Math.toRadians(rotation));
+		double dy = Math.cos(Math.toRadians(rotation));
+		
+		dx *= accuracy;
+		dy *= accuracy;
+		
+		double x = location.x;
+		double y = location.y;
+		
+		double distancePerStep = Math.sqrt(dx*dx + dy*dy);
+		
+		Point playerLocation = world.controlledNode.getLocation().negate();
+		
+		for(double distanceCovered = 0; distanceCovered <= maxDistance; distanceCovered += distancePerStep) {
+			if(isWallAt(world.map, x, y)) {
+				return RayTraceResult.missResult(distanceCovered, x, y);
+			}
+			
+			if(distanceTo(x, y, playerLocation) <= enemyRadius) {
+				return RayTraceResult.hitResult(world.player, x, y, distanceCovered);
+			}
+			
+			x += dx;
+			y += dy;
+		}
+		return RayTraceResult.outOfRangeResult(maxDistance, x, y);
+	}
+
 }

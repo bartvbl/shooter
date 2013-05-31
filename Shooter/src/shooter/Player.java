@@ -9,7 +9,7 @@ import org.lwjgl.util.ReadableColor;
 import geom.Point;
 import scene.sceneGraph.sceneNodes.PlayerSceneNode;
 
-public class Player extends GameObject {
+public class Player extends GameObject implements Damageable {
 	private static final double laserDistanceFromCenter = 0.25;
 	private static final double rocketSpeed = 0.03;
 
@@ -53,8 +53,8 @@ public class Player extends GameObject {
 		return health;
 	}
 	
-	public void addHealth(double amount) {
-		this.health += amount;
+	public void damage(double amount) {
+		this.health -= amount;
 		if(health <= 0) {
 			Display.destroy();
 			JOptionPane.showMessageDialog(null, "You were killed!", "The game has ended", JOptionPane.INFORMATION_MESSAGE);

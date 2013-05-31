@@ -53,13 +53,13 @@ public class ShaderLoader {
 	}
 	
 	private static int createShader(String fileName, int shaderType) throws Exception {
-		System.out.println("Loading ARB shader object: " + fileName);
-		
 		int shader = 0;
 		shader = ARBShaderObjects.glCreateShaderObjectARB(shaderType);
 
 		if(shader == 0)
-			return 0;
+		{
+			return 0;			
+		}
 
 		ARBShaderObjects.glShaderSourceARB(shader, readFileAsString(fileName));
 		ARBShaderObjects.glCompileShaderARB(shader);
@@ -67,8 +67,6 @@ public class ShaderLoader {
 		if (ARBShaderObjects.glGetObjectParameteriARB(shader, ARBShaderObjects.GL_OBJECT_COMPILE_STATUS_ARB) == GL_FALSE) {
 			throw new Exception("Error creating shader: " + getLogInfo(shader));				
 		}
-		System.out.println("created shader with ID: " + shader);
-		
 		return shader;
 	}
 

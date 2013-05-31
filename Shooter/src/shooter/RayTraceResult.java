@@ -1,16 +1,14 @@
 package shooter;
 
-import shooter.gameObjects.Peewee;
-
 public class RayTraceResult {
 	public final boolean hasHitEnemy;
 	public final double distance;
-	public final Peewee foundObject;
+	public final Damageable foundObject;
 	public final double rayEndX;
 	public final double rayEndY;
 	public final boolean isOutOfRange;
 
-	public static RayTraceResult hitResult(Peewee foundObject, double rayEndX, double rayEndY, double distance) {
+	public static RayTraceResult hitResult(Damageable foundObject, double rayEndX, double rayEndY, double distance) {
 		return new RayTraceResult(true, false, foundObject, rayEndX, rayEndY, distance);
 	}
 	
@@ -22,7 +20,7 @@ public class RayTraceResult {
 		return new RayTraceResult(false, true, null, rayEndX, rayEndY, distance);
 	}
 
-	private RayTraceResult(boolean hasHitEnemy, boolean outOfRange, Peewee foundObject, double rayEndX, double rayEndY, double distance) {
+	private RayTraceResult(boolean hasHitEnemy, boolean outOfRange, Damageable foundObject, double rayEndX, double rayEndY, double distance) {
 		this.hasHitEnemy = hasHitEnemy;
 		this.distance = distance;
 		this.foundObject = foundObject;

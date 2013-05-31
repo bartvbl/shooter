@@ -4,17 +4,19 @@ import org.lwjgl.util.Timer;
 
 import geom.Point;
 import scene.sceneGraph.sceneNodes.PeeweeNode;
+import shooter.Damageable;
 import shooter.GameObject;
 import shooter.GameObjectType;
 import shooter.GameWorld;
-import shooter.RayTraceResult;
-import shooter.ShotTracer;
+import shooter.RocketSpawner;
 import util.PlayerDistance;
 
-public class Peewee extends GameObject {
-	private static final double firingRange = 2.5;
-	private static final double firingRate = 0.3;
-	private static final double damage = 0.01;
+public class Peewee extends GameObject implements Damageable {
+	private static final double firingRate = 0.55;
+	private static final double firingRange = 5;
+	private static final double rocketSpeed = 0.01;
+	private static final double rocketDamage = 0.1;
+	
 	private double health = 1;
 	private final Timer timer;
 	
@@ -47,17 +49,11 @@ public class Peewee extends GameObject {
 			Point playerLocation = world.controlledNode.getLocation();
 			this.peeweeNode.pointBodyAt(-playerLocation.x, -playerLocation.y);
 			Timer.tick();
-			//kind of abusing the class here. If the ray tracer can not find an enemy or wall in view and ends up with a case of out of range, it means the player was hit.
 			if(timer.getTime() >= firingRate) {
-				RayTraceResult result = ShotTracer.rayTraceEnemy(world, peeweeNode.getBodyRotation(), peeweeNode.getLocation(), playerDistance);
-				if(result.isOutOfRange) {
-					System.out.println("shot!");
-					world.player.addHealth(-damage);
-					timer.reset();					
-				}
+				RocketSpawner.spawnEnemyRocket(world, peeweeNode.getLocation(), -peeweeNode.getBodyRotation(), rocketSpeed, rocketDamage);
+				timer.reset();
+				timer.resume();
 			}
-			
-			
 		}
 	}
 
