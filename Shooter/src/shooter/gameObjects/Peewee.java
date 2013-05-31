@@ -16,9 +16,13 @@ public class Peewee extends GameObject implements Damageable {
 	private static final double firingRange = 5;
 	private static final double rocketSpeed = 0.01;
 	private static final double rocketDamage = 0.1;
+	private static final double rocketDistanceFromCenter = 0.25;
 	
-	private double health = 1;
 	private final Timer timer;
+	private final PeeweeNode peeweeNode;
+
+	private double health = 1;
+	private boolean fireFromLeftSide = true;
 	
 	public static Peewee spawn(int x, int y, GameWorld world) {
 		Peewee peewee = new Peewee(new PeeweeNode(), world);
@@ -29,7 +33,6 @@ public class Peewee extends GameObject implements Damageable {
 		return peewee;
 	}
 
-	private PeeweeNode peeweeNode;
 
 	private Peewee(PeeweeNode sceneNode, GameWorld world) {
 		super(GameObjectType.PEEWEE, sceneNode, world);
@@ -50,11 +53,23 @@ public class Peewee extends GameObject implements Damageable {
 			this.peeweeNode.pointBodyAt(-playerLocation.x, -playerLocation.y);
 			Timer.tick();
 			if(timer.getTime() >= firingRate) {
-				RocketSpawner.spawnEnemyRocket(world, peeweeNode.getLocation(), -peeweeNode.getBodyRotation(), rocketSpeed, rocketDamage);
+				fireRocket();
 				timer.reset();
 				timer.resume();
 			}
 		}
+	}
+
+	private void fireRocket() {
+		double offset = fireFromLeftSide ? -rocketDistanceFromCenter : rocketDistanceFromCenter;
+		double dx = Math.cos(Math.toRadians(peeweeNode.getBodyRotation())) * offset;
+		double dy = Math.sin(Math.toRadians(peeweeNode.getBodyRotation())) * offset;
+		
+		fireFromLeftSide = !fireFromLeftSide;
+
+		Point peeweeLocation = peeweeNode.getLocation();
+		
+		RocketSpawner.spawnEnemyRocket(world, new Point(peeweeLocation.x + dx, peeweeLocation.y + dy), -peeweeNode.getBodyRotation(), rocketSpeed, rocketDamage);
 	}
 
 	public Point getLocation() {

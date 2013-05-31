@@ -36,8 +36,8 @@ public class Player extends GameObject implements Damageable {
 		Point playerLocation = world.controlledNode.getLocation().negate();
 	
 		double offset = fireFromLeftSide ? -laserDistanceFromCenter : laserDistanceFromCenter;
-		double dx = Math.cos(Math.toRadians(playerRotation)) * offset;
-		double dy = Math.sin(Math.toRadians(playerRotation)) * offset;
+		double dx = Math.cos(Math.toRadians(-playerRotation)) * offset;
+		double dy = Math.sin(Math.toRadians(-playerRotation)) * offset;
 		
 		fireFromLeftSide = !fireFromLeftSide;
 		Point rocketOrigin = new Point(playerLocation.x + dx, playerLocation.y + dy);
