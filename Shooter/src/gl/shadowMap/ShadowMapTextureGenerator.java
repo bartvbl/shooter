@@ -12,6 +12,7 @@ import org.lwjgl.BufferUtils;
 public class ShadowMapTextureGenerator {
 	public static int generateShadowMapTexture(int width, int height) {
 		int textureID = generateTextureID();
+		System.out.println("generated ID for shadow map texture: " + textureID);
 		
 		glEnable(GL_TEXTURE_2D);
 		

@@ -60,6 +60,13 @@ public class Player extends GameObject implements Damageable {
 			JOptionPane.showMessageDialog(null, "You were killed!", "The game has ended", JOptionPane.INFORMATION_MESSAGE);
 			System.exit(0);
 		}
+		if(health >= 1) {
+			health = 1;
+		}
+	}
+
+	public boolean hasFullHealth() {
+		return health == 1;
 	}
 
 

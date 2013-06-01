@@ -61,6 +61,7 @@ public class MapBuilder {
 		buildTerrain(chunkRootNode, tileMap, dimension);
 		DoorSpawner.spawnDoors(chunkRootNode, dimension, tileMap, world);
 		MonsterSpawner.spawnMonsters(chunkRootNode, dimension, tileMap, world);
+		PackSpawner.spawnHealthPacks(chunkRootNode, dimension, tileMap, world);
 		return chunkRootNode;
 	}
 

@@ -6,6 +6,8 @@ import java.nio.FloatBuffer;
 
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.ARBShaderObjects;
+import org.lwjgl.opengl.OpenGLException;
+import org.lwjgl.util.glu.GLU;
 
 import static org.lwjgl.opengl.GL13.*;
 
@@ -36,17 +38,18 @@ public class ShadowMapShader {
 		
 		glActiveTexture(GL_TEXTURE0);
 		
-		int textureLocation = ARBShaderObjects.glGetUniformLocationARB(shaderProgramID, "DepthMap");
+		int texture0Location = ARBShaderObjects.glGetUniformLocationARB(shaderProgramID, "texture0");
+		int textureLocation = ARBShaderObjects.glGetUniformLocationARB(shaderProgramID, "depthMap");
 		int lightMatrixLocation = ARBShaderObjects.glGetUniformLocationARB(shaderProgramID, "LightMatrixValue");
 		int modelMatrixLocation = ARBShaderObjects.glGetUniformLocationARB(shaderProgramID, "ViewMatrixValue");
 		int lightPosition = ARBShaderObjects.glGetUniformLocationARB(shaderProgramID, "LightPosition");
-		int texture0Location = ARBShaderObjects.glGetUniformLocationARB(shaderProgramID, "texture0");
 		
-		ARBShaderObjects.glUniform1iARB(textureLocation, shadowMapTextureID);
 		ARBShaderObjects.glUniformMatrix4ARB(lightMatrixLocation, false, lightModelViewMatrix);
 		ARBShaderObjects.glUniformMatrix4ARB(modelMatrixLocation, false, modelViewMatrix);
 		ARBShaderObjects.glUniform4ARB(lightPosition, lightPositionBuffer);
 		ARBShaderObjects.glUniform1iARB(texture0Location, 0);
+		//ARBShaderObjects.glUniform1iARB(textureLocation, shadowMapTextureID);
+		
 	}
 
 	public void disable() {

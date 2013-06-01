@@ -9,6 +9,7 @@ import java.util.Random;
 
 public class MapGenerator {
 	private static final double monsterSpawnProbability = 0.05;
+	private static final double healthSpawnProbability = 0.02;
 	private TileType[][] tiles;
 	private Random random;
 	private boolean[][] neighbourhood3x3;
@@ -19,6 +20,7 @@ public class MapGenerator {
 		
 		initializeMap();
 		createMapBorders();
+		spawnHealthPacks();
 		spawnMonsters();
 		createRooms();
 		
@@ -43,13 +45,21 @@ public class MapGenerator {
 	}
 	
 	private void spawnMonsters() {
+		placeRandomTiles(TileType.MONSTER, monsterSpawnProbability);
+	}
+	
+	private void spawnHealthPacks() {
+		placeRandomTiles(TileType.HEALTH, healthSpawnProbability);
+	}
+
+	private void placeRandomTiles(TileType type, double probability) {
 		int right = tiles.length - 1;
 		int top = tiles[0].length - 1;
 		
 		for(int x = 1; x < right; x++) {
 			for(int y = 1; y < top; y++) {
-				if(random.nextDouble() <= monsterSpawnProbability) {
-					tiles[x][y] = TileType.MONSTER;
+				if(random.nextDouble() <= probability) {
+					tiles[x][y] = type;
 				}
 			}
 		}

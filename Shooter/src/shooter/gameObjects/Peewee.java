@@ -14,7 +14,7 @@ import util.PlayerDistance;
 public class Peewee extends GameObject implements Damageable {
 	private static final double firingRate = 0.55;
 	private static final double firingRange = 5;
-	private static final double rocketSpeed = 0.01;
+	private static final double rocketSpeed = 0.023;
 	private static final double rocketDamage = 0.1;
 	private static final double rocketDistanceFromCenter = 0.25;
 	
