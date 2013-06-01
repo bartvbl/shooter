@@ -22,15 +22,14 @@ void main(void)
 	vec3 realSmPos=smPos01.xyz/smPos01.w;	
 	float depthSm = texture2D(depthMap, realSmPos.xy).r;
 	
-	textureColour[0] *= light;
-	textureColour[1] *= light;
-	textureColour[2] *= light;
-	
 	if (depthSm < realSmPos.z-0.01)
 	{		
 		//textureColour.xyz = vec3(0,0,0);
 	}
-	
+
+	textureColour[0] *= light;
+	textureColour[1] *= light;
+	textureColour[2] *= light;
 	
 	gl_FragColor= textureColour;
 }

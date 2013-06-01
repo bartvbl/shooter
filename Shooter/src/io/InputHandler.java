@@ -93,33 +93,38 @@ public class InputHandler {
 	}
 	
 	private void moveMapInDirection(double angle) {
+		
 		double dx = Math.sin(Math.toRadians(mapRotation + angle)) * MOVE_SPEED;
 		double dy = Math.cos(Math.toRadians(mapRotation + angle)) * MOVE_SPEED;
 		
-		Point location = this.world.controlledNode.getLocation();
-		double currentX = -location.x;
-		double currentY = -location.y;
+		Point location = this.world.controlledNode.getLocation().negate();
 		
-		double newX = -location.x - dx;
-		double newY = -location.y - dy;
+		double newX = location.x - dx;
+		double newY = location.y - dy;
 		
-//		//no collission with wall on x a
-//		if(!isWallAt(newX - 0.1, newY - 0.1) && !isWallAt(newX + 0.1, newY + 0.1)){
-//			
-//		}
-//		if(isWallAt(newX + 0.1, newY - 0.1)) return;
-//		if return;
-//		if(isWallAt(newX - 0.1, newY + 0.1)) return;
-//		
-		if(!isWallAt(newX, currentY)) {			
+		boolean hasNotCollidedX = testLocation(newX, location.y);
+		boolean hasNotCollidedY = testLocation(location.x, newY);
+		
+		if(hasNotCollidedX) {			
 			this.world.controlledNode.translate(dx, 0, 0);
 			this.world.controlledNode.translatePivot(dx, 0, 0);
 		}
-		if(!isWallAt(currentX, newY)) {			
+		if(hasNotCollidedY) {			
 			this.world.controlledNode.translate(0, dy, 0);
 			this.world.controlledNode.translatePivot(0, dy, 0);
 		}
+	}
+
+	private boolean testLocation(double newX, double newY) {
+		boolean hasNotCollided = true;
+		final double rayRadius = 0.3;
 		
+		for(double rayAngle = 0; rayAngle < 360; rayAngle += 5) {
+			double rayX = Math.sin(Math.toRadians(rayAngle)) * rayRadius;
+			double rayY = Math.cos(Math.toRadians(rayAngle)) * rayRadius;
+			hasNotCollided = hasNotCollided && !isWallAt(newX + rayX, newY + rayY);
+		}
+		return hasNotCollided;
 	}
 
 	private boolean isWallAt(double x, double y) {
