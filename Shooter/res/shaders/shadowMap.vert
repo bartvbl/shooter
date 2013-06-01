@@ -7,6 +7,7 @@ varying vec4 viewPos01;
 varying vec3 normal;
 varying vec3 worldPos;
 varying vec4 color;
+varying vec4 emission;
 
 //VERTEXPROGRAM
 void main(void)
@@ -18,6 +19,8 @@ void main(void)
 
 	vec4 lightPos=LightMatrixValue*modelPos;
 	vec4 viewPos=ViewMatrixValue*modelPos;
+	
+	emission = gl_FrontMaterial.emission;
 	
 	normal = gl_Normal;
 	color = gl_Color;

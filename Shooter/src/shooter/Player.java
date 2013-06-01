@@ -54,7 +54,7 @@ public class Player extends GameObject implements Damageable {
 	}
 	
 	public void damage(double amount) {
-		this.health -= amount;
+		//this.health -= amount;
 		if(health <= 0) {
 			Display.destroy();
 			JOptionPane.showMessageDialog(null, "You were killed!", "The game has ended", JOptionPane.INFORMATION_MESSAGE);

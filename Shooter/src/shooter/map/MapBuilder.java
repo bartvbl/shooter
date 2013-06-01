@@ -26,6 +26,9 @@ public class MapBuilder {
 	private static final int coordinatesPerVertex = 3 + 3 + 2;//3 coordinates, 3 normal, 2 texture
 	private static final int CHUNK_WIDTH = 25;
 	private static final int CHUNK_HEIGHT = 25;
+	
+	private static final Texture groundTexture = TextureLoader.loadTextureFromFile("res/textures/ground.png");
+	private static final Texture wallTexture = TextureLoader.loadTextureFromFile("res/textures/wall.png");
 
 	public static void buildMap(MapSceneNode mapNode, TileType[][] tileMap, GameWorld world) {
 		mapNode.clear();
@@ -107,8 +110,7 @@ public class MapBuilder {
 			GeometryBuffer wallBuffer = GeometryBufferGenerator.generateGeometryBuffer(BufferDataFormatType.VERTICES_TEXTURES_NORMALS, geometryDataBuffer, wallIndexBuffer);
 			Material wallMaterial = new Material("wallMaterial");
 			wallMaterial.addChild(wallBuffer);
-			Texture texture = TextureLoader.loadTextureFromFile("res/textures/wall.png");
-			wallMaterial.setDiffuseTexture(texture);
+			wallMaterial.setDiffuseTexture(wallTexture);
 			chunkRootNode.addChild(wallMaterial);
 		}
 		
@@ -116,7 +118,6 @@ public class MapBuilder {
 			GeometryBuffer groundBuffer = GeometryBufferGenerator.generateGeometryBuffer(BufferDataFormatType.VERTICES_TEXTURES_NORMALS, geometryDataBuffer, groundIndexBuffer);
 			Material groundMaterial = new Material("groundMaterial");
 			groundMaterial.addChild(groundBuffer);
-			Texture groundTexture = TextureLoader.loadTextureFromFile("res/textures/ground.png");
 			groundMaterial.setDiffuseTexture(groundTexture);
 			chunkRootNode.addChild(groundMaterial);
 		}

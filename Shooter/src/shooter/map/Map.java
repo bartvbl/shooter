@@ -51,6 +51,12 @@ public class Map extends GameObject {
 	}
 
 	public TileType getTileAt(int x, int y) {
+		if((x < 0) || (x >= tileMap.length)) {
+			return TileType.WALL;
+		}
+		if((y < 0) || (y >= tileMap[0].length)) {
+			return TileType.WALL;
+		}
 		return tileMap[x][y];
 	}
 }
