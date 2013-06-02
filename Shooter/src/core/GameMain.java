@@ -22,7 +22,6 @@ public class GameMain {
 	}
 	
 	public void mainLoop() {
-		Mouse.setGrabbed(true);
 		while(!Display.isCloseRequested()) {
 			FrameUtils.newFrame();
 			FrameUtils.set3DMode();

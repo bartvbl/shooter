@@ -2,9 +2,7 @@ package orre.resources.twoStageLoadables;
 
 import java.io.File;
 
-import orre.resources.FileToLoad;
 import orre.resources.Finalizable;
-import orre.resources.ResourceFile;
 import orre.resources.loaders.obj.OBJLoadingContext;
 import scene.sceneGraph.SceneNode;
 import gl.material.AbstractMaterial;

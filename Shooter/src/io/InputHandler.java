@@ -17,7 +17,6 @@ public class InputHandler {
 	private static final float SHOOTING_FREQUENCY = 0.05f;
 	private static final float MOVE_SPEED = 0.06f;
 	private static final int LEFT_MOUSE_BUTTON = 0;
-	private static final boolean MOUSE_BUTTON_UP = false;
 
 	public InputHandler(GameWorld world) {
 		this.world = world;
@@ -47,6 +46,7 @@ public class InputHandler {
 	
 	private void handlePlayerShoot() {
 		if(Mouse.isButtonDown(LEFT_MOUSE_BUTTON)) {
+			Mouse.setGrabbed(true);
 			Timer.tick();
 			if(timer.getTime() >= SHOOTING_FREQUENCY) {
 				timer.reset();

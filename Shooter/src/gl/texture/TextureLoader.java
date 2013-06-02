@@ -5,7 +5,6 @@ import static org.lwjgl.opengl.GL11.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
-import java.awt.image.PixelGrabber;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -16,7 +15,8 @@ import java.nio.IntBuffer;
 
 import javax.imageio.ImageIO;
 
-import orre.resources.FileToLoad;
+import org.lwjgl.BufferUtils;
+
 import orre.resources.twoStageLoadables.PartiallyLoadableTexture;
 
 public class TextureLoader {
@@ -84,20 +84,20 @@ public class TextureLoader {
 	
 	public static Texture createTexture(byte[] imageData, int width, int height)
 	{
-		IntBuffer textureHandle = ByteBuffer.allocateDirect(4).order(ByteOrder.nativeOrder()).asIntBuffer();
-		ByteBuffer bb = ByteBuffer.allocateDirect(imageData.length).order(ByteOrder.nativeOrder());
+		IntBuffer textureReference = BufferUtils.createIntBuffer(1);
+		ByteBuffer bb = BufferUtils.createByteBuffer(imageData.length);
 		bb.put(imageData).flip();
-		glGenTextures(textureHandle);
-		int texRef = textureHandle.get(0);
+		glGenTextures(textureReference);
+		int textureID = textureReference.get(0);
 		glPushAttrib(GL_TEXTURE_BIT);
-		glBindTexture(GL_TEXTURE_2D,texRef);
+		glBindTexture(GL_TEXTURE_2D,textureID);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, bb);
 		glPopAttrib();
-		return new Texture(texRef, width, height);
+		return new Texture(textureID, width, height);
 	}
 
 	
