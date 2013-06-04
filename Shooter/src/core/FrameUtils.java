@@ -51,7 +51,8 @@ public class FrameUtils {
 		glLoadIdentity();
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
-		gluPerspective(45.0f, ((float)Display.getWidth()/(float)Display.getHeight()), NEAR_POINT, FAR_POINT);
+		double aspectRatio = calculateAspectRatio();
+		gluPerspective(45.0f, (float)aspectRatio, NEAR_POINT, FAR_POINT);
 		//glEnable(GL_CULL_FACE);
 		//glCullFace(GL_BACK);
 		glEnable(GL_TEXTURE_2D);
@@ -62,17 +63,8 @@ public class FrameUtils {
 		glDisable(GL_DEPTH_TEST);
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
-		float windowWidth, windowHeight;
-		if((Display.getWidth() == 0) || (Display.getHeight() == 0))
-		{
-			windowWidth = 100f;
-			windowHeight = 100f;
-		} else {
-			windowWidth = Display.getWidth();
-			windowHeight = Display.getHeight();
-		}
-		float aspectRatio = windowWidth/windowHeight;
-		gluOrtho2D(0, aspectRatio, 0, 1);
+		double aspectRatio = calculateAspectRatio();
+		gluOrtho2D(0, (float)aspectRatio, 0, 1);
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
 		glEnable(GL_TEXTURE_2D);
@@ -81,5 +73,19 @@ public class FrameUtils {
 
 	public static void setViewport() {
 		glViewport(0, 0, Display.getWidth(), Display.getHeight()); 
+	}
+
+	public static double calculateAspectRatio() {
+		double windowWidth, windowHeight;
+		if((Display.getWidth() == 0) || (Display.getHeight() == 0))
+		{
+			windowWidth = 100d;
+			windowHeight = 100d;
+		} else {
+			windowWidth = Display.getWidth();
+			windowHeight = Display.getHeight();
+		}
+		double aspectRatio = windowWidth/windowHeight;
+		return aspectRatio;
 	}
 }

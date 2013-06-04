@@ -28,7 +28,7 @@ import scene.sceneGraph.sceneNodes.EmptyCoordinateNode;
 import scene.sceneGraph.sceneNodes.ShadowMappedLightNode;
 
 
-public class Scene {
+public class Scene3D {
 	private final EmptyCoordinateNode rootNode;
 	private final RenderContext renderContext = new RenderContext();
 	private SceneNode mapNode;
@@ -36,7 +36,7 @@ public class Scene {
 	private ArrayList<SceneNode> mapAdditionQueue = new ArrayList<SceneNode>();
 	private ArrayList<SceneNode> mapRemovalQueue = new ArrayList<SceneNode>();
 	
-	public Scene() {
+	public Scene3D() {
 		this.rootNode = new EmptyCoordinateNode();
 		this.buffer = BufferUtils.createFloatBuffer(4);
 	}

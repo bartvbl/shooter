@@ -1,35 +1,35 @@
 package core;
 
-import gui.HUD;
 import io.InputHandler;
 
-import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
-import scene.Scene;
+
+import scene.Scene2D;
+import scene.Scene3D;
 import shooter.GameWorld;
 
 public class GameMain {
 	private GameWorld gameWorld;
 	private InputHandler inputHandler;
-	private Scene scene;
-	private HUD hud;
+	private Scene3D scene3D;
+	private Scene2D scene2D;
 
 	public void init() {
-		this.scene = new Scene();
-		this.gameWorld = new GameWorld(scene);
+		this.scene3D = new Scene3D();
+		this.gameWorld = new GameWorld(scene3D);
 		this.inputHandler = new InputHandler(gameWorld);
-		this.hud = new HUD(gameWorld);
+		this.scene2D = new Scene2D(gameWorld);
 	}
 	
 	public void mainLoop() {
 		while(!Display.isCloseRequested()) {
 			FrameUtils.newFrame();
-			FrameUtils.set3DMode();
 			
+			FrameUtils.set3DMode();
 			inputHandler.handleInput();
 			gameWorld.update();
-			scene.render();
-			hud.render();
+			scene3D.render();
+			scene2D.render();
 			
 			Display.update();
 			Display.sync(100);

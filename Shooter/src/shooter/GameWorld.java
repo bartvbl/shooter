@@ -2,8 +2,9 @@ package shooter;
 
 import java.util.ArrayList;
 
-import scene.Scene;
+import scene.Scene3D;
 import scene.sceneGraph.sceneNodes.EmptyCoordinateNode;
+import shooter.dialogue.DialogueSequence;
 import shooter.map.Map;
 
 public class GameWorld {
@@ -11,24 +12,28 @@ public class GameWorld {
 	public final Map map;
 	public final Player player;
 	public final EmptyCoordinateNode controlledNode;
-	public final Scene scene;
+	public final Scene3D scene;
+	public final DialogueHandler dialogueHandler;
 	
 	private final ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
 	private final ArrayList<GameObject> gameObjectRemovalQueue = new ArrayList<GameObject>();
 	private final ArrayList<GameObject> gameObjectAdditionQueue = new ArrayList<GameObject>();
 
-	public GameWorld(Scene scene) {
+	public GameWorld(Scene3D scene) {
 		this.scene = scene;
 		this.player = Player.createInstance(this);
 		this.controlledNode = new EmptyCoordinateNode();
 		this.controlledNode.setLocation(-1.5f, -1.5f, 0);
 		this.controlledNode.setPivot(-1.5f, -1.5f, 0);
 		this.map = Map.createInstance(this);
+		this.dialogueHandler = new DialogueHandler();
 		
 		this.gameObjects.add(player);
 		this.gameObjects.add(map);
-
+		
 		scene.buildScene(player.sceneNode, map.sceneNode, controlledNode);
+
+		this.dialogueHandler.showDialogueSequence(DialogueSequence.INTRO);
 	}
 	
 	public void addGameObject(GameObject object) {
@@ -50,8 +55,12 @@ public class GameWorld {
 	}
 
 	public void update() {
-		for(GameObject gameObject : gameObjects) {
-			gameObject.update();
+		if(this.dialogueHandler.isActive()) {
+			this.dialogueHandler.update();
+		} else {			
+			for(GameObject gameObject : gameObjects) {
+				gameObject.update();
+			}
 		}
 		flushQueues();
 	}
