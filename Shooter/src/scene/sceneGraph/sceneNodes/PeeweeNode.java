@@ -31,6 +31,12 @@ public class PeeweeNode extends EmptyCoordinateNode {
 	private boolean transitionCompleted = true;
 	private Point transitionStart;
 	
+	private double playHead = 0;
+	private boolean isReversed = false;
+	
+	private static final double UPPER_BOUND = 45;
+	private static final double LOWER_BOUND = -45;
+	
 	public PeeweeNode(GameWorld world) {
 		this.peeweeMesh = peeweeModel.createSceneNode();
 		this.meshCullingNode = new FrustrumCullingNode(world, 30, 0, 0);
@@ -46,9 +52,26 @@ public class PeeweeNode extends EmptyCoordinateNode {
 		this.meshCullingNode.setDrawCenter(this.getLocation());
 		if(!transitionCompleted) {
 			updateTransition();
+			updateAnimation();
 		}
 	}
 	
+	private void updateAnimation() {
+		if(isReversed) {
+			playHead -= 1;
+			if(playHead < LOWER_BOUND) {
+				isReversed = false;
+			}
+		} else {
+			playHead += 1;
+			if(playHead > UPPER_BOUND) {
+				isReversed = true;
+			}
+		}
+		leftLeg.setRotationX(-playHead);
+		rightLeg.setRotationX(playHead);
+	}
+
 	public void pointBodyAt(double x, double y) {
 		double dx = this.x - x;
 		double dy = this.y - y;
@@ -92,6 +115,8 @@ public class PeeweeNode extends EmptyCoordinateNode {
 		this.transitionCompleted = false;
 		this.distanceCoveredX = 0;
 		this.distanceCoveredY = 0;
+		this.leftLeg.setRotationZ(direction.rotation);
+		this.rightLeg.setRotationZ(direction.rotation);
 		this.transitionStart = this.getLocation();
 	}
 

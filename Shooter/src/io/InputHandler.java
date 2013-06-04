@@ -119,7 +119,7 @@ public class InputHandler {
 		boolean hasNotCollided = true;
 		final double rayRadius = 0.3;
 		
-		for(double rayAngle = 0; rayAngle < 360; rayAngle += 5) {
+		for(double rayAngle = 0; rayAngle < 360; rayAngle += 1) {
 			double rayX = Math.sin(Math.toRadians(rayAngle)) * rayRadius;
 			double rayY = Math.cos(Math.toRadians(rayAngle)) * rayRadius;
 			hasNotCollided = hasNotCollided && !isWallAt(newX + rayX, newY + rayY);
