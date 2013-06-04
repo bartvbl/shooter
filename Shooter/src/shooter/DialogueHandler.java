@@ -31,7 +31,7 @@ public class DialogueHandler {
 	
 	private void advanceDialogueSequence() {
 		sequencePlayhead++;
-		if(sequencePlayhead == this.sequence.dialogueTextures.length - 1) {
+		if(sequencePlayhead == this.sequence.dialogueTextures.length) {
 			this.isActive = false;
 		}
 	}
