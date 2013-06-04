@@ -1,14 +1,15 @@
 package shooter.map;
 
 public class TileNeighbourhood {
-	public static boolean[][] generate3x3Neighbourhood(TileType[][] tiles, int x, int y) {
-		boolean[][] neighbourhood3x3 = new boolean[3][3];
-		for(int i = -1; i <= 1; i++) {
-			for(int j = -1; j <= 1; j++) {
-				neighbourhood3x3[i + 1][j + 1] = isWall(tiles, x + i, y + j);
+
+	public static boolean[][] generate5x5Neighbourhood(TileType[][] tiles, int x, int y) {
+		boolean[][] neighbourhood5x5 = new boolean[5][5];
+		for(int i = -2; i <= 2; i++) {
+			for(int j = -2; j <= 2; j++) {
+				neighbourhood5x5[i + 2][j + 2] = isWall(tiles, x + i, y + j);
 			}
 		}
-		return neighbourhood3x3;
+		return neighbourhood5x5;
 	}
 	
 	private static boolean isWall(TileType[][] tiles, int x, int y) {
@@ -18,20 +19,20 @@ public class TileNeighbourhood {
 		return tiles[x][y] == TileType.WALL;
 	}
 
-	public static boolean isNorthFree(boolean[][] neighbourhood3x3) {
-		return !neighbourhood3x3[0][2] && !neighbourhood3x3[1][2] && !neighbourhood3x3[2][2];
+	public static boolean isNorthFree(boolean[][] neighbourhood5x5) {
+		return !neighbourhood5x5[1][3] && !neighbourhood5x5[2][3] && !neighbourhood5x5[3][3];
 	}
 
-	public static boolean isEastFree(boolean[][] neighbourhood3x3) {
-		return !neighbourhood3x3[2][2] && !neighbourhood3x3[2][1] && !neighbourhood3x3[2][0];
+	public static boolean isEastFree(boolean[][] neighbourhood5x5) {
+		return !neighbourhood5x5[3][3] && !neighbourhood5x5[3][2] && !neighbourhood5x5[3][1];
 	}
 
-	public static boolean isSouthFree(boolean[][] neighbourhood3x3) {
-		return !neighbourhood3x3[0][0] && !neighbourhood3x3[1][0] && !neighbourhood3x3[2][0];
+	public static boolean isSouthFree(boolean[][] neighbourhood5x5) {
+		return !neighbourhood5x5[1][1] && !neighbourhood5x5[2][1] && !neighbourhood5x5[3][1];
 	}
 
-	public static boolean isWestFree(boolean[][] neighbourhood3x3) {
-		return !neighbourhood3x3[0][2] && !neighbourhood3x3[0][1] && !neighbourhood3x3[0][0];
+	public static boolean isWestFree(boolean[][] neighbourhood5x5) {
+		return !neighbourhood5x5[1][3] && !neighbourhood5x5[1][2] && !neighbourhood5x5[1][1];
 	}
 
 	public static boolean isSideFree(TileType[][] tiles, int x, int y, Direction direction) {
@@ -57,13 +58,14 @@ public class TileNeighbourhood {
 		return !isWall(tiles, x - 1, y) && !isWall(tiles, x + 1, y);
 	}
 
-	public static boolean isNeighbourhoodFree(boolean[][] neighbourhood3x3) {
+	public static boolean isNeighbourhoodFree(boolean[][] neighbourhood5x5) {
 		boolean isFree = true;
-		for(int i = 0; i <= 2; i++) {
-			for(int j = 0; j <= 2; j++) {
-				isFree = isFree && !neighbourhood3x3[i][j];
+		for(int i = 0; i <= 4; i++) {
+			for(int j = 0; j <= 4; j++) {
+				isFree = isFree && !neighbourhood5x5[i][j];
 			}
 		}
 		return isFree;
 	}
+
 }

@@ -32,7 +32,7 @@ public class Peewee extends GameObject implements Damageable {
 	private int transitionDestinationY;
 	
 	public static Peewee spawn(int x, int y, GameWorld world) {
-		Peewee peewee = new Peewee(new PeeweeNode(), world);
+		Peewee peewee = new Peewee(new PeeweeNode(world), world);
 		peewee.setLocation(x, y);
 		world.addGameObject(peewee);
 		world.scene.addMapSceneNode(peewee.sceneNode);

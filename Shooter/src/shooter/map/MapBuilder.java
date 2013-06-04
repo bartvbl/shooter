@@ -16,6 +16,7 @@ import org.lwjgl.BufferUtils;
 import org.lwjgl.util.Rectangle;
 
 import scene.sceneGraph.SceneNode;
+import scene.sceneGraph.sceneNodes.FrustrumCullingNode;
 import scene.sceneGraph.sceneNodes.MapSceneNode;
 import shooter.GameWorld;
 
@@ -57,7 +58,7 @@ public class MapBuilder {
 		double chunkRadius = Math.sqrt(CHUNK_WIDTH*CHUNK_WIDTH + CHUNK_HEIGHT*CHUNK_HEIGHT);
 		double chunkCenterX = chunkDimension.getX() + ((double) CHUNK_WIDTH / 2d);
 		double chunkCenterY = chunkDimension.getY() + ((double) CHUNK_HEIGHT / 2d);
-		MapFrustrumCullingNode chunkRootNode = new MapFrustrumCullingNode(world, chunkRadius, chunkCenterX, chunkCenterY);
+		FrustrumCullingNode chunkRootNode = new FrustrumCullingNode(world, chunkRadius, chunkCenterX, chunkCenterY);
 		
 		ChunkDimension dimension = new ChunkDimension(chunkDimension);
 		

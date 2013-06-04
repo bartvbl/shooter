@@ -26,7 +26,7 @@ public abstract class Rocket extends GameObject {
 		this.rocketNode.translate(dx * speed, dy * speed, 0);
 		RayTraceResult result = doObstacleRayTrace();
 		if(result.hasHitEnemy) {
-			result.foundObject.damage(damage);
+			//result.foundObject.damage(damage);
 			destroy();
 		}
 		if(!result.isOutOfRange) {

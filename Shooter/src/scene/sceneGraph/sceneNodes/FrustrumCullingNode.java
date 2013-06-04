@@ -1,4 +1,4 @@
-package shooter.map;
+package scene.sceneGraph.sceneNodes;
 
 
 import geom.Point;
@@ -8,15 +8,15 @@ import scene.sceneGraph.SceneNode;
 import shooter.GameWorld;
 import static org.lwjgl.opengl.GL11.*;
 
-public class MapFrustrumCullingNode extends CoordinateNode implements SceneNode {
+public class FrustrumCullingNode extends CoordinateNode implements SceneNode {
 
 	private final double renderRadius;
-	private final double centerX;
-	private final double centerY;
+	private double centerX;
+	private double centerY;
 	private final GameWorld world;
 
-	//yes. I know. TOTALLY cheating with frustrum culling here. But hey, it fits the definition, right? Not rendering something that isn't in view...
-	public MapFrustrumCullingNode(GameWorld world, double renderRadius, double centerX, double centerY) {
+	//yes. I know. TOTALLY cheating with frustrum culling here. Though it fits the definition, right? Not rendering something that isn't in view...
+	public FrustrumCullingNode(GameWorld world, double renderRadius, double centerX, double centerY) {
 		this.renderRadius = renderRadius;
 		this.centerX = centerX;
 		this.centerY = centerY;
@@ -33,16 +33,17 @@ public class MapFrustrumCullingNode extends CoordinateNode implements SceneNode 
 	}
 
 	private boolean shouldRender() {
-		Point mapLocation = this.world.controlledNode.getLocation();
+		Point mapLocation = this.world.controlledNode.getLocation().negate();
 		//map scrolls in opposite direction of camera
-		double dx = -mapLocation.x - centerX;
-		double dy = -mapLocation.y - centerY;
+		double dx = mapLocation.x - centerX;
+		double dy = mapLocation.y - centerY;
 		double distanceToCameraCenter = Math.sqrt(dx*dx + dy*dy);
 		return distanceToCameraCenter <= renderRadius;
 	}
 
-	public void postRender(RenderContext context) {
-		context.popMatrix();
+	public void setDrawCenter(Point location) {
+		this.centerX = location.x;
+		this.centerY = location.y;
 	}
 	
 	

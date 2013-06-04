@@ -34,5 +34,5 @@ void main(void)
 	
 	textureColour += emission;
 	
-	gl_FragColor= textureColour;
+	gl_FragColor= textureColour;//vec4(depthSm, depthSm, depthSm,1);//textureColour;
 }

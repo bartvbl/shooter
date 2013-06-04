@@ -6,6 +6,7 @@ import static org.lwjgl.opengl.GL30.*;
 import java.nio.FloatBuffer;
 
 import org.lwjgl.BufferUtils;
+import org.lwjgl.opengl.Display;
 
 import core.FrameUtils;
 
@@ -19,10 +20,10 @@ import scene.sceneGraph.ContainerNode;
 import scene.sceneGraph.SceneNode;
 import shooter.GameWorld;
 
-public class ShadowMappedLightNode extends ContainerNode implements SceneNode {
+public class ShadowMappedLightNode extends EmptyCoordinateNode implements SceneNode {
 	private static final int SHADOW_MAP_WIDTH = 1024;
 	private static final int SHADOW_MAP_HEIGHT = 1024;
-	
+
 	public final int shadowMapTextureID;
 	private final int frameBufferID;
 	private final FloatBuffer modelViewMatrix = BufferUtils.createFloatBuffer(16);
@@ -49,6 +50,8 @@ public class ShadowMappedLightNode extends ContainerNode implements SceneNode {
 		
 		context.pushMatrix();
 		//inverse transformation getting down to "eye level"/first person to the player model
+		//it completely depends on the structure of the sceneGraph. 
+		//A better implementation: separate Light scene node that supplies the light transformation matrix and a Camera scene node that supplies the view matrix.
 		Point mapLocation = controlledNode.getLocation();
 		context.translate((float) -mapLocation.x, (float) -mapLocation.y, 0);
 		context.rotate((float) (-1*controlledNode.getRotationZ()), 0, 0, 1);

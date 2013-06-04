@@ -6,6 +6,7 @@ import geom.mesh.ModelPart;
 import orre.resources.loaders.obj.ModelLoader;
 import orre.resources.twoStageLoadables.BlueprintModel;
 import render.RenderContext;
+import shooter.GameWorld;
 import shooter.map.Direction;
 
 import static org.lwjgl.opengl.GL11.*;
@@ -16,6 +17,7 @@ public class PeeweeNode extends EmptyCoordinateNode {
 	private static final double moveSpeed = 0.006;
 	
 	private Mesh3D peeweeMesh;
+	private final FrustrumCullingNode meshCullingNode;
 	
 	private final ModelPart body;
 	private final ModelPart leftLeg;
@@ -29,9 +31,11 @@ public class PeeweeNode extends EmptyCoordinateNode {
 	private boolean transitionCompleted = true;
 	private Point transitionStart;
 	
-	public PeeweeNode() {
+	public PeeweeNode(GameWorld world) {
 		this.peeweeMesh = peeweeModel.createSceneNode();
-		this.addChild(peeweeMesh);
+		this.meshCullingNode = new FrustrumCullingNode(world, 30, 0, 0);
+		meshCullingNode.addChild(peeweeMesh);
+		this.addChild(meshCullingNode);
 		
 		this.body = peeweeMesh.getModelPartByName("body");
 		this.leftLeg = peeweeMesh.getModelPartByName("leftLeg");
@@ -39,6 +43,7 @@ public class PeeweeNode extends EmptyCoordinateNode {
 	}
 	
 	public void render(RenderContext context) {
+		this.meshCullingNode.setDrawCenter(this.getLocation());
 		if(!transitionCompleted) {
 			updateTransition();
 		}

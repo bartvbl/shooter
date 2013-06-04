@@ -20,10 +20,10 @@ public class GameWorld {
 	public GameWorld(Scene scene) {
 		this.scene = scene;
 		this.player = Player.createInstance(this);
-		this.map = Map.createInstance(this);
 		this.controlledNode = new EmptyCoordinateNode();
 		this.controlledNode.setLocation(-1.5f, -1.5f, 0);
 		this.controlledNode.setPivot(-1.5f, -1.5f, 0);
+		this.map = Map.createInstance(this);
 		
 		this.gameObjects.add(player);
 		this.gameObjects.add(map);

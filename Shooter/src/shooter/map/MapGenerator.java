@@ -12,7 +12,6 @@ public class MapGenerator {
 	private static final double healthSpawnProbability = 0.02;
 	private TileType[][] tiles;
 	private Random random;
-	private boolean[][] neighbourhood3x3;
 
 	public TileType[][] generateMap(int width, int height, long seed) {
 		this.tiles = new TileType[width][height];
@@ -82,8 +81,8 @@ public class MapGenerator {
 	}
 	
 	private void fillFromTile(int x, int y) {
-		this.neighbourhood3x3 = TileNeighbourhood.generate3x3Neighbourhood(tiles, x, y);
-		if(TileNeighbourhood.isNeighbourhoodFree(neighbourhood3x3)) {
+		boolean[][] neighbourhood5x5 = TileNeighbourhood.generate5x5Neighbourhood(tiles, x, y);
+		if(TileNeighbourhood.isNeighbourhoodFree(neighbourhood5x5)) {
 			if(shouldPlaceWall() && !willHitDoor(x, y, Direction.NORTH)) {				
 				fillInDirection(x, y, Direction.NORTH);
 			}
@@ -112,15 +111,22 @@ public class MapGenerator {
 			}
 			if(previousWasFree && currentIsFree && nextIsFree) {
 				possibleDoorLocations.add(new Point(x, y));
+			} else {
+				placeDoor(possibleDoorLocations);
 			}
 			previousWasFree = currentIsFree;
 			x += direction.dx;
 			y += direction.dy;
 		} while(tiles[x][y] != TileType.WALL);
+		placeDoor(possibleDoorLocations);
+	}
+
+	private void placeDoor(ArrayList<Point> possibleDoorLocations) {
 		if(!possibleDoorLocations.isEmpty() && (possibleDoorLocations.size() > 1)) {
 			int chosenIndex = random.nextInt(possibleDoorLocations.size() - 1);
 			Point doorLocation = possibleDoorLocations.get(chosenIndex);
 			tiles[(int) doorLocation.x][(int) doorLocation.y] = TileType.DOOR;
+			possibleDoorLocations.clear();
 		}
 	}
 

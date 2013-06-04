@@ -9,6 +9,7 @@ import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.OpenGLException;
 import org.lwjgl.util.glu.GLU;
 
+import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL13.*;
 
 public class ShadowMapShader {
@@ -36,9 +37,6 @@ public class ShadowMapShader {
 		lightModelViewMatrix.rewind();
 		lightPositionBuffer.put(new float[]{(float) -mapLocation.x, (float) -mapLocation.y, -0.5f, 1}).rewind();
 		
-		glActiveTexture(GL_TEXTURE0);
-		
-		int texture0Location = ARBShaderObjects.glGetUniformLocationARB(shaderProgramID, "texture0");
 		int textureLocation = ARBShaderObjects.glGetUniformLocationARB(shaderProgramID, "depthMap");
 		int lightMatrixLocation = ARBShaderObjects.glGetUniformLocationARB(shaderProgramID, "LightMatrixValue");
 		int modelMatrixLocation = ARBShaderObjects.glGetUniformLocationARB(shaderProgramID, "ViewMatrixValue");
@@ -47,9 +45,12 @@ public class ShadowMapShader {
 		ARBShaderObjects.glUniformMatrix4ARB(lightMatrixLocation, false, lightModelViewMatrix);
 		ARBShaderObjects.glUniformMatrix4ARB(modelMatrixLocation, false, modelViewMatrix);
 		ARBShaderObjects.glUniform4ARB(lightPosition, lightPositionBuffer);
-		ARBShaderObjects.glUniform1iARB(texture0Location, 0);
-		//ARBShaderObjects.glUniform1iARB(textureLocation, shadowMapTextureID);
 		
+		glActiveTexture(GL_TEXTURE1);
+		glBindTexture(GL_TEXTURE_2D, shadowMapTextureID);
+		ARBShaderObjects.glUniform1iARB(textureLocation, 1);
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 
 	public void disable() {

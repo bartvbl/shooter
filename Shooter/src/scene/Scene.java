@@ -83,9 +83,7 @@ public class Scene {
 	public void buildScene(SceneNode playerNode, SceneNode mapNode, EmptyCoordinateNode controlledNode) {
 		rootNode.addChild(controlledNode);
 		rootNode.addChild(playerNode);
-		ShadowMappedLightNode shadowNode = new ShadowMappedLightNode(controlledNode);
-		controlledNode.addChild(shadowNode);
-		shadowNode.addChild(mapNode);
+		controlledNode.addChild(mapNode);
 		this.mapNode = mapNode;
 	}
 

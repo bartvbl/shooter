@@ -1,5 +1,6 @@
 package shooter.map;
 
+import scene.sceneGraph.sceneNodes.FrustrumCullingNode;
 import shooter.GameWorld;
 import shooter.gameObjects.Door;
 
@@ -13,7 +14,7 @@ public class DoorSpawner {
 		}
 	}
 
-	public static void spawnDoors(MapFrustrumCullingNode chunkRootNode, ChunkDimension dimension, TileType[][] tileMap, GameWorld world) {
+	public static void spawnDoors(FrustrumCullingNode chunkRootNode, ChunkDimension dimension, TileType[][] tileMap, GameWorld world) {
 		for(int i = dimension.chunkLeft; i < dimension.chunkRight; i++) {
 			for(int j = dimension.chunkBottom; j < dimension.chunkTop; j++) {
 				if(tileMap[i][j] == TileType.DOOR) {

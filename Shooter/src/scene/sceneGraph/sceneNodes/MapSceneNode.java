@@ -1,21 +1,61 @@
 package scene.sceneGraph.sceneNodes;
 
+import geom.Point;
+
 import java.nio.FloatBuffer;
+import java.util.ArrayList;
 
 import org.lwjgl.BufferUtils;
 import render.RenderContext;
+import scene.sceneGraph.ContainerNode;
 import scene.sceneGraph.CoordinateNode;
 import scene.sceneGraph.SceneNode;
 
-public class MapSceneNode extends CoordinateNode implements SceneNode {
+public class MapSceneNode implements SceneNode {
 
-	private final FloatBuffer position = BufferUtils.createFloatBuffer(4);
-	
-	public void render(RenderContext context) {
-		
+	private final CoordinateNode mapContentsNode;
+	private final ArrayList<SceneNode> childList = new ArrayList<SceneNode>();
+
+	public MapSceneNode(CoordinateNode mapContentsNode) {
+		this.mapContentsNode = mapContentsNode;
+		this.childList.add(mapContentsNode);
 	}
-		
-	public void destroy() {
+	
+	public void destroy() {}
 
+	public void preRender(RenderContext context) {}
+	public void render(RenderContext context) {}
+	public void postRender(RenderContext context) {}
+
+	public void setRotationZ(double rotation) {
+		this.mapContentsNode.setRotationZ(rotation);
+	}
+
+	public void translate(double x, double y, double z) {
+		this.mapContentsNode.translate(x, y, z);
+	}
+
+	public Point getLocation() {
+		return this.mapContentsNode.getLocation();
+	}
+
+	public void clear() {
+		this.mapContentsNode.clear();
+	}
+
+	public void addChild(SceneNode node) {
+		mapContentsNode.addChild(node);
+	}
+
+	public void removeChild(SceneNode node) {
+		mapContentsNode.removeChild(node);
+	}
+
+	public ArrayList<SceneNode> getChildren() {
+		return childList;
+	}
+
+	public boolean isVisible() {
+		return true;
 	}
 }

@@ -5,6 +5,7 @@ import geom.Point;
 import scene.sceneGraph.SceneNode;
 import scene.sceneGraph.sceneNodes.EmptyContainerNode;
 import scene.sceneGraph.sceneNodes.MapSceneNode;
+import scene.sceneGraph.sceneNodes.ShadowMappedLightNode;
 import shooter.GameObject;
 import shooter.GameObjectType;
 import shooter.GameWorld;
@@ -18,7 +19,8 @@ public class Map extends GameObject {
 	public static Map createInstance(GameWorld gameWorld) {
 		MapGenerator generator = new MapGenerator();
 		TileType[][] tileMap = generator.generateMap(250, 250, System.currentTimeMillis());
-		return new Map(gameWorld, new MapSceneNode(), tileMap);
+		ShadowMappedLightNode shadowMapNode = new ShadowMappedLightNode(gameWorld.controlledNode);
+		return new Map(gameWorld, new MapSceneNode(shadowMapNode), tileMap);
 	}
 
 	private Map(GameWorld world, MapSceneNode mapSceneNode, TileType[][] tileMap) {
