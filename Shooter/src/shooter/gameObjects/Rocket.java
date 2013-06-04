@@ -2,6 +2,7 @@ package shooter.gameObjects;
 
 import geom.Point;
 import scene.sceneGraph.sceneNodes.RocketNode;
+import shooter.Damageable;
 import shooter.GameObject;
 import shooter.GameObjectType;
 import shooter.GameWorld;
@@ -26,7 +27,7 @@ public abstract class Rocket extends GameObject {
 		this.rocketNode.translate(dx * speed, dy * speed, 0);
 		RayTraceResult result = doObstacleRayTrace();
 		if(result.hasHitEnemy) {
-			//result.foundObject.damage(damage);
+			result.foundObject.damage(damage);
 			destroy();
 		}
 		if(!result.isOutOfRange) {

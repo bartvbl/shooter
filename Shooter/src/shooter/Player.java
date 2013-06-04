@@ -8,6 +8,7 @@ import org.lwjgl.util.ReadableColor;
 
 import geom.Point;
 import scene.sceneGraph.sceneNodes.PlayerSceneNode;
+import shooter.dialogue.DialogueSequence;
 
 public class Player extends GameObject implements Damageable {
 	private static final double laserDistanceFromCenter = 0.25;
@@ -16,6 +17,7 @@ public class Player extends GameObject implements Damageable {
 	private boolean fireFromLeftSide = true;
 	private final PlayerSceneNode playerNode;
 	private double health = 1;
+	private int kills;
 
 	
 	public static Player createInstance(GameWorld gameWorld) {
@@ -67,6 +69,13 @@ public class Player extends GameObject implements Damageable {
 
 	public boolean hasFullHealth() {
 		return health == 1;
+	}
+
+	public void notifyPeeweeKill() {
+		this.kills++;
+		if(kills == 10) {
+			this.world.dialogueHandler.showDialogueSequence(DialogueSequence.BOSS_ENTER);
+		}
 	}
 
 

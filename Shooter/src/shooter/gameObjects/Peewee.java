@@ -127,6 +127,7 @@ public class Peewee extends GameObject implements Damageable {
 	private void kill() {
 		this.world.scene.removeMapSceneNode(this.sceneNode);
 		this.world.removeGameObject(this);
+		this.world.player.notifyPeeweeKill();
 	}
 
 }

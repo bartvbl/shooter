@@ -43,7 +43,10 @@ public class DialogueHandler {
 	public void render() {
 		FrameUtils.set2DMode();
 		
+		glDisable(GL_TEXTURE_2D);
+		
 		drawBackground();
+		drawDialogueBackground();
 		
 		glEnable(GL_TEXTURE_2D);
 		glColor4f(1, 1, 1, 1);
@@ -51,6 +54,7 @@ public class DialogueHandler {
 		drawActorTexture();
 		drawDialogueTexture();
 	}
+
 
 	private void drawBackground() {
 		double aspectRatio = FrameUtils.calculateAspectRatio();
@@ -64,6 +68,21 @@ public class DialogueHandler {
 		glVertex2d(aspectRatio, 1);
 		glTexCoord2d(0, 1);
 		glVertex2d(0, 1);
+		glEnd();
+	}
+
+	private void drawDialogueBackground() {
+		double aspectRatio = FrameUtils.calculateAspectRatio();
+		double centerX = aspectRatio / 2;
+		double xOffset = 0.5 / aspectRatio;
+		
+		glColor4f(1, 1, 1, 1);
+		
+		glBegin(GL_QUADS);
+		glVertex2d(centerX - xOffset, 0.65);
+		glVertex2d(centerX + xOffset, 0.65);
+		glVertex2d(centerX + xOffset, 0.85);
+		glVertex2d(centerX - xOffset, 0.85);
 		glEnd();
 	}
 
@@ -84,6 +103,7 @@ public class DialogueHandler {
 		glVertex2d(centerX - xOffset, 0.6);
 		glEnd();
 	}
+
 
 	private void drawDialogueTexture() {
 		double aspectRatio = FrameUtils.calculateAspectRatio();
