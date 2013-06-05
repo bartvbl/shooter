@@ -105,11 +105,13 @@ public class InputHandler {
 		boolean hasNotCollidedX = testLocation(newX, location.y);
 		boolean hasNotCollidedY = testLocation(location.x, newY);
 		
-		if(hasNotCollidedX) {			
+		boolean isDemoModeEnabled = Keyboard.isKeyDown(Keyboard.KEY_LCONTROL);
+		
+		if(hasNotCollidedX || isDemoModeEnabled) {			
 			this.world.controlledNode.translate(dx, 0, 0);
 			this.world.controlledNode.translatePivot(dx, 0, 0);
 		}
-		if(hasNotCollidedY) {			
+		if(hasNotCollidedY || isDemoModeEnabled) {			
 			this.world.controlledNode.translate(0, dy, 0);
 			this.world.controlledNode.translatePivot(0, dy, 0);
 		}

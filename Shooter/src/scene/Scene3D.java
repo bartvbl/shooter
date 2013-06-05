@@ -16,6 +16,7 @@ import java.nio.FloatBuffer;
 import java.util.ArrayList;
 
 import org.lwjgl.BufferUtils;
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 
@@ -35,6 +36,7 @@ public class Scene3D {
 	private FloatBuffer buffer;
 	private ArrayList<SceneNode> mapAdditionQueue = new ArrayList<SceneNode>();
 	private ArrayList<SceneNode> mapRemovalQueue = new ArrayList<SceneNode>();
+	private double mapTilt = 0;
 	
 	public Scene3D() {
 		this.rootNode = new EmptyCoordinateNode();
@@ -44,14 +46,11 @@ public class Scene3D {
 	public void render() {
 		renderContext.setIdentity();
 		
-//		glEnable(GL_LIGHTING);
-//		glLight(GL_LIGHT0, GL_AMBIENT, (FloatBuffer)buffer.put(new float[]{0.0f, 0.0f, 0.0f, 1}).rewind());
-//		glLight(GL_LIGHT0, GL_DIFFUSE, (FloatBuffer)buffer.put(new float[]{0.5f, 0.5f, 0.5f, 1}).rewind());
-//		glLight(GL_LIGHT0, GL_SPECULAR, (FloatBuffer)buffer.put(new float[]{0.8f, 0.8f, 0.8f, 1}).rewind());
-//		
-//		glLight(GL_LIGHT0, GL_POSITION, (FloatBuffer)buffer.put(new float[]{0, 0.3f, 1f, 1}).rewind());
-//		glLight(GL_LIGHT0, GL_SPOT_CUTOFF, (FloatBuffer)buffer.put(new float[]{30}).rewind());
-//		glLight(GL_LIGHT0, GL_SPOT_DIRECTION, (FloatBuffer)buffer.put(new float[]{0, 1, 0}).rewind());
+		//this is for demoing the game
+		if(Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) {
+			mapTilt += (double)Mouse.getDY() / 10d;
+			renderContext.rotate((float) mapTilt, 1, 0, 0);
+		}
 		
 		renderContext.translate(0, 0, -10);
 		

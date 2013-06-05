@@ -2,6 +2,7 @@ package shooter;
 
 import javax.swing.JOptionPane;
 
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.util.Color;
 import org.lwjgl.util.ReadableColor;
@@ -58,7 +59,9 @@ public class Player extends GameObject implements Damageable {
 	}
 	
 	public void damage(double amount) {
-		//this.health -= amount;
+		if(!Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) {			
+			this.health -= amount;
+		}
 		if(health <= 0) {
 			world.dialogueHandler.showDialogueSequence(DialogueSequence.GAME_LOSE);
 			world.addGameObject(new GameTerminator(world, "You died :("));
