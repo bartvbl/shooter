@@ -58,7 +58,7 @@ public class Player extends GameObject implements Damageable {
 	}
 	
 	public void damage(double amount) {
-		this.health -= amount;
+		//this.health -= amount;
 		if(health <= 0) {
 			world.dialogueHandler.showDialogueSequence(DialogueSequence.GAME_LOSE);
 			world.addGameObject(new GameTerminator(world, "You died :("));

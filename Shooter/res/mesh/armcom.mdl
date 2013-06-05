@@ -5,7 +5,7 @@
 			<part name="leftArm" nameInModelFile="leftArm" pivotX="0" pivotY="0.1" pivotZ="-0.33" />
 			<part name="rightArm" nameInModelFile="rightArm" pivotX="0" pivotY="0.1" pivotZ="-0.33" />
 		</part>
-		<part name="leftLeg" nameInModelFile="leftLeg" pivotX="0" pivotY="0.1" pivotZ="-0.33" />
-		<part name="rightLeg" nameInModelFile="rightLeg" pivotX="0" pivotY="0.1" pivotZ="-0.33" />
+		<part name="leftLeg" nameInModelFile="leftLeg" pivotX="0" pivotY="0" pivotZ="-0.7" />
+		<part name="rightLeg" nameInModelFile="rightLeg" pivotX="0" pivotY="0" pivotZ="-0.7" />
 	</partStructure>
 </Model>
