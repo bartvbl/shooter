@@ -15,10 +15,7 @@ import shooter.map.Direction;
 import shooter.map.TileType;
 import util.PlayerDistance;
 
-public class Enemy extends GameObject implements Damageable {
-
-	
-	
+public abstract class Enemy extends GameObject implements Damageable {
 	private final Timer timer;
 	private final EnemyNode enemyNode;
 	private final EnemySettings settings;
@@ -54,8 +51,11 @@ public class Enemy extends GameObject implements Damageable {
 		this.world.scene.removeMapSceneNode(this.sceneNode);
 		this.world.removeGameObject(this);
 		this.world.player.notifyPeeweeKill();
+		this.onKill();
 	}
 	
+	protected abstract void onKill();
+
 	protected void setLocation(int x, int y) {
 		this.transitionDestinationX = x;
 		this.transitionDestinationY = y;

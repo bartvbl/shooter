@@ -1,5 +1,6 @@
 package shooter;
 
+import shooter.gameObjects.Enemy;
 import shooter.gameObjects.Peewee;
 import shooter.map.Map;
 import shooter.map.TileType;
@@ -23,8 +24,14 @@ public class ShotTracer {
 		
 		double distancePerStep = Math.sqrt(dx*dx + dy*dy);
 		
-		Peewee[] enemies = getEnemyObjects(world);
+		Enemy[] enemies = getEnemyObjectsByType(world, GameObjectType.PEEWEE);
 		Point[] enemyLocations = new Point[enemies.length];
+		Enemy[] boss = getEnemyObjectsByType(world, GameObjectType.BOSS);
+		boolean bossHasSpawned = boss.length == 1;
+		Point bossLocation = null;
+		if(bossHasSpawned) {
+			bossLocation = boss[0].getLocation();
+		}
 		
 		for(int i = 0; i < enemies.length; i++) {
 			enemyLocations[i] = enemies[i].getLocation();
@@ -40,6 +47,11 @@ public class ShotTracer {
 					return RayTraceResult.hitResult(enemies[i], x, y, distanceCovered);
 				}
 			}
+			if(bossHasSpawned) {
+				if(distanceTo(x, y, bossLocation) <= enemyRadius) {
+					return RayTraceResult.hitResult(boss[0], x, y, distanceCovered);
+				}
+			}
 			
 			x += dx;
 			y += dy;
@@ -47,12 +59,12 @@ public class ShotTracer {
 		return RayTraceResult.outOfRangeResult(maxDistance, x, y);
 	}
 
-	private static Peewee[] getEnemyObjects(GameWorld world) {
-		GameObject[] enemyObjects = world.getGameObjectsByType(GameObjectType.PEEWEE);
-		Peewee[] enemies = new Peewee[enemyObjects.length];
+	private static Enemy[] getEnemyObjectsByType(GameWorld world, GameObjectType enemyObjectType) {
+		GameObject[] enemyObjects = world.getGameObjectsByType(enemyObjectType);
+		Enemy[] enemies = new Enemy[enemyObjects.length];
 		
 		for(int i = 0; i < enemies.length; i++) {
-			enemies[i] = (Peewee) enemyObjects[i];
+			enemies[i] = (Enemy) enemyObjects[i];
 		}
 		return enemies;
 	}

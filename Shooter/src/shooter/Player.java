@@ -10,6 +10,7 @@ import geom.Point;
 import scene.sceneGraph.sceneNodes.PlayerSceneNode;
 import shooter.dialogue.DialogueSequence;
 import shooter.gameObjects.CommanderBoss;
+import shooter.gameObjects.GameTerminator;
 
 public class Player extends GameObject implements Damageable {
 	private static final double laserDistanceFromCenter = 0.25;
@@ -59,9 +60,8 @@ public class Player extends GameObject implements Damageable {
 	public void damage(double amount) {
 		this.health -= amount;
 		if(health <= 0) {
-			Display.destroy();
-			JOptionPane.showMessageDialog(null, "You were killed!", "The game has ended", JOptionPane.INFORMATION_MESSAGE);
-			System.exit(0);
+			world.dialogueHandler.showDialogueSequence(DialogueSequence.GAME_LOSE);
+			world.addGameObject(new GameTerminator(world));
 		}
 		if(health >= 1) {
 			health = 1;

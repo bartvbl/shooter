@@ -8,5 +8,6 @@ public enum GameObjectType {
 	ENEMY_SPAWNER, 
 	ROCKET, 
 	HEALTH_PACK, 
-	BOSS
+	BOSS, 
+	GAME_TERMINATOR
 }

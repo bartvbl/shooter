@@ -41,7 +41,5 @@ public class Peewee extends Enemy {
 		super(GameObjectType.PEEWEE, sceneNode, world, new EnemySettings(firingRate, rocketDamage, rocketDistanceFromCenter));
 		
 	}
-	
-
-	
+	protected void onKill() {}
 }
