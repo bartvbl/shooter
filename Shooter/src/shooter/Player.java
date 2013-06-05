@@ -61,7 +61,7 @@ public class Player extends GameObject implements Damageable {
 		this.health -= amount;
 		if(health <= 0) {
 			world.dialogueHandler.showDialogueSequence(DialogueSequence.GAME_LOSE);
-			world.addGameObject(new GameTerminator(world));
+			world.addGameObject(new GameTerminator(world, "You died :("));
 		}
 		if(health >= 1) {
 			health = 1;
@@ -78,6 +78,10 @@ public class Player extends GameObject implements Damageable {
 			this.world.dialogueHandler.showDialogueSequence(DialogueSequence.BOSS_ENTER);
 			CommanderBoss.spawn(world);
 		}
+	}
+
+	public int getKillCount() {
+		return this.kills;
 	}
 
 

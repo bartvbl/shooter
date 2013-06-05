@@ -15,9 +15,10 @@ private static final BlueprintModel bossModel = ModelLoader.loadModel("res/mesh/
 	private static final double firingRate = 0.35;
 	private static final double rocketDamage = 0.2;
 	private static final double rocketDistanceFromCenter = 0.25;
+	private static final double health = 3;
 
 	public CommanderBoss(EnemyNode enemyNode, GameWorld world) {
-		super(GameObjectType.BOSS, enemyNode, world, new EnemySettings(firingRate, rocketDamage, rocketDistanceFromCenter));
+		super(GameObjectType.BOSS, enemyNode, world, new EnemySettings(firingRate, rocketDamage, rocketDistanceFromCenter, health));
 	}
 
 	public static void spawn(GameWorld world) {
@@ -28,6 +29,6 @@ private static final BlueprintModel bossModel = ModelLoader.loadModel("res/mesh/
 
 	protected void onKill() {
 		world.dialogueHandler.showDialogueSequence(DialogueSequence.GAME_WIN);
-		world.addGameObject(new GameTerminator(world));
+		world.addGameObject(new GameTerminator(world, "You won! :D"));
 	}
 }

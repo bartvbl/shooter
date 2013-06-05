@@ -6,11 +6,13 @@ public class EnemySettings {
 	public final double rocketSpeed = 0.023;
 	public final double rocketDamage;
 	public final double launchDistanceFromCenter;
+	public final double enemyStartingHealth;
 	
-	public EnemySettings(double firingRate, double rocketDamage, double distanceFromCenter) {
+	public EnemySettings(double firingRate, double rocketDamage, double distanceFromCenter, double health) {
 		this.firingRate = firingRate;
 		this.rocketDamage = rocketDamage;
 		this.launchDistanceFromCenter = distanceFromCenter;
+		this.enemyStartingHealth = health;
 	}
 	
 	

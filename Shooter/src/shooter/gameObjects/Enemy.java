@@ -21,7 +21,7 @@ public abstract class Enemy extends GameObject implements Damageable {
 	private final EnemySettings settings;
 	private static final Random random = new Random(System.currentTimeMillis());
 	
-	private double health = 1;
+	private double health;
 	private boolean fireFromLeftSide = true;
 	private int transitionDestinationX;
 	private int transitionDestinationY;
@@ -34,6 +34,7 @@ public abstract class Enemy extends GameObject implements Damageable {
 		this.timer = new Timer();
 		timer.resume();
 		this.settings = settings;
+		this.health = settings.enemyStartingHealth;
 	}
 	
 	public Point getLocation() {

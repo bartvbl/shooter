@@ -25,6 +25,7 @@ public class Peewee extends Enemy {
 	private static final double firingRate = 0.55;
 	private static final double rocketDamage = 0.1;
 	private static final double rocketDistanceFromCenter = 0.25;
+	private static final double peeweeHealth = 1;
 	
 	public static Peewee spawn(int x, int y, GameWorld world) {
 		EnemyNode enemyNode = new EnemyNode(peeweeModel, world);
@@ -38,7 +39,7 @@ public class Peewee extends Enemy {
 	private Peewee(EnemyNode sceneNode, GameWorld world) {
 		
 		
-		super(GameObjectType.PEEWEE, sceneNode, world, new EnemySettings(firingRate, rocketDamage, rocketDistanceFromCenter));
+		super(GameObjectType.PEEWEE, sceneNode, world, new EnemySettings(firingRate, rocketDamage, rocketDistanceFromCenter, peeweeHealth));
 		
 	}
 	protected void onKill() {}
