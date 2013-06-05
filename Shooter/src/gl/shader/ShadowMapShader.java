@@ -32,7 +32,7 @@ public class ShadowMapShader {
 
 	public void enable(FloatBuffer modelViewMatrix, FloatBuffer lightModelViewMatrix, Point mapLocation) {
 		ARBShaderObjects.glUseProgramObjectARB(shaderProgramID);
-
+ 
 		modelViewMatrix.rewind();
 		lightModelViewMatrix.rewind();
 		lightPositionBuffer.put(new float[]{(float) -mapLocation.x, (float) -mapLocation.y, -0.5f, 1}).rewind();

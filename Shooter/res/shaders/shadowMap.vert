@@ -2,8 +2,8 @@
 //OUTPUTS
 uniform mat4x4 LightMatrixValue;
 uniform mat4x4 ViewMatrixValue;
-varying vec4 smPos01;
-varying vec4 viewPos01;
+varying vec4 shadowMapPosition;
+varying vec4 viewPosition;
 varying vec3 normal;
 varying vec3 worldPos;
 varying vec4 color;
@@ -29,8 +29,8 @@ void main(void)
 	
 	//and we get the xy position. This allows the lookup in the local case
 	//neat trick to get the -1, 1 range into 0,1 as is needed for the lookup in the texture
-	smPos01 = 0.5 * (lightPos.xyzw +lightPos.wwww);
-	viewPos01 = 0.5 * (viewPos.xyzw +viewPos.wwww);
+	shadowMapPosition = 0.5 * (lightPos.xyzw +lightPos.wwww);
+	viewPosition = 0.5 * (viewPos.xyzw +viewPos.wwww);
 	gl_Position=ftransform();
 }
 

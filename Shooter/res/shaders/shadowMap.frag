@@ -3,8 +3,8 @@
 
 //INPUTS
 //these are standard shadow map coordinates
-varying vec4 smPos01;
-varying vec4 viewPos01;
+varying vec4 shadowMapPosition;
+varying vec4 viewPosition;
 varying vec3 normal;
 varying vec3 worldPos;
 varying vec4 Color;
@@ -20,17 +20,19 @@ void main(void)
 	float light=max(0.0,dot(normalize(LightPosition.xyz-worldPos),normalize(normal.xyz)));
 	vec4 textureColour = texture2D(texture0, gl_TexCoord[0].st);
 	//this is the actual shadow mapping (including the magic bias)!
-	vec3 realSmPos=smPos01.xyz/smPos01.w;	
-	float depthSm = texture2D(depthMap, realSmPos.xy).r;
+	vec3 realShadowMapPosition=shadowMapPosition.xyz/shadowMapPosition.w;	
+	float depthSm = texture2D(depthMap, realShadowMapPosition.xy).r;
+	
+	if (depthSm < realShadowMapPosition.z-0.001)
+	{		
+		light = 0.05;
+	}
 	
 	textureColour[0] *= light;
 	textureColour[1] *= light;
 	textureColour[2] *= light;
 	
-	if (depthSm < realSmPos.z-0.01)
-	{		
-		//textureColour.xyz = vec3(0,0,0);
-	}
+	
 	
 	textureColour += emission;
 	

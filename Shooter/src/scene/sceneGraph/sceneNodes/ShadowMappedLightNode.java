@@ -6,7 +6,6 @@ import static org.lwjgl.opengl.GL30.*;
 import java.nio.FloatBuffer;
 
 import org.lwjgl.BufferUtils;
-import org.lwjgl.opengl.Display;
 
 import core.FrameUtils;
 
@@ -16,9 +15,7 @@ import gl.shader.ShadowMapShader;
 import gl.shadowMap.ShadowMapTextureGenerator;
 import render.RenderContext;
 import render.RenderPass;
-import scene.sceneGraph.ContainerNode;
 import scene.sceneGraph.SceneNode;
-import shooter.GameWorld;
 
 public class ShadowMappedLightNode extends EmptyCoordinateNode implements SceneNode {
 	private static final int SHADOW_MAP_WIDTH = 1024;

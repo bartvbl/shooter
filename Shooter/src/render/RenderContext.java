@@ -1,7 +1,9 @@
 package render;
 
 import java.nio.FloatBuffer;
+import java.util.Arrays;
 
+import org.lwjgl.BufferUtils;
 import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
 
@@ -12,6 +14,7 @@ import static org.lwjgl.opengl.GL11.*;
 public class RenderContext {
 	private Matrix4f modelViewMatrix;
 	private final Stack<Matrix4f> modelViewMatrixStack = new Stack<Matrix4f>();
+	private final FloatBuffer buff = BufferUtils.createFloatBuffer(4*4);
 
 	public RenderContext() {
 		this.modelViewMatrix = new Matrix4f();
@@ -49,7 +52,11 @@ public class RenderContext {
 	}
 
 	public void storeModelViewMatrix(FloatBuffer buffer) {
-		modelViewMatrix.store(buffer);
+		buff.rewind();
+		glGetFloat(GL_MODELVIEW_MATRIX, this.buff);
+		buff.rewind();
+		buffer.rewind();
+		buffer.put(buff);
 		buffer.rewind();
 	}
 
