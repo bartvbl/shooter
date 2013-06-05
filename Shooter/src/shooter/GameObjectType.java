@@ -7,5 +7,6 @@ public enum GameObjectType {
 	DOOR, 
 	ENEMY_SPAWNER, 
 	ROCKET, 
-	HEALTH_PACK
+	HEALTH_PACK, 
+	BOSS
 }

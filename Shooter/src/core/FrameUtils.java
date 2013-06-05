@@ -52,7 +52,7 @@ public class FrameUtils {
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
 		double aspectRatio = calculateAspectRatio();
-		gluPerspective(45.0f, (float)aspectRatio, NEAR_POINT, FAR_POINT);
+		gluPerspective(45, (float)aspectRatio, NEAR_POINT, FAR_POINT);
 		//glEnable(GL_CULL_FACE);
 		//glCullFace(GL_BACK);
 		glEnable(GL_TEXTURE_2D);

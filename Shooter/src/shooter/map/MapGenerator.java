@@ -109,7 +109,7 @@ public class MapGenerator {
 			if(currentIsFree) {
 				tiles[x][y] = TileType.WALL;
 			}
-			if(previousWasFree && currentIsFree && nextIsFree) {
+			if(currentIsFree) {
 				possibleDoorLocations.add(new Point(x, y));
 			} else {
 				placeDoor(possibleDoorLocations);

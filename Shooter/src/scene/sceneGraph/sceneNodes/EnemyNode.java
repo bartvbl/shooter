@@ -12,11 +12,10 @@ import shooter.map.Direction;
 import static org.lwjgl.opengl.GL11.*;
 
 
-public class PeeweeNode extends EmptyCoordinateNode {
-	private static final BlueprintModel peeweeModel = ModelLoader.loadModel("res/mesh/peewee.mdl", "peewee");
+public class EnemyNode extends EmptyCoordinateNode {
 	private static final double moveSpeed = 0.006;
 	
-	private Mesh3D peeweeMesh;
+	private Mesh3D enemyMesh;
 	private final FrustrumCullingNode meshCullingNode;
 	
 	private final ModelPart body;
@@ -37,15 +36,15 @@ public class PeeweeNode extends EmptyCoordinateNode {
 	private static final double UPPER_BOUND = 45;
 	private static final double LOWER_BOUND = -45;
 	
-	public PeeweeNode(GameWorld world) {
-		this.peeweeMesh = peeweeModel.createSceneNode();
+	public EnemyNode(BlueprintModel enemyModel, GameWorld world) {
+		this.enemyMesh = enemyModel.createSceneNode();
 		this.meshCullingNode = new FrustrumCullingNode(world, 30, 0, 0);
-		meshCullingNode.addChild(peeweeMesh);
+		meshCullingNode.addChild(enemyMesh);
 		this.addChild(meshCullingNode);
 		
-		this.body = peeweeMesh.getModelPartByName("body");
-		this.leftLeg = peeweeMesh.getModelPartByName("leftLeg");
-		this.rightLeg = peeweeMesh.getModelPartByName("rightLeg");
+		this.body = enemyMesh.getModelPartByName("body");
+		this.leftLeg = enemyMesh.getModelPartByName("leftLeg");
+		this.rightLeg = enemyMesh.getModelPartByName("rightLeg");
 	}
 	
 	public void render(RenderContext context) {

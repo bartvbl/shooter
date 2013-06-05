@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class NoiseGenerator {
-	private static final double NOISE_LEVEL = 0.03;
+	private static final double NOISE_LEVEL = 0.1;
 	
 	public static ArrayList<Point> generateSortedRandomNoise(Random random, int mapWidth, int mapHeight) {
 		ArrayList<Point> randomNoisePoints = generateRandomNoise(random, mapWidth, mapHeight);

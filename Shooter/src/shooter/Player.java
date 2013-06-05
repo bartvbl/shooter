@@ -9,6 +9,7 @@ import org.lwjgl.util.ReadableColor;
 import geom.Point;
 import scene.sceneGraph.sceneNodes.PlayerSceneNode;
 import shooter.dialogue.DialogueSequence;
+import shooter.gameObjects.CommanderBoss;
 
 public class Player extends GameObject implements Damageable {
 	private static final double laserDistanceFromCenter = 0.25;
@@ -73,8 +74,9 @@ public class Player extends GameObject implements Damageable {
 
 	public void notifyPeeweeKill() {
 		this.kills++;
-		if(kills == 10) {
+		if(kills == 1) {
 			this.world.dialogueHandler.showDialogueSequence(DialogueSequence.BOSS_ENTER);
+			CommanderBoss.spawn(world);
 		}
 	}
 
