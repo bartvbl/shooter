@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import scene.Scene3D;
 import scene.sceneGraph.sceneNodes.EmptyCoordinateNode;
+import shooter.dialogue.DialogueHandler;
 import shooter.dialogue.DialogueSequence;
 import shooter.map.Map;
 

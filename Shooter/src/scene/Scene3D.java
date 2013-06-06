@@ -55,6 +55,14 @@ public class Scene3D {
 		
 		renderContext.translate(0, (float)GameSettings.playerYOffset, -10);
 		
+//		glEnable(GL_LIGHTING);
+//		glEnable(GL_LIGHT0);
+//		glLight(GL_LIGHT0, GL_AMBIENT, (FloatBuffer)buffer.put(new float[]{0.0f, 0.0f, 0.0f, 1}).rewind());
+//		glLight(GL_LIGHT0, GL_DIFFUSE, (FloatBuffer)buffer.put(new float[]{0.5f, 0.5f, 0.5f, 1}).rewind());
+//		glLight(GL_LIGHT0, GL_SPECULAR, (FloatBuffer)buffer.put(new float[]{0.8f, 0.8f, 0.8f, 1}).rewind());
+//		glLight(GL_LIGHT0, GL_POSITION, (FloatBuffer)buffer.put(new float[]{0, 0, -0.5f, 1}).rewind());
+		
+		
 		RenderPass.render(rootNode, renderContext);
 		
 		flushMapNodeQueues();

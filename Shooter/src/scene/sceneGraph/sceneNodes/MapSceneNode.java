@@ -1,5 +1,13 @@
 package scene.sceneGraph.sceneNodes;
 
+import static org.lwjgl.opengl.GL11.GL_AMBIENT;
+import static org.lwjgl.opengl.GL11.GL_DIFFUSE;
+import static org.lwjgl.opengl.GL11.GL_LIGHT0;
+import static org.lwjgl.opengl.GL11.GL_LIGHTING;
+import static org.lwjgl.opengl.GL11.GL_POSITION;
+import static org.lwjgl.opengl.GL11.GL_SPECULAR;
+import static org.lwjgl.opengl.GL11.glEnable;
+import static org.lwjgl.opengl.GL11.glLight;
 import geom.Point;
 
 import java.nio.FloatBuffer;
@@ -12,18 +20,27 @@ import scene.sceneGraph.CoordinateNode;
 import scene.sceneGraph.SceneNode;
 
 public class MapSceneNode implements SceneNode {
-
+	private FloatBuffer buffer;
 	private final CoordinateNode mapContentsNode;
 	private final ArrayList<SceneNode> childList = new ArrayList<SceneNode>();
 
 	public MapSceneNode(CoordinateNode mapContentsNode) {
 		this.mapContentsNode = mapContentsNode;
 		this.childList.add(mapContentsNode);
+		this.buffer = BufferUtils.createFloatBuffer(4);
 	}
 	
 	public void destroy() {}
 
-	public void preRender(RenderContext context) {}
+	public void preRender(RenderContext context) {
+		glEnable(GL_LIGHTING);
+		glEnable(GL_LIGHT0);
+		glLight(GL_LIGHT0, GL_AMBIENT, (FloatBuffer)buffer.put(new float[]{0.0f, 0.0f, 0.0f, 1}).rewind());
+		glLight(GL_LIGHT0, GL_DIFFUSE, (FloatBuffer)buffer.put(new float[]{0.5f, 0.5f, 0.5f, 1}).rewind());
+		glLight(GL_LIGHT0, GL_SPECULAR, (FloatBuffer)buffer.put(new float[]{0.8f, 0.8f, 0.8f, 1}).rewind());
+		glLight(GL_LIGHT0, GL_POSITION, (FloatBuffer)buffer.put(new float[]{0, 0, 0, 1}).rewind());
+	}
+	
 	public void render(RenderContext context) {}
 	public void postRender(RenderContext context) {}
 

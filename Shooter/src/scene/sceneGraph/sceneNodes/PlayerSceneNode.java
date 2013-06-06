@@ -30,7 +30,6 @@ public class PlayerSceneNode extends StackingContainerNode implements SceneNode 
 		BlueprintModel model = ModelLoader.loadModel("res/mesh/ak.mdl", "AK");
 		this.playerMesh = model.createSceneNode();
 		this.addChild(playerMesh);
-		playerMesh.translate(0, GameSettings.playerYOffset, 0);
 		
 		this.leftLeg = playerMesh.getModelPartByName("leftLeg");
 		this.rightLeg = playerMesh.getModelPartByName("rightLeg");

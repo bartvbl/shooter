@@ -1,4 +1,4 @@
-package shooter;
+package shooter.dialogue;
 
 import org.lwjgl.input.Keyboard;
 import static org.lwjgl.opengl.GL11.*;
@@ -6,7 +6,6 @@ import static org.lwjgl.opengl.GL11.*;
 import gl.texture.Texture;
 import gl.texture.TextureLoader;
 import core.FrameUtils;
-import shooter.dialogue.DialogueSequence;
 
 public class DialogueHandler {
 	private boolean isActive = false;
@@ -74,7 +73,7 @@ public class DialogueHandler {
 	private void drawDialogueBackground() {
 		double aspectRatio = FrameUtils.calculateAspectRatio();
 		double centerX = aspectRatio / 2;
-		double xOffset = 0.5 / aspectRatio;
+		double xOffset = aspectRatio / 4;
 		
 		glColor4f(1, 1, 1, 1);
 		
@@ -89,7 +88,7 @@ public class DialogueHandler {
 	private void drawActorTexture() {
 		double aspectRatio = FrameUtils.calculateAspectRatio();
 		double centerX = aspectRatio / 2;
-		double xOffset = 0.5 / aspectRatio;
+		double xOffset = aspectRatio / 4;
 		
 		actorTexture.bind();
 		glBegin(GL_QUADS);
@@ -108,7 +107,7 @@ public class DialogueHandler {
 	private void drawDialogueTexture() {
 		double aspectRatio = FrameUtils.calculateAspectRatio();
 		double centerX = aspectRatio / 2;
-		double xOffset = 0.5 / aspectRatio;
+		double xOffset = aspectRatio / 4;
 
 		this.sequence.dialogueTextures[this.sequencePlayhead].bind();
 		

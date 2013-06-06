@@ -63,7 +63,7 @@ public class ShaderLoader {
 
 		ARBShaderObjects.glShaderSourceARB(shader, readFileAsString(fileName));
 		ARBShaderObjects.glCompileShaderARB(shader);
-
+		System.out.println("loading shader " + fileName);
 		if (ARBShaderObjects.glGetObjectParameteriARB(shader, ARBShaderObjects.GL_OBJECT_COMPILE_STATUS_ARB) == GL_FALSE) {
 			throw new Exception("Error creating shader: " + getLogInfo(shader));				
 		}
