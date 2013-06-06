@@ -21,6 +21,7 @@ import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 
 import core.FrameUtils;
+import core.GameSettings;
 
 import render.RenderContext;
 import render.RenderPass;
@@ -52,7 +53,7 @@ public class Scene3D {
 			renderContext.rotate((float) mapTilt, 1, 0, 0);
 		}
 		
-		renderContext.translate(0, 0, -10);
+		renderContext.translate(0, (float)GameSettings.playerYOffset, -10);
 		
 		RenderPass.render(rootNode, renderContext);
 		

@@ -6,8 +6,10 @@ import static org.lwjgl.opengl.GL30.*;
 import java.nio.FloatBuffer;
 
 import org.lwjgl.BufferUtils;
+import org.lwjgl.util.glu.GLU;
 
 import core.FrameUtils;
+import core.GameSettings;
 
 import geom.Point;
 import gl.FrameBufferUtils;
@@ -52,10 +54,10 @@ public class ShadowMappedLightNode extends EmptyCoordinateNode implements SceneN
 		Point mapLocation = controlledNode.getLocation();
 		context.translate((float) -mapLocation.x, (float) -mapLocation.y, 0);
 		context.rotate((float) (-1*controlledNode.getRotationZ()), 0, 0, 1);
-		context.translate(0, 0, 10);
+		context.translate(0,(float) -GameSettings.playerYOffset, 10);
 		context.rotate(-90, 1, 0, 0);
 		context.rotate((float) controlledNode.getRotationZ(), 0, 0, 1);
-		context.translate((float) mapLocation.x, (float) mapLocation.y, -0.5f);
+		context.translate((float) mapLocation.x, (float) (mapLocation.y), -0.5f);
 		context.storeModelViewMatrix(lightModelViewMatrix);
 		context.pushMatrix();
 		renderDepthTexture(context);

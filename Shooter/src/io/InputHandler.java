@@ -40,7 +40,7 @@ public class InputHandler {
 	private void handleMapRotationEvent() {
 		int dx = Mouse.getEventDX();
 		double deltaRotation = (double) dx / 5d;
-		this.mapRotation  += deltaRotation;
+		this.mapRotation += deltaRotation;
 		world.controlledNode.setRotationZ(mapRotation);
 	}
 	

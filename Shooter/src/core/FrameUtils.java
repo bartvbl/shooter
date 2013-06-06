@@ -90,4 +90,5 @@ public class FrameUtils {
 		double aspectRatio = windowWidth/windowHeight;
 		return aspectRatio;
 	}
+
 }

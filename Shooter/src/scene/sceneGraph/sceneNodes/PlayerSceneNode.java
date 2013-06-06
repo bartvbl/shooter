@@ -5,6 +5,8 @@ import geom.mesh.ModelPart;
 
 import java.util.ArrayList;
 
+import core.GameSettings;
+
 import orre.resources.loaders.obj.ModelLoader;
 import orre.resources.twoStageLoadables.BlueprintModel;
 import render.RenderContext;
@@ -28,6 +30,7 @@ public class PlayerSceneNode extends StackingContainerNode implements SceneNode 
 		BlueprintModel model = ModelLoader.loadModel("res/mesh/ak.mdl", "AK");
 		this.playerMesh = model.createSceneNode();
 		this.addChild(playerMesh);
+		playerMesh.translate(0, GameSettings.playerYOffset, 0);
 		
 		this.leftLeg = playerMesh.getModelPartByName("leftLeg");
 		this.rightLeg = playerMesh.getModelPartByName("rightLeg");
