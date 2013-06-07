@@ -7,6 +7,7 @@ import java.nio.FloatBuffer;
 
 import org.lwjgl.BufferUtils;
 import org.lwjgl.util.glu.GLU;
+import org.lwjgl.util.glu.Sphere;
 
 import core.FrameUtils;
 import core.GameSettings;
@@ -28,10 +29,14 @@ public class ShadowMappedLightNode extends EmptyCoordinateNode implements SceneN
 	private final FloatBuffer modelViewMatrix = BufferUtils.createFloatBuffer(16);
 	private final FloatBuffer lightModelViewMatrix = BufferUtils.createFloatBuffer(16);
 	private final EmptyCoordinateNode controlledNode;
+	private final FloatBuffer buffer;
 
 	private ShadowMapShader shader;
+	private Sphere sphere;
 	
 	public ShadowMappedLightNode(EmptyCoordinateNode controlledNode) {
+		this.sphere = new Sphere();
+		this.buffer = BufferUtils.createFloatBuffer(4);
 		this.controlledNode = controlledNode;
 		this.shadowMapTextureID = ShadowMapTextureGenerator.generateShadowMapTexture(SHADOW_MAP_WIDTH, SHADOW_MAP_HEIGHT);
 		this.frameBufferID = FrameBufferUtils.generateShadowMapFrameBuffer(shadowMapTextureID);
@@ -48,11 +53,13 @@ public class ShadowMappedLightNode extends EmptyCoordinateNode implements SceneN
 		context.storeModelViewMatrix(modelViewMatrix);
 		
 		context.pushMatrix();
+		context.popMatrix();
 		//inverse transformation getting down to "eye level"/first person to the player model
 		//it completely depends on the structure of the sceneGraph. 
 		//A better implementation: separate Light scene node that supplies the light transformation matrix and a Camera scene node that supplies the view matrix.
 		Point mapLocation = controlledNode.getLocation();
 		context.translate((float) -mapLocation.x, (float) -mapLocation.y, 0);
+		setLightPosition();
 		context.rotate((float) (-1*controlledNode.getRotationZ()), 0, 0, 1);
 		context.translate(0,(float) -GameSettings.playerYOffset, 10);
 		context.rotate(-90, 1, 0, 0);
@@ -62,7 +69,16 @@ public class ShadowMappedLightNode extends EmptyCoordinateNode implements SceneN
 		context.pushMatrix();
 		renderDepthTexture(context);
 		context.popMatrix();
-		context.popMatrix();
+	}
+
+	private void setLightPosition() {
+		sphere.draw(0.1f, 10, 10);
+		glEnable(GL_LIGHTING);
+		glEnable(GL_LIGHT0);
+		glLight(GL_LIGHT0, GL_AMBIENT, (FloatBuffer)buffer.put(new float[]{0.0f, 0.0f, 0.0f, 1}).rewind());
+		glLight(GL_LIGHT0, GL_DIFFUSE, (FloatBuffer)buffer.put(new float[]{1f, 1f, 1f, 1}).rewind());
+		glLight(GL_LIGHT0, GL_SPECULAR, (FloatBuffer)buffer.put(new float[]{1f, 1f, 1f, 1}).rewind());
+		glLight(GL_LIGHT0, GL_POSITION, (FloatBuffer)buffer.put(new float[]{0, 0, 1f, 1}).rewind());
 	}
 
 	private void renderDepthTexture(RenderContext context) {

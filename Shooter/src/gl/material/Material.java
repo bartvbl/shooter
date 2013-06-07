@@ -30,11 +30,11 @@ public class Material extends EmptyContainerNode implements SceneNode, AbstractM
 	{
 		this.name = name;
 		this.ambientColour = new float[]{0.0f, 0.0f, 0.0f, 1.0f};
-		this.diffuseColour = new float[]{0.5f, 0.5f, 0.5f, 1.0f};
-		this.specularColour = new float[]{0.1f, 0.1f, 0.1f, 1.0f};
+		this.diffuseColour = new float[]{0.7f, 0.7f, 0.7f, 1.0f};
+		this.specularColour = new float[]{0.4f, 0.4f, 0.4f, 1.0f};
 		this.emissionColour = new float[]{0.0f, 0.0f, 0.0f, 1.0f};
 		this.alpha = 1f;
-		this.shininess = 1f;
+		this.shininess = 12f;
 	}
 	
 	public void setAmbientTexture(Texture texture)

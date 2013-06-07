@@ -7,7 +7,8 @@ varying vec4 shadowMapPosition;
 varying vec4 viewPosition;
 varying vec3 normal;
 varying vec3 worldPos;
-varying vec4 color;
+varying vec3 lightDirection;
+varying vec3 eyeVector;
 
 //VERTEXPROGRAM
 void main(void)
@@ -17,12 +18,13 @@ void main(void)
 	vec4 modelPos = gl_Vertex;
 	worldPos=modelPos.xyz/modelPos.w;
 
-	vec4 lightPos=LightMatrixValue*modelPos;
-	vec4 viewPos=ViewMatrixValue*modelPos;
+	vec4 lightPos = LightMatrixValue*modelPos;
+	vec4 viewPos = ViewMatrixValue*modelPos;
+	vec3 unitPotision = vec3(gl_ModelViewMatrix * gl_Vertex);
+	lightDirection = vec3(gl_LightSource[0].position.xyz - unitPotision);
+	eyeVector = -unitPotision;
 	
-	
-	normal = gl_Normal;
-	color = gl_Color;
+	normal = gl_NormalMatrix * gl_Normal;
 	//storing texture coordinates
 	gl_TexCoord[0] = gl_MultiTexCoord0;
 	

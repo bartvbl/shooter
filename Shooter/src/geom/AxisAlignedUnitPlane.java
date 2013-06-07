@@ -51,13 +51,13 @@ public class AxisAlignedUnitPlane {
 	
 	public static double[] createTopPlane(double x, double y, double z) {
 		return new double[]{
-			x, y, z, 				0, 0,		0, 0, -1,
-			x + 1, y, z, 			1, 0,		0, 0, -1,
-			x + 1, y + 1, z,		1, 1,		0, 0, -1,
+			x, y, z, 				0, 0,		0, 0, 1,
+			x + 1, y, z, 			1, 0,		0, 0, 1,
+			x + 1, y + 1, z,		1, 1,		0, 0, 1,
 			
-			x, y, z, 				0, 0,		0, 0, -1,
-			x + 1, y + 1, z, 		1, 1,		0, 0, -1,
-			x, y + 1, z, 			0, 1,		0, 0, -1
+			x, y, z, 				0, 0,		0, 0, 1,
+			x + 1, y + 1, z, 		1, 1,		0, 0, 1,
+			x, y + 1, z, 			0, 1,		0, 0, 1
 		};
 	}
 	
