@@ -53,7 +53,6 @@ public class ShadowMappedLightNode extends EmptyCoordinateNode implements SceneN
 		context.storeModelViewMatrix(modelViewMatrix);
 		
 		context.pushMatrix();
-		context.popMatrix();
 		//inverse transformation getting down to "eye level"/first person to the player model
 		//it completely depends on the structure of the sceneGraph. 
 		//A better implementation: separate Light scene node that supplies the light transformation matrix and a Camera scene node that supplies the view matrix.
@@ -68,6 +67,7 @@ public class ShadowMappedLightNode extends EmptyCoordinateNode implements SceneN
 		context.storeModelViewMatrix(lightModelViewMatrix);
 		context.pushMatrix();
 		renderDepthTexture(context);
+		context.popMatrix();
 		context.popMatrix();
 	}
 
