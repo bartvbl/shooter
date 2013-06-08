@@ -1,4 +1,4 @@
-package shooter.map;
+package shooter.map.generator;
 
 import geom.Point;
 
@@ -7,9 +7,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
+import shooter.map.TileType;
+
 public class MapGenerator {
 	private static final double monsterSpawnProbability = 0.05;
 	private static final double healthSpawnProbability = 0.02;
+	private static final double shieldSpawnProbability = 0.02;
 	private TileType[][] tiles;
 	private Random random;
 
@@ -19,6 +22,7 @@ public class MapGenerator {
 		
 		initializeMap();
 		createMapBorders();
+		spawnShieldPacks();
 		spawnHealthPacks();
 		spawnMonsters();
 		createRooms();
@@ -43,12 +47,16 @@ public class MapGenerator {
 		Arrays.fill(tiles[tiles.length - 1], TileType.WALL);
 	}
 	
-	private void spawnMonsters() {
-		placeRandomTiles(TileType.MONSTER, monsterSpawnProbability);
+	private void spawnShieldPacks() {
+		placeRandomTiles(TileType.SHIELD, shieldSpawnProbability);
 	}
 	
 	private void spawnHealthPacks() {
 		placeRandomTiles(TileType.HEALTH, healthSpawnProbability);
+	}
+	
+	private void spawnMonsters() {
+		placeRandomTiles(TileType.MONSTER, monsterSpawnProbability);
 	}
 
 	private void placeRandomTiles(TileType type, double probability) {

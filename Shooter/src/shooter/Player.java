@@ -12,6 +12,7 @@ import scene.sceneGraph.sceneNodes.PlayerSceneNode;
 import shooter.dialogue.DialogueSequence;
 import shooter.gameObjects.CommanderBoss;
 import shooter.gameObjects.GameTerminator;
+import shooter.gameObjects.rocket.RocketSpawner;
 
 public class Player extends GameObject implements Damageable {
 	private static final double laserDistanceFromCenter = 0.25;
@@ -20,6 +21,7 @@ public class Player extends GameObject implements Damageable {
 	private boolean fireFromLeftSide = true;
 	private final PlayerSceneNode playerNode;
 	private double health = 1;
+	private double shield = 1;
 	private int kills;
 
 	
@@ -59,8 +61,17 @@ public class Player extends GameObject implements Damageable {
 	}
 	
 	public void damage(double amount) {
-		if(!Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) {			
-			//this.health -= amount;
+		if(!Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) {
+			double remainingDamage = amount;
+			if(this.shield > 0) {
+				shield -= amount;
+				remainingDamage = -1*Math.min(shield, 0);
+				if(shield <= 0) {
+					shield = 0;
+					this.playerNode.hideShield();
+				}
+			}
+			this.health -= remainingDamage;
 		}
 		if(health <= 0) {
 			world.dialogueHandler.showDialogueSequence(DialogueSequence.GAME_LOSE);
@@ -85,6 +96,29 @@ public class Player extends GameObject implements Damageable {
 
 	public int getKillCount() {
 		return this.kills;
+	}
+
+	public void addShield(double shieldBonus) {
+		this.shield += shieldBonus;
+		if(this.shield >= 1) {
+			shield = 1;
+		}
+		this.playerNode.showShield();
+	}
+
+	public boolean hasFullShield() {
+		return shield == 1;
+	}
+
+	public double getShield() {
+		return shield;
+	}
+
+	public void addHealth(double healthbonus) {
+		this.health += health;
+		if(health > 1) {
+			health = 1;
+		}
 	}
 
 

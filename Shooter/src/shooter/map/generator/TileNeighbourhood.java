@@ -1,4 +1,6 @@
-package shooter.map;
+package shooter.map.generator;
+
+import shooter.map.TileType;
 
 public class TileNeighbourhood {
 

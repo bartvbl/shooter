@@ -1,8 +1,9 @@
-package shooter.map;
+package shooter.map.generator;
 
 import scene.sceneGraph.sceneNodes.FrustrumCullingNode;
 import shooter.GameWorld;
 import shooter.gameObjects.Door;
+import shooter.map.TileType;
 
 public class DoorSpawner {
 

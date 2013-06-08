@@ -1,4 +1,4 @@
-package shooter.map;
+package shooter.map.generator;
 
 public enum Direction {
 	NORTH(0, 1, 0), SOUTH(0, -1, 180), EAST(1, 0, 90), WEST(-1, 0, 270), ;

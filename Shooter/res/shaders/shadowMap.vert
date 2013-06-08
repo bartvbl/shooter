@@ -2,6 +2,7 @@
 //OUTPUTS
 uniform mat4x4 LightMatrixValue;
 uniform mat4x4 ViewMatrixValue;
+uniform vec4 LightPosition;
 
 varying vec4 shadowMapPosition;
 varying vec4 viewPosition;
@@ -19,7 +20,7 @@ void main(void)
 	worldPos=modelPos.xyz/modelPos.w;
 
 	vec4 lightPos = LightMatrixValue*modelPos;
-	vec4 viewPos = ViewMatrixValue*modelPos;
+	vec4 viewPos = gl_ModelViewMatrix*modelPos;
 	vec3 unitPotision = vec3(gl_ModelViewMatrix * gl_Vertex);
 	lightDirection = vec3(gl_LightSource[0].position.xyz - unitPotision);
 	eyeVector = -unitPotision;

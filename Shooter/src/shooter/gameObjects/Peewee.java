@@ -13,10 +13,10 @@ import shooter.Damageable;
 import shooter.GameObject;
 import shooter.GameObjectType;
 import shooter.GameWorld;
-import shooter.RocketSpawner;
-import shooter.map.Direction;
-import shooter.map.DistanceSorter;
+import shooter.gameObjects.rocket.RocketSpawner;
 import shooter.map.TileType;
+import shooter.map.generator.Direction;
+import shooter.map.generator.DistanceSorter;
 import util.PlayerDistance;
 
 public class Peewee extends Enemy {

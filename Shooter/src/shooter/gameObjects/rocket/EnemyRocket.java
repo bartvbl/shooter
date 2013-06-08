@@ -1,11 +1,9 @@
-package shooter.gameObjects;
+package shooter.gameObjects.rocket;
 
 import geom.Point;
 import scene.sceneGraph.sceneNodes.RocketNode;
 import shooter.Damageable;
 import shooter.GameWorld;
-import shooter.RayTraceResult;
-import shooter.ShotTracer;
 
 public class EnemyRocket extends Rocket {
 

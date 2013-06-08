@@ -1,4 +1,4 @@
-package shooter.map;
+package shooter.map.generator;
 
 import org.lwjgl.util.Rectangle;
 

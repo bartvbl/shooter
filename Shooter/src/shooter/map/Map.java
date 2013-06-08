@@ -9,6 +9,7 @@ import scene.sceneGraph.sceneNodes.ShadowMappedLightNode;
 import shooter.GameObject;
 import shooter.GameObjectType;
 import shooter.GameWorld;
+import shooter.map.generator.MapGenerator;
 
 public class Map extends GameObject {
 

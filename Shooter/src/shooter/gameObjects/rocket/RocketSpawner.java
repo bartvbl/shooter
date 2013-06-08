@@ -1,7 +1,6 @@
-package shooter;
+package shooter.gameObjects.rocket;
 
-import shooter.gameObjects.EnemyRocket;
-import shooter.gameObjects.PlayerRocket;
+import shooter.GameWorld;
 import geom.Point;
 
 public class RocketSpawner {

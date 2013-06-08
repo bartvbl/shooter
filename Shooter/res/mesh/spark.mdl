@@ -1,0 +1,6 @@
+<Model>
+	<modelFile src="res/mesh/spark.obj"/>
+	<partStructure>
+		<part name="spark" nameInModelFile="spark" pivotX="0" pivotY="0" pivotZ="0" />
+	</partStructure>
+</Model>

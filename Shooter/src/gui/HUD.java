@@ -1,5 +1,8 @@
 package gui;
 
+import java.awt.Color;
+
+import geom.Point;
 import core.FrameUtils;
 import shooter.GameWorld;
 
@@ -8,6 +11,9 @@ import static org.lwjgl.opengl.GL11.*;
 public class HUD {
 	
 	private final GameWorld world;
+	private static final Point healthLocation = new Point(0.02, 0.02);
+	private static final Point shieldLocation = new Point(0.02, 0.07);
+	private static final double maxWidth = 0.4;
 
 	public HUD(GameWorld world) {
 		this.world = world;
@@ -15,16 +21,22 @@ public class HUD {
 
 	public void render() {
 		FrameUtils.set2DMode();
-		renderHealthBar();
+		
+		double shieldWidth = world.player.getShield();
+		Color shieldColour = Color.blue;
+		renderBar(shieldLocation, shieldWidth, shieldColour);
+		
+		double healthWidth = world.player.getHealth();
+		Color healthColour = Color.red;
+		renderBar(healthLocation, healthWidth, healthColour);
 	}
 
-	private void renderHealthBar() {
+	private void renderBar(Point location, double percentage, Color barColour) {
 		//by far not the best performing way of doing stuff, but it gets the job done.
+		double x = location.x;
+		double y = location.y;
 		
-		double x = 0.02;
-		double y = 0.02;
-		double width = 0.4 * world.player.getHealth();
-		double maxWidth = 0.4;
+		double width = percentage * maxWidth;
 		double height = 0.03;
 		
 		glDisable(GL_TEXTURE_2D);
@@ -36,7 +48,7 @@ public class HUD {
 		glVertex2d(x + maxWidth, y + height);
 		glVertex2d(x, y + height);
 		
-		glColor4d(1, 0, 0, 1);
+		glColor4d(barColour.getRed(), barColour.getGreen(), barColour.getBlue(), 1);
 		glVertex2d(x, y);
 		glVertex2d(x + width, y);
 		glVertex2d(x + width, y + height);
@@ -45,6 +57,7 @@ public class HUD {
 		
 		glColor4d(0.01, 0.01, 0.01, 1);
 		glLineWidth(3);
+		
 		glBegin(GL_LINES);
 		glVertex2d(x, y);
 		glVertex2d(x + maxWidth, y);

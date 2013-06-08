@@ -19,6 +19,10 @@ import scene.sceneGraph.SceneNode;
 import scene.sceneGraph.sceneNodes.FrustrumCullingNode;
 import scene.sceneGraph.sceneNodes.MapSceneNode;
 import shooter.GameWorld;
+import shooter.map.generator.ChunkDimension;
+import shooter.map.generator.DoorSpawner;
+import shooter.map.generator.MonsterSpawner;
+import shooter.map.generator.PackSpawner;
 
 public class MapBuilder {
 	
@@ -65,7 +69,7 @@ public class MapBuilder {
 		buildTerrain(chunkRootNode, tileMap, dimension);
 		DoorSpawner.spawnDoors(chunkRootNode, dimension, tileMap, world);
 		MonsterSpawner.spawnMonsters(chunkRootNode, dimension, tileMap, world);
-		PackSpawner.spawnHealthPacks(chunkRootNode, dimension, tileMap, world);
+		PackSpawner.spawnPowerups(chunkRootNode, dimension, tileMap, world);
 		return chunkRootNode;
 	}
 

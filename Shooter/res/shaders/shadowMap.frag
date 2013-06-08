@@ -36,18 +36,13 @@ void main(void)
 	textureColour[2] *= (diffuseColour + specularColour);
 	
 	//this is the actual shadow mapping (including the magic bias)!
-	vec3 realShadowMapPosition=shadowMapPosition.xyz/shadowMapPosition.w;	
+	vec3 realShadowMapPosition = shadowMapPosition.xyz/shadowMapPosition.w;
+	vec3 realViewPosition = viewPosition.xyz/viewPosition.w;
 	float depthSm = texture2D(depthMap, realShadowMapPosition.xy).r;
 	
 	if (depthSm < realShadowMapPosition.z-0.0001)
 	{		
 		textureColour = vec4(0, 0, 0, 1);
 	}
-	
-	
-	
-	
-	
-	
-	gl_FragColor= textureColour;//vec4(depthSm, depthSm, depthSm,1);//textureColour;
+	gl_FragColor= textureColour;
 }

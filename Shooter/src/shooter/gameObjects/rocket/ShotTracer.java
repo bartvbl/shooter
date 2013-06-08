@@ -1,5 +1,8 @@
-package shooter;
+package shooter.gameObjects.rocket;
 
+import shooter.GameObject;
+import shooter.GameObjectType;
+import shooter.GameWorld;
 import shooter.gameObjects.Enemy;
 import shooter.gameObjects.Peewee;
 import shooter.map.Map;

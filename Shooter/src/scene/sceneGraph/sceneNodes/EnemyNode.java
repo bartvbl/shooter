@@ -7,7 +7,7 @@ import orre.resources.loaders.obj.ModelLoader;
 import orre.resources.twoStageLoadables.BlueprintModel;
 import render.RenderContext;
 import shooter.GameWorld;
-import shooter.map.Direction;
+import shooter.map.generator.Direction;
 
 import static org.lwjgl.opengl.GL11.*;
 

@@ -5,7 +5,7 @@ import scene.sceneGraph.sceneNodes.DoorSceneNode;
 import shooter.GameObject;
 import shooter.GameObjectType;
 import shooter.GameWorld;
-import shooter.map.Orientation;
+import shooter.map.generator.Orientation;
 
 public class Door extends Trigger {
 

@@ -1,4 +1,6 @@
-package shooter;
+package shooter.gameObjects.rocket;
+
+import shooter.Damageable;
 
 public class RayTraceResult {
 	public final boolean hasHitEnemy;

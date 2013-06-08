@@ -39,7 +39,7 @@ public abstract class ContainerNode implements SceneNode {
 	public abstract void destroy();
 	
 	public boolean isVisible() {
-		return true;
+		return visible;
 	}
 }
 

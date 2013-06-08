@@ -1,5 +1,5 @@
 package shooter.map;
 
 public enum TileType {
-	GROUND, WALL, DOOR, MONSTER, HEALTH;
+	GROUND, WALL, DOOR, MONSTER, HEALTH, SHIELD;
 }

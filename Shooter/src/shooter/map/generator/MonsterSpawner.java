@@ -1,4 +1,4 @@
-package shooter.map;
+package shooter.map.generator;
 
 import java.util.Random;
 
@@ -6,6 +6,7 @@ import scene.sceneGraph.sceneNodes.FrustrumCullingNode;
 import shooter.GameWorld;
 import shooter.gameObjects.Door;
 import shooter.gameObjects.EnemySpawner;
+import shooter.map.TileType;
 
 public class MonsterSpawner {
 	

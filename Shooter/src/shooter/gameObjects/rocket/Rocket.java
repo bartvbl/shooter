@@ -1,4 +1,4 @@
-package shooter.gameObjects;
+package shooter.gameObjects.rocket;
 
 import geom.Point;
 import scene.sceneGraph.sceneNodes.RocketNode;
@@ -6,7 +6,6 @@ import shooter.Damageable;
 import shooter.GameObject;
 import shooter.GameObjectType;
 import shooter.GameWorld;
-import shooter.RayTraceResult;
 
 public abstract class Rocket extends GameObject {
 	private final RocketNode rocketNode;
