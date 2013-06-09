@@ -2,6 +2,7 @@ package scene.sceneGraph.sceneNodes;
 
 import render.RenderContext;
 import scene.sceneGraph.ContainerNode;
+import scene.sceneGraph.StackingContainerNode;
 import static org.lwjgl.opengl.GL11.*;
 
 public class EmptyContainerNode extends StackingContainerNode {

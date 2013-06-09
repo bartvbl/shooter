@@ -24,7 +24,6 @@ public class FrameUtils {
 		glLoadIdentity();
 		glMatrixMode(GL_MODELVIEW);
 		glClearColor(0, 0, 0, 1);
-		//glClearColor(94.0f/255.0f, 161.0f/255.0f, 255.0f/255.0f, 0.5f);
 		glClearDepth(1.0);
 		glEnable(GL_DEPTH_TEST);
 		glEnable(GL_BLEND);
@@ -53,8 +52,6 @@ public class FrameUtils {
 		glLoadIdentity();
 		double aspectRatio = calculateAspectRatio();
 		gluPerspective(45, (float)aspectRatio, NEAR_POINT, FAR_POINT);
-		//glEnable(GL_CULL_FACE);
-		//glCullFace(GL_BACK);
 		glEnable(GL_TEXTURE_2D);
 		glEnable(GL_LIGHTING);
 	}

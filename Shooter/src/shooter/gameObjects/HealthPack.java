@@ -1,8 +1,8 @@
 package shooter.gameObjects;
 
+import scene.sceneGraph.FrustrumCullingNode;
 import scene.sceneGraph.SceneNode;
 import scene.sceneGraph.sceneNodes.HealthPackNode;
-import scene.sceneGraph.sceneNodes.FrustrumCullingNode;
 import shooter.GameObjectType;
 import shooter.GameWorld;
 

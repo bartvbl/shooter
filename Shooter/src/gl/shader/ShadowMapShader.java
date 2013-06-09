@@ -9,6 +9,8 @@ import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.OpenGLException;
 import org.lwjgl.util.glu.GLU;
 
+import reused.gl.shader.ShaderLoader;
+
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL13.*;
 

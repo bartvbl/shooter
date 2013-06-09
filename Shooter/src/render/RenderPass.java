@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 import org.lwjgl.opengl.Display;
 
+import reused.util.Stack;
 import scene.sceneGraph.SceneNode;
-import util.Stack;
 
 public class RenderPass {
 	private static int numRenders = 0;

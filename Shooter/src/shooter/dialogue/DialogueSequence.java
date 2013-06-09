@@ -1,7 +1,7 @@
 package shooter.dialogue;
 
-import gl.texture.Texture;
-import gl.texture.TextureLoader;
+import reused.gl.texture.Texture;
+import reused.gl.texture.TextureLoader;
 
 public enum DialogueSequence {
 	INTRO(new String[]{"res/textures/dialogue1.png",

@@ -1,6 +1,6 @@
 package shooter.map.generator;
 
-import scene.sceneGraph.sceneNodes.FrustrumCullingNode;
+import scene.sceneGraph.FrustrumCullingNode;
 import shooter.GameWorld;
 import shooter.gameObjects.Door;
 import shooter.map.TileType;

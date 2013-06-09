@@ -1,10 +1,10 @@
 package shooter.map.generator;
 
-import scene.sceneGraph.sceneNodes.FrustrumCullingNode;
+import scene.sceneGraph.FrustrumCullingNode;
 import shooter.GameWorld;
-import shooter.gameObjects.EnemySpawner;
 import shooter.gameObjects.HealthPack;
 import shooter.gameObjects.ShieldPack;
+import shooter.gameObjects.enemy.EnemySpawner;
 import shooter.map.TileType;
 
 public class PackSpawner {

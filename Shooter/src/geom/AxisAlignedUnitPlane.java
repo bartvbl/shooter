@@ -1,6 +1,13 @@
 package geom;
 
 public class AxisAlignedUnitPlane {
+	//this is the class that creates arrays of geometry and indices for the game's map.
+	//just for the sake of having it down on paper:
+	//to calculate the normal of a plane, first divide it into two triangles.
+	//Then, take an origin of these triangles and construct two vectors starting at that origin vertex and ending at the other two vertices.
+	//Calculating the vector product of these vectors will yield a surface normal for that triangle. Do the same for the other triangle, 
+	//and you have a surface quad for your terrain.
+	
 	public static double[] createFrontPlane(double x, double y, double z) {
 		return new double[]{
 			x, y, z, 				0, 0,		0, -1, 0,

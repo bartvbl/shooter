@@ -27,7 +27,7 @@ public class GameMain {
 			
 			FrameUtils.set3DMode();
 			inputHandler.handleInput();
-			if(!GameSettings.maxFramerateEnabled) {				
+			if(!GameSettings.maxFramerateEnabled) {	//for the demo of the game. Stops all world activity to show framerate of rendering the world
 				gameWorld.update();
 			}
 			scene3D.render();
@@ -35,7 +35,7 @@ public class GameMain {
 			
 			Display.update();
 			
-			if(GameSettings.maxFramerateEnabled) {				
+			if(GameSettings.maxFramerateEnabled) { //increases the max framerate (for the demo)
 				Display.sync(1000);
 			} else {
 				Display.sync(100);

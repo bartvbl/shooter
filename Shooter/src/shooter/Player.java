@@ -10,8 +10,8 @@ import org.lwjgl.util.ReadableColor;
 import geom.Point;
 import scene.sceneGraph.sceneNodes.PlayerSceneNode;
 import shooter.dialogue.DialogueSequence;
-import shooter.gameObjects.CommanderBoss;
 import shooter.gameObjects.GameTerminator;
+import shooter.gameObjects.enemy.CommanderBoss;
 import shooter.gameObjects.rocket.RocketSpawner;
 
 public class Player extends GameObject implements Damageable {

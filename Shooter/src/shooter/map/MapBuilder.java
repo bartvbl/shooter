@@ -1,12 +1,6 @@
 package shooter.map;
 
 import geom.AxisAlignedUnitPlane;
-import gl.material.Material;
-import gl.texture.Texture;
-import gl.texture.TextureLoader;
-import gl.vbo.BufferDataFormatType;
-import gl.vbo.GeometryBuffer;
-import gl.vbo.GeometryBufferGenerator;
 
 import java.io.File;
 import java.nio.DoubleBuffer;
@@ -15,8 +9,14 @@ import java.nio.IntBuffer;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.util.Rectangle;
 
+import reused.gl.material.Material;
+import reused.gl.texture.Texture;
+import reused.gl.texture.TextureLoader;
+import reused.gl.vbo.BufferDataFormatType;
+import reused.gl.vbo.GeometryBuffer;
+import reused.gl.vbo.GeometryBufferGenerator;
+import scene.sceneGraph.FrustrumCullingNode;
 import scene.sceneGraph.SceneNode;
-import scene.sceneGraph.sceneNodes.FrustrumCullingNode;
 import scene.sceneGraph.sceneNodes.MapSceneNode;
 import shooter.GameWorld;
 import shooter.map.generator.ChunkDimension;

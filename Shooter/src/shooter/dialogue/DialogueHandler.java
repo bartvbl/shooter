@@ -1,10 +1,11 @@
 package shooter.dialogue;
 
 import org.lwjgl.input.Keyboard;
+
+import reused.gl.texture.Texture;
+import reused.gl.texture.TextureLoader;
 import static org.lwjgl.opengl.GL11.*;
 
-import gl.texture.Texture;
-import gl.texture.TextureLoader;
 import core.FrameUtils;
 
 public class DialogueHandler {

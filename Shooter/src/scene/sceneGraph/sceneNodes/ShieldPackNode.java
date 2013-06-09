@@ -1,9 +1,9 @@
 package scene.sceneGraph.sceneNodes;
 
-import geom.mesh.Mesh3D;
-import orre.resources.loaders.obj.ModelLoader;
-import orre.resources.twoStageLoadables.BlueprintModel;
 import render.RenderContext;
+import reused.geom.mesh.Mesh3D;
+import reused.resources.loaders.obj.ModelLoader;
+import reused.resources.twoStageLoadables.BlueprintModel;
 import scene.sceneGraph.CoordinateNode;
 import scene.sceneGraph.SceneNode;
 
