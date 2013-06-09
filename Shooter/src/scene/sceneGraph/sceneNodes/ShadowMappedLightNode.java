@@ -70,8 +70,7 @@ public class ShadowMappedLightNode extends EmptyCoordinateNode implements SceneN
 	}
 
 	private void setLightPosition(double lightDirection) {
-		glEnable(GL_LIGHTING);
-		glEnable(GL_LIGHT0);
+		
 		glLight(GL_LIGHT0, GL_AMBIENT, (FloatBuffer)buffer.put(new float[]{0.0f, 0.0f, 0.0f, 1}).rewind());
 		glLight(GL_LIGHT0, GL_DIFFUSE, (FloatBuffer)buffer.put(new float[]{1f, 1f, 1f, 1}).rewind());
 		glLight(GL_LIGHT0, GL_SPECULAR, (FloatBuffer)buffer.put(new float[]{1f, 1f, 1f, 1}).rewind());
@@ -81,6 +80,9 @@ public class ShadowMappedLightNode extends EmptyCoordinateNode implements SceneN
 	}
 
 	private void renderDepthTexture(RenderContext context) {
+		if(!GameSettings.shadowsEnabled) {
+			return;
+		}
 		glBindFramebuffer(GL_FRAMEBUFFER, frameBufferID);
 		glViewport(0, 0, SHADOW_MAP_WIDTH, SHADOW_MAP_HEIGHT);
 		glClear(GL_DEPTH_BUFFER_BIT);

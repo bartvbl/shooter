@@ -41,6 +41,12 @@ public class Scene3D {
 		if(Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) {
 			mapTilt += (double)Mouse.getDY() / 10d;
 			renderContext.rotate((float) mapTilt, 1, 0, 0);
+			glDisable(GL_LIGHTING);
+			glDisable(GL_LIGHT0);
+			glColor4f(1, 1, 1, 1);
+		} else {
+			glEnable(GL_LIGHTING);
+			glEnable(GL_LIGHT0);
 		}
 		
 		renderContext.translate(0, (float)GameSettings.playerYOffset, -10);
