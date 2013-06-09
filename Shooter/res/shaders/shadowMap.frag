@@ -37,7 +37,9 @@ void main(void)
 	//this is the actual shadow mapping (including the magic bias)!
 	vec3 realShadowMapPosition = shadowMapPosition.xyz/shadowMapPosition.w;
 	float depthSm = texture2D(depthMap, realShadowMapPosition.xy).r;
-	
+	if(realShadowMapPosition.z <= 0) {
+		textureColour = vec4(0, 0, 0, 1);
+	}
 	if (depthSm < realShadowMapPosition.z-0.0001)
 	{		
 		textureColour = vec4(0, 0, 0, 1);
