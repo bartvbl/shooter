@@ -27,7 +27,9 @@ public class GameMain {
 			
 			FrameUtils.set3DMode();
 			inputHandler.handleInput();
-			gameWorld.update();
+			if(!GameSettings.maxFramerateEnabled) {				
+				gameWorld.update();
+			}
 			scene3D.render();
 			scene2D.render();
 			

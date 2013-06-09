@@ -84,7 +84,7 @@ public class InputHandler {
 		if(Keyboard.isKeyDown(Keyboard.KEY_TAB)) {
 			GameSettings.shadowsEnabled = true;
 		}
-		if(Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {
+		if(Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) {
 			GameSettings.maxFramerateEnabled = true;
 		} else {
 			GameSettings.maxFramerateEnabled = false;
