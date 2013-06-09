@@ -71,7 +71,7 @@ public class Player extends GameObject implements Damageable {
 					this.playerNode.hideShield();
 				}
 			}
-			//this.health -= remainingDamage;
+			this.health -= remainingDamage;
 		}
 		if(health <= 0) {
 			world.dialogueHandler.showDialogueSequence(DialogueSequence.GAME_LOSE);
