@@ -4,7 +4,6 @@
 //INPUTS
 //these are standard shadow map coordinates
 varying vec4 shadowMapPosition;
-varying vec4 viewPosition;
 varying vec3 normal;
 varying vec3 worldPos;
 varying vec3 lightDirection;
@@ -37,7 +36,6 @@ void main(void)
 	
 	//this is the actual shadow mapping (including the magic bias)!
 	vec3 realShadowMapPosition = shadowMapPosition.xyz/shadowMapPosition.w;
-	vec3 realViewPosition = viewPosition.xyz/viewPosition.w;
 	float depthSm = texture2D(depthMap, realShadowMapPosition.xy).r;
 	
 	if (depthSm < realShadowMapPosition.z-0.0001)

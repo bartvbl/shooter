@@ -24,6 +24,7 @@ public class RenderContext {
 
 	public void setIdentity() {
 		this.modelViewMatrix.setIdentity();
+		//glLoadIdentity();
 	}
 	
 	public void rotate(float angle, float x, float y, float z) {
@@ -58,6 +59,7 @@ public class RenderContext {
 		buffer.rewind();
 		buffer.put(buff);
 		buffer.rewind();
+		
 	}
 
 	public void loadMatrix(Matrix4f modelViewMatrix) {

@@ -39,7 +39,7 @@ public class ShadowMapShader {
 		
 		int textureLocation = ARBShaderObjects.glGetUniformLocationARB(shaderProgramID, "depthMap");
 		int lightMatrixLocation = ARBShaderObjects.glGetUniformLocationARB(shaderProgramID, "LightMatrixValue");
-		int modelMatrixLocation = ARBShaderObjects.glGetUniformLocationARB(shaderProgramID, "ViewMatrixValue");
+		int modelMatrixLocation = ARBShaderObjects.glGetUniformLocationARB(shaderProgramID, "BaseModelView");
 		int lightPosition = ARBShaderObjects.glGetUniformLocationARB(shaderProgramID, "LightPosition");
 		
 		ARBShaderObjects.glUniformMatrix4ARB(lightMatrixLocation, false, lightModelViewMatrix);
