@@ -6,6 +6,8 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.util.Timer;
 
+import core.GameSettings;
+
 import shooter.GameWorld;
 import shooter.map.TileType;
 
@@ -78,7 +80,15 @@ public class InputHandler {
 			world.player.updateLegRotation(Math.toDegrees(angleRadians) + 180);
 			moveMapInDirection(Math.toDegrees(angleRadians));
 		}
-		
+		//these are for showing off the game.
+		if(Keyboard.isKeyDown(Keyboard.KEY_TAB)) {
+			GameSettings.shadowsEnabled = true;
+		}
+		if(Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {
+			GameSettings.maxFramerateEnabled = true;
+		} else {
+			GameSettings.maxFramerateEnabled = false;
+		}
 	}
 
 	private double calculateDirectionAngleRadians(double stepsDX, double stepsDY) {

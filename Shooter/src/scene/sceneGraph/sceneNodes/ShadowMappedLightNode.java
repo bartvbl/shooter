@@ -32,10 +32,9 @@ public class ShadowMappedLightNode extends EmptyCoordinateNode implements SceneN
 	private final FloatBuffer buffer;
 
 	private ShadowMapShader shader;
-	private Sphere sphere;
+	private boolean shaderHasBeenEnabled = false;
 	
 	public ShadowMappedLightNode(EmptyCoordinateNode controlledNode) {
-		this.sphere = new Sphere();
 		this.buffer = BufferUtils.createFloatBuffer(4);
 		this.controlledNode = controlledNode;
 		this.shadowMapTextureID = ShadowMapTextureGenerator.generateShadowMapTexture(SHADOW_MAP_WIDTH, SHADOW_MAP_HEIGHT);
@@ -54,6 +53,7 @@ public class ShadowMappedLightNode extends EmptyCoordinateNode implements SceneN
 		//inverse transformation getting down to "eye level"/first person to the player model
 		//it completely depends on the structure of the sceneGraph. 
 		//A better implementation: separate Light scene node that supplies the light transformation matrix and a Camera scene node that supplies the view matrix.
+		//Then you can tell the light to render from its position, and also get its transformation matrix.
 		Point mapLocation = controlledNode.getLocation();
 		context.translate((float) -mapLocation.x, (float) -mapLocation.y, 0);
 		context.rotate((float) (-1*controlledNode.getRotationZ()), 0, 0, 1);
@@ -78,7 +78,6 @@ public class ShadowMappedLightNode extends EmptyCoordinateNode implements SceneN
 		glLight(GL_LIGHT0, GL_POSITION, (FloatBuffer)buffer.put(new float[]{0, 0, 1f, 1}).rewind());
 		glLight(GL_LIGHT0, GL_SPOT_CUTOFF, (FloatBuffer)buffer.put(new float[]{30}).rewind());
 		glLight(GL_LIGHT0, GL_SPOT_DIRECTION, (FloatBuffer)buffer.put(new float[]{0, 1, 0}).rewind());
-//		glLight(GL_LIGHT0, GL_SPOT_DIRECTION, (FloatBuffer)buffer.put(new float[]{(float) Math.cos(lightDirection), (float) Math.sin(lightDirection), 0}).rewind());
 	}
 
 	private void renderDepthTexture(RenderContext context) {
@@ -102,12 +101,18 @@ public class ShadowMappedLightNode extends EmptyCoordinateNode implements SceneN
 		//context.storeModelViewMatrix(modelViewMatrix);
 		//context.pushMatrix();
 		//context.setIdentity();
-		//shader.enable(modelViewMatrix, lightModelViewMatrix, controlledNode.getLocation());
+		if(GameSettings.shadowsEnabled) {			
+			shader.enable(modelViewMatrix, lightModelViewMatrix, controlledNode.getLocation());
+			this.shaderHasBeenEnabled = true;
+		}
 	}
 
 	public void postRender(RenderContext context) {
 		//context.popMatrix();
-		//shader.disable();
+		if(shaderHasBeenEnabled) {			
+			shader.disable();
+		}
+		shaderHasBeenEnabled = false;
 	}
 
 	public void destroy() {

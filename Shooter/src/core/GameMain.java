@@ -32,7 +32,12 @@ public class GameMain {
 			scene2D.render();
 			
 			Display.update();
-			Display.sync(100);
+			
+			if(GameSettings.maxFramerateEnabled) {				
+				Display.sync(1000);
+			} else {
+				Display.sync(100);
+			}
 		}
 	}
 }
