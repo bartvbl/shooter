@@ -74,7 +74,7 @@ public class DialogueHandler {
 	private void drawDialogueBackground() {
 		double aspectRatio = FrameUtils.calculateAspectRatio();
 		double centerX = aspectRatio / 2;
-		double xOffset = aspectRatio / 4;
+		double xOffset = 0.35;
 		
 		glColor4f(1, 1, 1, 1);
 		
@@ -89,8 +89,8 @@ public class DialogueHandler {
 	private void drawActorTexture() {
 		double aspectRatio = FrameUtils.calculateAspectRatio();
 		double centerX = aspectRatio / 2;
-		double xOffset = aspectRatio / 4;
-		
+		double xOffset = 0.35;
+	
 		actorTexture.bind();
 		glBegin(GL_QUADS);
 		glTexCoord2d(0, 0);
@@ -108,7 +108,7 @@ public class DialogueHandler {
 	private void drawDialogueTexture() {
 		double aspectRatio = FrameUtils.calculateAspectRatio();
 		double centerX = aspectRatio / 2;
-		double xOffset = aspectRatio / 4;
+		double xOffset = 0.35;
 
 		this.sequence.dialogueTextures[this.sequencePlayhead].bind();
 		
