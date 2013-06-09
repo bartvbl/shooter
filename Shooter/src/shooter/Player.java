@@ -7,6 +7,8 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.util.Color;
 import org.lwjgl.util.ReadableColor;
 
+import core.GameSettings;
+
 import geom.Point;
 import scene.sceneGraph.sceneNodes.PlayerSceneNode;
 import shooter.dialogue.DialogueSequence;
@@ -85,7 +87,7 @@ public class Player extends GameObject implements Damageable {
 
 	public void notifyPeeweeKill() {
 		this.kills++;
-		if(kills == 1) {
+		if(kills == GameSettings.killsToWin) {
 			this.world.dialogueHandler.showDialogueSequence(DialogueSequence.BOSS_ENTER);
 			CommanderBoss.spawn(world);
 		}

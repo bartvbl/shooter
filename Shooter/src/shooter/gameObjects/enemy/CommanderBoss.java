@@ -26,6 +26,7 @@ private static final BlueprintModel bossModel = ModelLoader.loadModel("res/mesh/
 		EnemyNode enemyNode = new EnemyNode(bossModel, world);
 		CommanderBoss boss = new CommanderBoss(enemyNode, world);
 		boss.setLocation(1, 1);
+		world.scene.addMapSceneNode(enemyNode);
 	}
 
 	protected void onKill() {

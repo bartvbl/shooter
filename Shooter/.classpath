@@ -6,7 +6,7 @@
 	<classpathentry kind="lib" path="jar/jinput.jar"/>
 	<classpathentry kind="lib" path="jar/lwjgl_util.jar"/>
 	<classpathentry kind="lib" path="jar/lzma.jar"/>
-	<classpathentry kind="lib" path="jar/lwjgl-debug.jar">
+	<classpathentry kind="lib" path="jar/lwjgl.jar">
 		<attributes>
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="Shooter/native"/>
 		</attributes>
