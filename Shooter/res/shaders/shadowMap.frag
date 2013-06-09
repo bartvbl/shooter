@@ -16,20 +16,24 @@ uniform sampler2D texture0;
 
 void main(void)
 {
+	//the initial colour of the fragment is defined by the texture and ambient properties.
+	//(this omits the emission component)
 	vec4 textureColour = texture2D(texture0, gl_TexCoord[0].st);
 	textureColour += gl_FrontMaterial.ambient;
 	
+	//diffuse light intensity/colour calculation
 	vec3 normalizedNormal = normalize(normal);
 	vec3 normalizedLightDirection = normalize(lightDirection);
 	float diffuse = max(0.0,dot(normalizedNormal, normalizedLightDirection));
 	vec4 diffuseColour = diffuse * gl_FrontMaterial.diffuse * gl_LightSource[0].diffuse;
 	
+	//specular light intensity/colour calculation
 	vec3 normalizedEyeVector = normalize(eyeVector);
 	vec3 reflectedRay = reflect(-normalizedLightDirection, normalizedNormal);
-	
 	float specular = pow(max(dot(reflectedRay, normalizedEyeVector), 0.0), gl_FrontMaterial.shininess);
 	vec4 specularColour = specular * gl_FrontMaterial.specular * gl_LightSource[0].specular;
 	
+	//applying the lighting components
 	textureColour[0] *= (diffuseColour + specularColour);
 	textureColour[1] *= (diffuseColour + specularColour);
 	textureColour[2] *= (diffuseColour + specularColour);
@@ -37,6 +41,7 @@ void main(void)
 	//this is the actual shadow mapping (including the magic bias)!
 	vec3 realShadowMapPosition = shadowMapPosition.xyz/shadowMapPosition.w;
 	float depthSm = texture2D(depthMap, realShadowMapPosition.xy).r;
+	//if the object is behind the light's "view", cut it off
 	if(realShadowMapPosition.z <= 0) {
 		textureColour = vec4(0, 0, 0, 1);
 	}
@@ -44,5 +49,6 @@ void main(void)
 	{		
 		textureColour = vec4(0, 0, 0, 1);
 	}
-	gl_FragColor= textureColour;
+	
+	gl_FragColor = textureColour;
 }

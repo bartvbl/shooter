@@ -21,6 +21,7 @@ void main(void)
 	vec4 lightPos = LightMatrixValue*modelPos;
 	vec3 unitPotision = vec3(gl_ModelViewMatrix * gl_Vertex);
 	lightDirection = vec3(gl_LightSource[0].position.xyz - unitPotision);
+	//the vector eye->object position is negative the vector object position->eye
 	eyeVector = -unitPotision;
 	
 	normal = gl_NormalMatrix * gl_Normal;
