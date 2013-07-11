@@ -1,18 +1,11 @@
 package shooter;
 
-import javax.swing.JOptionPane;
-
 import org.lwjgl.input.Keyboard;
-import org.lwjgl.opengl.Display;
-import org.lwjgl.util.Color;
-import org.lwjgl.util.ReadableColor;
-
 import core.GameSettings;
 
 import geom.Point;
 import scene.sceneGraph.sceneNodes.PlayerSceneNode;
 import shooter.dialogue.DialogueSequence;
-import shooter.gameObjects.GameTerminator;
 import shooter.gameObjects.enemy.CommanderBoss;
 import shooter.gameObjects.rocket.RocketSpawner;
 
@@ -76,8 +69,9 @@ public class Player extends GameObject implements Damageable {
 			this.health -= remainingDamage;
 		}
 		if(health <= 0) {
-			world.dialogueHandler.showDialogueSequence(DialogueSequence.GAME_LOSE);
-			world.addGameObject(new GameTerminator(world, "You died :("));
+			health = 0;
+			//world.dialogueHandler.showDialogueSequence(DialogueSequence.GAME_LOSE);
+			//world.addGameObject(new GameTerminator(world, "You died :("));
 		}
 	}
 
